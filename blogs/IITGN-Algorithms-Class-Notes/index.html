@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Soumyaratna Debnath">
+  <meta name="description" content="This is a collection of notes, solutions, and explanations for the problems discussed in the class for the course Algorithms at IIT Gandhinagar which is a Postgraduate course designed to provide a comprehensive introduction to the design and analysis of algorithms.">
+  <meta name="dcterms.date" content="2023-01-01">
+  <title>Algorithms Class Notes</title>
+  <link rel="icon" href="../../badge-sd-fill.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/css/site.css?v=20260316bn">
+  <link rel="stylesheet" href="../../styles.css">
+  
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer src="../../assets/js/site.js?v=20260316ay"></script>
+</head>
+<body data-root="../../" data-page="blogs" data-kind="detail">
+  <div class="site-main">
+    <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#part-1" id="toc-part-1" class="nav-link active" data-scroll-target="#part-1">Part 1</a></li>
+  <li><a href="#part-2" id="toc-part-2" class="nav-link" data-scroll-target="#part-2">Part 2</a></li>
+  <li><a href="#part-3" id="toc-part-3" class="nav-link" data-scroll-target="#part-3">Part 3</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Algorithms <code>Class Notes</code></h1>
+</div>
+
+<div>
+  <div class="description">
+    This is a collection of notes, solutions, and explanations for the problems discussed in the class for the course Algorithms at IIT Gandhinagar which is a Postgraduate course designed to provide a comprehensive introduction to the design and analysis of algorithms.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Soumyaratna Debnath </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 1, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="part-1" class="level2">
+<h2 class="anchored" data-anchor-id="part-1"><code>Part 1</code></h2>
+<section id="question-1." class="level3">
+<h3 class="anchored" data-anchor-id="question-1.">Question 1.</h3>
+<p><img loading="lazy" decoding="async" src="A (1).png" class="img-fluid"></p>
+<pre class="shortcode"><code>algorithm getCouples(M, W){
+    Sort M in descending order
+    Sort W in descending order
+
+    i = 1
+    j = 1
+    while i &lt;= n and j &lt;= m {
+        if M[i] &lt; W[j] {
+            j += 1
+        }
+        else if M[i] &lt;= W[j] + 3 {
+            pair up M[i] and W[j]
+            i += 1
+            j += 1
+        }
+        else, i += 1
+    }  
+}</code></pre>
+<p>Let the array of man M = <span class="math inline">\([m_1,m_2,...m_n]\)</span> and array of woman be <span class="math inline">\([w_1,w_2,...w_3]\)</span> in sorted order. <br> Let us assume for the argument, that our solution pairs up <span class="math inline">\(m_1\)</span> and <span class="math inline">\(w_1\)</span>.<br><strong>Lemma : There exist an optimum that pairs up <span class="math inline">\(m_1\)</span> with <span class="math inline">\(w_1\)</span>.</strong></p>
+<p>Let us assume that <span class="math inline">\(m_1\)</span> is not paired with <span class="math inline">\(w_1\)</span> in the optimum, while it is a valid pair.<br><strong>Case 1 -</strong> Let us assume <span class="math inline">\(m_1\)</span> is paired with <span class="math inline">\(w_n\)</span> and <span class="math inline">\(w_1\)</span> is unpaired in the optimum.<br>Now, we can swap <span class="math inline">\(w_n\)</span> with <span class="math inline">\(w_1\)</span>, that is, <span class="math inline">\(Optimum - [m_1, w_n]+[m_1, w_1]\)</span>, which will not alter the number of pairs in the optimum.<br><strong>Case 2 -</strong> Let us assume <span class="math inline">\(w_1\)</span> is paired with <span class="math inline">\(m_n\)</span> and <span class="math inline">\(m_1\)</span> is unpaired in the optimum.<br>We can swap <span class="math inline">\(m_n\)</span> with <span class="math inline">\(m_1\)</span>, that is, <span class="math inline">\(Optimum-[m_n, w_1]+[m_1, w_1]\)</span>, which will not alter the number of pairs in the optimum.<br><strong>Case 3 -</strong> Let us assume <span class="math inline">\(m_1\)</span> is paired with some <span class="math inline">\(w_j\)</span> and <span class="math inline">\(w_1\)</span> is paired with some <span class="math inline">\(m_i\)</span>.<br>Since, <span class="math inline">\([m_1, w_1]\)</span> is a valid pair, then, we can confirm that <span class="math inline">\([m_i, w_j]\)</span> is also a valid pair. Thus, by exchange argument, we can perform the operation, <span class="math inline">\(Optimum -[m_1, w_j]-[m_i, w_1]+[m_1, w_1]+[m_i, w_j]\)</span>, which will not alter the number of pairs in the optimum.</p>
+<p>Thus, from exchange argument, our soultion is as good as the optimum.</p>
+<p><strong><u>Analysis of the running time</u></strong></p>
+<p>The running time of the algorithm is dominated by the sorting step, thus the running time is <span class="math inline">\(O(wlogw+mlogm)\)</span> where w and m are the sizes for list of males and females.</p>
+<hr>
+</section>
+<section id="question-2." class="level3">
+<h3 class="anchored" data-anchor-id="question-2.">Question 2.</h3>
+<p><img loading="lazy" decoding="async" src="A (4).png" class="img-fluid"></p>
+<pre class="shortcode"><code>algorithm getCredits(B){
+    i = 1
+    s = 0
+    while i &lt;= h{
+        m = max between all B[i, j] for j in [1, n]
+        s = s + m 
+    }
+    return s
+}</code></pre>
+<p>Let us consider our solution contains the element B[1, 1].</p>
+<p><strong>Lemma 1 : There exist an optimum which includes the entry B[1, 1]</strong></p>
+<p>Let us consider an optimum soultion for the problem which includes the entry B[1, t]. Now we can argue that B[1, t] cannot be greater than B[1,1], because if it were the case, then our algorithm should have chosen B[1, t] in its solution along all B[1, j] for all j in [1, n] for the first hour. <br>Thus the credit value for B[1, t] should be as good as B[1, 1]. Thus, B[1, 1] belongs to some optimum.</p>
+<p>Now, Let us consider our solution contains the element B[a, b].<br><strong>Lemma 2 : There exist an optimum which includes the entry B[a, b]</strong></p>
+<p>Let us consider an optimum soultion for the problem which includes the entry B[a, t]. Now we can argue that B[a, t] cannot be greater than B[a, b], because if it were the case, then our algorithm should have chosen B[a, t] in its solution along all B[a, j] for all j in [1,n] for the first hour.<br>Thus the credit value for B[a, t] should be as good as B[a,b]. Thus, B[a, b] belongs to some optimum.</p>
+<p><strong><u>Analysis of the running time</u></strong></p>
+<p>The loop takes nh time to execute, thus the running time for the algorithm is <span class="math inline">\(O(nh)\)</span>.</p>
+<hr>
+</section>
+<section id="question-3." class="level3">
+<h3 class="anchored" data-anchor-id="question-3.">Question 3.</h3>
+<p><img loading="lazy" decoding="async" src="A (5).png" class="img-fluid"></p>
+<pre class="shortcode"><code>def removeMax(f){
+    i = 2
+    while i &lt;= n-1{
+        if f[i] is a local maximum {
+            if(i+2&lt;=n) 
+                then, f[i+1] = max(f[i], f[i+2])
+            else f[i+1]=f[i]
+        }
+    }
+    return f
+}</code></pre>
+<p>Let us consider our solution alters the entry A[n] to A[c]</p>
+<p><img loading="lazy" decoding="async" title="" src="A (7).png" alt="" width="385" data-align="center"></p>
+<p><strong>Lemma : The optimum alters the entry A[n] to A[c]</strong></p>
+<p><strong>Case 1 -</strong> Let us assume the optimum does not alters the value of A[n]. <br>In this case, to nullify the local maximum at A[b] and A[c], the optimum will have to perform 2 operations, that is A[b] to A[n] and A[c] to A[n]. This will take an extra operation. Thus, our initial assumption was wrong, the optimum have to alter the entry A[n].</p>
+<p><strong>Case 2 -</strong> Let us assume the optimum alters the value of A[n] but not to A[c].<br>Suppose the optimum alters the value of A[n] to T. if T <span class="math inline">\(\ge\)</span> A[b] and T &lt; A[c], then it will diminish the maximum at A[b], but it will need another operation at A[c]. And if T&gt;A[c], still it will have to make another operation to counter the new peak at A[n].<br>Thus, our initial assumption was wrong. The optimum will have to alter the value of A[n] to A[c].</p>
+<p>Case 1 and 2 proves the lemma.</p>
+<p>Similarly, we can prove that for each change we make in the array, the optimum will have to make the exact change in the array. Thus our solution is as good as the optimum.</p>
+<p><strong><u>Analysis of the Running Time</u></strong></p>
+<p>The running time of the algorithm is dominated by the while loop, which takes <span class="math inline">\(O(n)\)</span> time.</p>
+<hr>
+</section>
+<section id="question-4." class="level3">
+<h3 class="anchored" data-anchor-id="question-4.">Question 4.</h3>
+<p><img loading="lazy" decoding="async" src="A (6).png" class="img-fluid"></p>
+<ol type="a">
+<li>&nbsp;&nbsp;&nbsp;&nbsp;I would disagree with the Candidate Greedy Strategy I, as this strategy may fail in certain situations. As an counter example,</li>
+</ol>
+<p>Let as consider that we need to find machines for the spectrum range L=1 to H=12 and the available technologies <span class="math inline">\(T_1[1, 4]\)</span> <span class="math inline">\(T_2[5, 8]\)</span> <span class="math inline">\(T_3[9, 12]\)</span> and <span class="math inline">\(T_4[2,7]\)</span>.</p>
+<p><img loading="lazy" decoding="async" title="" src="A (2).png" alt="" width="468" data-align="center"></p>
+<p>As per the Greedy Strategy I, the solution for the problem will be <span class="math inline">\([T_1T_2T_3T_4]\)</span>.</p>
+<p>But for this problem, there exist a better solution for the problem, that is <span class="math inline">\([T_1T_2T_3]\)</span>.<br>This is because, the given Greedy Strategy will start with technology <span class="math inline">\(T_1\)</span> since it covers the longest spectrum. But however, we can see, it comes out as redundent, as anyway, we have to have all the other technologies in order to cover the spectrum [L, H].</p>
+<p>(b)&nbsp;&nbsp;&nbsp;&nbsp;I would agree with the Candidate Greedy Strategy II, and I believe the strategy always returns an optimum solution to the problem.</p>
+<p>Let us consider that our soultion starts with the technology <span class="math inline">\(T_1\)</span>.</p>
+<p><img loading="lazy" decoding="async" title="" src="A (3).png" alt="" width="487" data-align="center"></p>
+<p><strong>Lemma 1 : There exist an optimum that starts with <span class="math inline">\(T_1\)</span></strong></p>
+<p>Let us assume that there is some optimum that does not starts with <span class="math inline">\(T_1(l_1,h_1)\)</span>, rather it starts with <span class="math inline">\(T_n(l_n,h_n)\)</span>. <br>Now we can argue that <span class="math inline">\(h_n\)</span> is always less than or equal to <span class="math inline">\(h_1\)</span>, this is because, if it were not the case, our algorithm shoud have chosen <span class="math inline">\(h_n\)</span> over <span class="math inline">\(h_1\)</span>. Thus we can easily swap <span class="math inline">\(T_n\)</span> with <span class="math inline">\(T_1\)</span> and it will not allter the number of technologies in the soultion.</p>
+<p><strong>Lemma 2 : Our soultion is as good as the optimum</strong></p>
+<p>Let us assume our soultion as <span class="math inline">\([t_1t_2..t_n]\)</span> while there exist an optimum as <span class="math inline">\([m_1m_2..m_n]\)</span><br>Consider the end range for an technology <span class="math inline">\(i\)</span> as <span class="math inline">\(h(t_i)\)</span> and <span class="math inline">\(h(m_i)\)</span>.</p>
+<p><strong>Case 1: <span class="math inline">\(i=1\)</span></strong><br>From Lemma 1, we can assume the base case <span class="math inline">\((i=1)\)</span> for this inductive proof, that is,<br><span class="math inline">\(h(m_1)\le h(t_1)\)</span> to be true.</p>
+<p><strong>Case 2: <span class="math inline">\(i=j\)</span></strong> <br>Let us assume, <span class="math inline">\(h(m_j)\le h(t_j)\)</span> to be true</p>
+<p><strong>Case 3: <span class="math inline">\(i=j+1\)</span></strong> <br>We can argue that <span class="math inline">\(h(m_{j+1})\le h(t_{j+1})\)</span> as if it were not the case, our algorithm must have taken <span class="math inline">\(h(m_{j+1})\)</span> into consideration. <br>It proves that our solution is as good as the optimum.</p>
+</section>
+</section>
+<section id="part-2" class="level2">
+<h2 class="anchored" data-anchor-id="part-2"><code>Part 2</code></h2>
+<section id="question-1.-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-1.-1">Question 1.</h3>
+<p><img loading="lazy" decoding="async" src="1.png" title="" alt="" width="732"></p>
+<p><strong><u>Solution Description</u></strong></p>
+<p>We will use the generic binary search algorithm. At every instance of the function call, we will check if the index of the Mid matches its value.</p>
+<pre class="shortcode"><code>algorithm getElement(List, Base){
+    Mid = List.size()/2
+    if Base + Mid is equal to List[Mid], then return List[Mid]
+    if List[Mid] &gt; Mid + Base, then return getElement(List[:Mid], Base)
+    else return getElement(List[Mid+1:], Base + Mid)
+}
+
+L = Input List
+Result = getElement(L, 0)</code></pre>
+<p>Let k be the size of the input list.</p>
+<p><strong>Lemma: The algorithm returns the correct result for the list of size n.</strong></p>
+<p><strong>Base Case : k = 1</strong> Since there is only one element in the list, our algorithm just has to check if the value of this element is equal to its index (1 in this case) or not. Thus our algorithm returns the correct result for an input list of size k = 1.</p>
+<p><strong>Inductive hypothesis :</strong> As an inductive hypothesis, let us assume that our algorithm is correct for an input list of size k &lt; n.</p>
+<p><strong>Inductive Step : k = n</strong> At each instance, our algorithm checks if the middle value of the list is our required answer.</p>
+<p>If the value of the middle element = index of the middle element, then this is our answer. If the value of the middle element M &gt; index of the middle element, then all the elements on the right side of M will surely not be the required answer. Thus we can discard this half and look for the result of the first half <span class="math inline">\([1,2,3,...\frac{n}{2}]\)</span>.</p>
+<p>Similarly, if the value of the middle element &lt; index of the middle element, we discard other half <span class="math inline">\([\frac{n}{2}+1, \frac{n}{2}+2, ... n]\)</span>.</p>
+<p>In either case, the size of the subproblem is less than n; thus, by the induction hypothesis, we can say that the algorithm returns the correct solution for the subproblem.</p>
+<p>This proves the lemma that the algorithm returns the correct result for the list of size n.&nbsp;</p>
+<p><strong><u>Analysis of the Running Time</u></strong></p>
+<p>At every iteration we are discarding half of the currently present elements from our search space. Thus, the recurrance relation for the algorithm can be given as</p>
+<p><span class="math inline">\(T(n) = T(\frac{n}{2}) + c\)</span></p>
+<p>On solving the recurrance relation, we get, <span class="math inline">\(T(n) = O(log(n))\)</span>.</p>
+<hr>
+</section>
+<section id="question-2.-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-2.-1">Question 2.</h3>
+<p><img loading="lazy" decoding="async" src="2.png" class="img-fluid"></p>
+<p><strong><u>Solution Description </u></strong></p>
+<p>While searching for a <span class="math inline">\(k^{th}\)</span> smallest element, we are sure that the element we are searching for is among A[i] and B[j] such that i + j = k. Thus initially, we will keep a pointer to the <span class="math inline">\(\frac{k}{2}^{th}\)</span> element of both the arrays, and then we will compare the values of the pointed elements, based on which, at every level of recursion, we will discard half of either array from our scope of the solution.</p>
+<pre class="shortcode"><code>algorithm getElement(A, B, k){
+    if A.size() &gt; B.size() then swap A and B
+    if A.size() = 0 and B.size() &gt; 0, then return B[k-1]
+    if K = 1 then return min(A[0], B[0]) 
+    i = min(A.size(), k//2)
+    j = min(B.size(), k//2) 
+    if a[i-1] &lt; B[j-1] then return getElement(A[i+1:], B, K-i)
+    else return getElement(A, B[j+1:], K-j)
+}</code></pre>
+<p>Let a and b be the size of the input lists.</p>
+<p><strong>Lemma: The algorithm returns the correct result for the problem of size m+n where m and n are the sizes of the input lists.</strong></p>
+<p><strong>Base Case : a+b = 1</strong></p>
+<p>Since there is only one element in the list and the other list is empty, we can at max return the 1-th smallest element. Thus our algorithm returns the correct result for an input list of size a+b = 1.</p>
+<p><strong>Inductive hypothesis :</strong>&nbsp;As an inductive hypothesis, let us assume that our algorithm is correct for an input list of size a+b &lt; m+n.</p>
+<p><strong>Inductive Step : a+b = m+n</strong></p>
+<p>We maintain two pointers i and j, for the lists A and B, such that i+j = k. At each instance, our algorithm checks if we have reached the k-th smallest element. If so, it returns us the result and halts it.&nbsp;</p>
+<p>However, if it’s not the case, then it compares the value of <span class="math inline">\(A[i-1]\)</span> and <span class="math inline">\(B[j-1]\)</span>, and based on it, it discards either <span class="math inline">\(A[:i]\)</span> or <span class="math inline">\(B[:j]\)</span> elements from our solution space.</p>
+<p>In either case, the size of the subproblem is less than m+n, that is a+b&lt;m+n; thus, by the induction hypothesis, we can say that the algorithm returns the correct solution for the subproblem.</p>
+<p>This proves the lemma that the algorithm returns the correct result for the problem of size m+n where m and n are the sizes of the input lists.</p>
+<p><strong><u>Analysis of the Running Time</u></strong></p>
+<p>At any instance, we are discarding half of the elements from our search space from either list A or list B. Thus, the running time of the algorithm will come up to be as <span class="math inline">\(O(log(m)+log(n))\)</span></p>
+<hr>
+</section>
+<section id="question-3.-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-3.-1">Question 3.</h3>
+<p><img loading="lazy" decoding="async" src="4.png" class="img-fluid"><strong><u>Solution Description</u></strong></p>
+<p>For this problem, we would use the partition scheme of the quick select algorithm. In order to report the <span class="math inline">\(K\)</span> nearest points to the origin, we will search for the <span class="math inline">\(K^{th}\)</span> smallest point from the array. On finding the point, we can claim that all the points that are on the left of the Kth smallest point will surely be less than <span class="math inline">\(K\)</span>.</p>
+<pre class="shortcode"><code>algorithm getPartition(P, L, H){
+    place P[L] at index i such that for all points t of P[:i],    
+        dist(t) &lt;= dist(P[i]) and for all points h of P[i+1:], 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist(h) &gt; dist(P[i])
+    return i
+}
+
+algorithm getPoints(points, low, high, K){
+    if low &lt;= high, then return points[:K]
+    p = getPartition(points, low, high)
+    if p = K then return points[:K]
+    if p &lt; K then return getPoints(points, p+1, high, K)
+    else return getPoints(points, low, p-1, K)
+}</code></pre>
+<p>Although the solution given above is correct and the time complexity at best case in <span class="math inline">\(O(n)\)</span>, but in the worst case it might go till <span class="math inline">\(O(n^2)\)</span>.</p>
+<p>Thus, to ensure <span class="math inline">\(O(n)\)</span> time complexity throughout, we can use a different strategy, which is based on median-of-medians.</p>
+<pre class="shortcode"><code>algorithm getPartition(P, T){
+    place P[T] at index i such that for all points t of P[:i], 
+        dist(t) &lt;= dist(P[i]) and for all points h of P[i+1:], 
+        dist(h) &gt; dist(P[i])
+    return i
+}
+
+algorithm getPoints(P, L, H, K){
+    divide P into groups of 5
+    sort the groups internally
+
+    middle = []
+    for all a = middle elements of each group, do middle.append(a)
+
+    if middle.size() is 1, then M = middle[0] 
+    otherwise, M = getPoints(middle, 0, middle.size(), middle.size()/2)
+
+    pivot = getPartition(P, M)
+
+    if pivot - L = K - 1, then return P[:pivot]
+    if pivot - L &gt; k - 1, then return getPoints(P, L, pivot - 1, K)
+    otherwise, getPoints(P, pivot + 1, H, K - pivot + L - 1)
+}</code></pre>
+<p>Let k be the size of the input list.</p>
+<p><strong>Lemma: The algorithm returns the correct result for the list of size n.</strong></p>
+<p><strong>Base Case : k = 1</strong>&nbsp;Since there is only one element in the list, our algorithm can at max can return the 1-st closest point to the origin, which in this case is trivial. Thus our algorithm returns the correct result for an input list of size k = 1.</p>
+<p><strong>Inductive hypothesis :</strong>&nbsp;As an inductive hypothesis, let us assume that our algorithm is correct for an input list of size k &lt; n.</p>
+<p><strong>Inductive Step : k = n</strong>&nbsp;</p>
+<p>At each instance, our algorithm checks if the middle value of the list is equal to K (since we are searching for K-th nearest point to the origin),&nbsp;</p>
+<p>If the value of the middle element = K-1, then it returns P[: K-1] points where P is the list of the points. Otherwise, the algorithm compares the value of the middle element with K, and based on it, it either discards P[middle :] Or P[: middle] elements from our solution space.&nbsp;</p>
+<p>In either case, the size of the subproblem is less than n; thus, by the induction hypothesis, we can say that the algorithm returns the correct solution for the subproblem.</p>
+<p>This proves the lemma that the algorithm returns the correct result for the list of size n.</p>
+<p><strong><u>Analysis of the Running Time</u></strong></p>
+<p>The running time of the algorithm is dominated by the median-of-medians.</p>
+<p><img loading="lazy" decoding="async" src="11.jpeg" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="13.jpeg" class="img-fluid"></p>
+<hr>
+</section>
+<section id="question-4.-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-4.-1">Question 4.</h3>
+<p><img loading="lazy" decoding="async" src="3.png" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="14.jpeg" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="15.jpeg" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="16.jpeg" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="17.jpeg" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="18.jpeg" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="19.jpeg" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="20.jpeg" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="21.jpeg" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="22.jpeg" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="23.jpeg" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="26.jpeg" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="27.jpeg" class="img-fluid"></p>
+<p><img loading="lazy" decoding="async" src="28.jpeg" class="img-fluid"></p>
+</section>
+</section>
+<section id="part-3" class="level2">
+<h2 class="anchored" data-anchor-id="part-3"><code>Part 3</code></h2>
+<section id="question-1.-2" class="level3">
+<h3 class="anchored" data-anchor-id="question-1.-2">Question 1.</h3>
+<p><img loading="lazy" decoding="async" src="Que1.png" class="img-fluid"></p>
+<p><strong><u>Soultion Description</u></strong></p>
+<p>For a given array A[1..N] as input, we would maintain a buffer array B[1..N] where entry B[x] represents the maximum sum of the contiguous subsequence with A[x] as the last element of the subsequence.</p>
+<pre class="shortcode"><code>B is a buffer array of size N
+algorithm getMaxSubsequence(A[1..N]){
+    B[1] = A[1]
+    for i = 2 to N, do,
+        B[i] = max(B[i-1] + A[i], A[i])
+    index = index of the max entry of B
+    if B[index] &lt; 0:
+        return []
+    p = index
+    while p &gt;= 1 and B[p] &gt;= 0, do p = p - 1
+    return A[p+1..index]
+}</code></pre>
+<p>The entry B[x] represents the maximum sum of the contiguous subsequence with A[x] as the last element of the subsequence.</p>
+<p><strong>Lemma - B[N] calculated by our algorithm is correct</strong></p>
+<p><strong>Base Case :</strong> Entry B[1] is correct</p>
+<p>The algorithm trivially returns the correct result for B[1]. This is because the max sum we can get as A[1] as the final element of the subarray is A[1].</p>
+<p><strong>Inductive Hypothesis :</strong> Let us assume that B[x] calculated by our algorithm is correct.</p>
+<p><strong>To prove :</strong> B[x+1] calculated by our algorithm is correct.</p>
+<p>Since the entry B[x+1] depends upon B[x], and from our assumption, B[x] is correct, then the algorithm returns the correct entry for B[x+1].</p>
+<p>The lemma, B[N] calculated by our algorithm is correct is proved.</p>
+<p><br></p>
+<p><strong><u>Analysis of the running time</u></strong></p>
+<p>The running time of the algorithm is dominated by the loop which take <span class="math inline">\(O(N)\)</span> time fo fill all the entriess in the buffer array. Thus the running time of the algorithm is <span class="math inline">\(O(N).\)</span></p>
+<hr>
+</section>
+<section id="question-2.-2" class="level3">
+<h3 class="anchored" data-anchor-id="question-2.-2">Question 2.</h3>
+<p><img loading="lazy" decoding="async" src="Que2.png" class="img-fluid"></p>
+<p><strong><u>Solution Description</u></strong></p>
+<p>For finding the length of the longest palindromic subsequence, we will first reverse the input string <span class="math inline">\(X\)</span>, let it be <span class="math inline">\(X'\)</span>, and search for the longest common subsequence between <span class="math inline">\(X\)</span> and <span class="math inline">\(X'\)</span>.</p>
+<p>Now, for searching the longest common subsequence between the two stings, we would maintain a buffer array B[1..N, 1..N], where each entry in, say B[p, q] denotes the length of the longest common subsequence between the substrings <span class="math inline">\(X[1..p]\)</span> and <span class="math inline">\(X'[1..q]\)</span>.</p>
+<pre class="shortcode"><code>B[0..N, 0..N] is a buffer array of size N+1 by N+1
+algorithm getMaxPalindrome(X[1..N]){
+    X' = reverse(X)
+    for i = 0 to N, do, B[i, 0] = B[0, i] = 0
+    for i = 1 to N, do
+        for j = 1 to N, do{
+            if X[i] = X'[j], set B[i, j] = 1 + B[i-1, j-1]
+            else, B[i, j] = max(B[i-1, j], B[i, j-1])
+        }
+    return B[N, N]
+}</code></pre>
+<p>B[N, N] denotes the length of the longest common subsequence between X and X’ which is the length of the longest palindromic subsequence in X.</p>
+<p><strong>Lemma - B[N, N] calculated by our algorithm is correct</strong></p>
+<p><strong>Base Case :</strong> B[1, 1] is correct.</p>
+<p>The base case is trivially true. B[1, 1] = 1, if X[1] = X’[1], otherwise, B[1, 1] = 0.</p>
+<p><strong>Inductive Hypothesis :</strong> Let us assume the algorithm returns the correct result for all the entries B[<span class="math inline">\(i\leq x, j&lt;y\)</span>] and B[<span class="math inline">\(i&lt; I , j\le y\)</span>].</p>
+<p><strong>To Prove :</strong> B[x, y] calculated by the algorithm is correct.</p>
+<p>Since, B[x, y] depends on the entries B[x-1, y-1], B[x-1, y], and B[x, y-1], which are correct as per our assumption; thus the algorithm calculates the correct result for the entry B[x, y].</p>
+<p>Thus the lemma that B[N, N] calculated by the algorithm is correct is proved.</p>
+<p><br></p>
+<p><strong><u>Analysis of the running time</u></strong></p>
+<p>The running time of the algorithm is dominated by the nested loops. Thus the running time of the algorithm is <span class="math inline">\(O(N^2)\)</span>.</p>
+<hr>
+</section>
+<section id="question-3.-2" class="level3">
+<h3 class="anchored" data-anchor-id="question-3.-2">Question 3.</h3>
+<p><img loading="lazy" decoding="async" src="Que3.png" class="img-fluid"></p>
+<p><strong><u>Solution Description</u></strong></p>
+<p>For solving the problem, we will maintain a buffer array of size M by N, where the entry B[i, j] denotes the longest possible common substring with x[i] and y[j] as the last characters of the common substring.</p>
+<pre class="shortcode"><code>B is a buffer array of size M by N
+M = length of string x
+N = length of string y
+
+algorithm getMaxLength(x, y){
+    maxLength = 0
+    for i = 1 to M do
+        for j = 1 to N do {
+            if x[i] = y[j], set B[i, j] = B[i-1, j-1] + 1
+            else, B[i, j] = 0
+
+            maxLength = max(maxLength, B[i, j])
+        }
+    return maxLength
+}</code></pre>
+<p><strong>Lemma - B[p, q] calculated by the algorithm is correct</strong></p>
+<p><strong>Base Case :</strong> Entry B[1, 1] is correct</p>
+<p>The algorithm trivially returns the correct result for B[1, 1]. This is because, B[1, 1] will either be 0 if x[1] <span class="math inline">\(\neq\)</span> y[1], and 1 if x[1] <span class="math inline">\(=\)</span> y[1].</p>
+<p><strong>Inductive Hypothesis :</strong> Let us assume that the algorithm returns the correct solution for all B[1<span class="math inline">\(\leq\)</span>(p-1), 1<span class="math inline">\(\leq\)</span>(q-1)].</p>
+<p><strong>To prove :</strong> The algorithm returns correct result for the entry B[p, q]</p>
+<p>Since the entry B[p, q] depends upon B[p-1, q-1], and from our assumption, B[p-1, q-1] is correct, then the algorithm returns the correct entry for B[p, q].</p>
+<p>Thus, for all P in [1, M] and Q in [1, N], B[P, Q] is correct. The length of the longest possible substring is the max(B[1..M, 1..N]).</p>
+<p><br></p>
+<p><strong><u>Analysis of the running time</u></strong></p>
+<p>The running time of the algorithm is dominated by the time required to fill up the entries in the buffer array B, which is of size M by N. Thus the running time of the algorithm is <span class="math inline">\(O(MN)\)</span>.</p>
+<hr>
+</section>
+<section id="question-4.-2" class="level3">
+<h3 class="anchored" data-anchor-id="question-4.-2">Question 4.</h3>
+<p><img loading="lazy" decoding="async" src="Que4.png" class="img-fluid"></p>
+<p><strong><u>Solution Description</u></strong></p>
+<p>Given a bitmap A[1..M, 1..N] as input, we would create a buffer map B[1..M, 1..N] where entry B[a, b] represents a maximum area of a solid square block with B[a, b] as the bottom-right corner of the block.</p>
+<pre class="shortcode"><code>B is a buffer array of size M by N
+
+algorithm getMaxBlock(A[1..M, 1..N]){
+   for i = 1 to M, do B[i, 1] = A[i, 1]
+   for i = 1 to N, do B[1, i] = A[1, i]
+
+   for i = 2 to M, do
+      for j = 2 to N, do{
+         if A[i, j] is 0, then set B[i, j] = 0
+         else, set B[i, j] = min(B[i-1, j], B[i, j-1], B[i-1, j-1]) + 1
+      }
+
+   maxArea = 0
+   for i = 1 to M, do
+      for j = 1 to N, do
+          maxArea = max(B[i,j], maxArea)
+
+   return maxArea*maxArea
+}</code></pre>
+<p>As entry B[i, j] represents the max solid block, with A[i, j] as the bottom right corner cell of the block.</p>
+<p><strong>Lemma - The algorithm return a correct result</strong></p>
+<p><strong>Base Case :</strong> Entry B[1, 1] is correct</p>
+<p>The algorithm trivially returns the correct solution. For a bitmap of size M by N, and with A[1, 1] as the bottom right corner cell, there are only two possibilities. That is B[1, 1] = 1, if A[1, 1] = 1, or B[1, 1] = 0 if A[1, 1] = 0.</p>
+<p><strong>Inductive Hypothesis :</strong> Let us assume the algorithm returns the correct result for all the entries B[<span class="math inline">\(i\leq x, j&lt;y\)</span>] and B[<span class="math inline">\(i&lt;x, j\le y\)</span>].</p>
+<p><strong>To Prove :</strong> The algorithm returns the correct solution for B[x, y].</p>
+<p>Since, the max solid block possible with A[x, y] as the bottom right cell depends on the entries B[x-1, y-1], B[x-1, y], and B[x, y-1], which is correct as per our assumption; thus the algorithm returns the correct result for the entry B[x, y].</p>
+<p>Thus, for all P in [1, M] and Q in [1, N], B[P, Q] is correct.</p>
+<p>The max possible solid block is the max(B[1..M, 1..N]), and thus, the algorithm returns a correct result.</p>
+<p><br></p>
+<p><strong><u>Analysis of the running time</u></strong></p>
+<p>The running time of the algorithm is dominated by the time required to fill up the entries in the buffer array B, which is of size M by N. Thus the running time of the algorithm is <span class="math inline">\(O(MN)\)</span>. Assuming <span class="math inline">\(M \thickapprox N\)</span>, the running time is <span class="math inline">\(O(N^2)\)</span>.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+  </div>
+</body>
+</html>

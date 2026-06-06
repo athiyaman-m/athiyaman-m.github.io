@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Soumyaratna Debnath">
+  <meta name="description" content="Custom Implementation of VGG 1 Block, VGG 3 Block, VGG 16 and MLP 18 for a detailed comparative study.">
+  <meta name="dcterms.date" content="2023-04-19">
+  <title>Comparing VGG Models</title>
+  <link rel="icon" href="../../badge-sd-fill.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../styles.css">
+  
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+  <script defer src="../../assets/js/site.js"></script>
+</head>
+<body data-root="../../" data-page="projects" data-kind="detail">
+  <div class="site-main">
+    <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#code" id="toc-code" class="nav-link active" data-scroll-target="#code">Code</a></li>
+  <li><a href="#are-the-results-as-expected-why-or-why-not" id="toc-are-the-results-as-expected-why-or-why-not" class="nav-link" data-scroll-target="#are-the-results-as-expected-why-or-why-not">Are the results as expected? Why or why not?</a></li>
+  <li><a href="#does-data-augmentation-help-why-or-why-not" id="toc-does-data-augmentation-help-why-or-why-not" class="nav-link" data-scroll-target="#does-data-augmentation-help-why-or-why-not">Does data augmentation help? Why or why not?</a></li>
+  <li><a href="#does-it-matter-how-many-epochs-you-fine-tune-the-model-why-or-why-not" id="toc-does-it-matter-how-many-epochs-you-fine-tune-the-model-why-or-why-not" class="nav-link" data-scroll-target="#does-it-matter-how-many-epochs-you-fine-tune-the-model-why-or-why-not">Does it matter how many epochs you fine tune the model? Why or why not?</a></li>
+  <li><a href="#are-there-any-particular-images-that-the-model-is-confused-about-why-or-why-not" id="toc-are-there-any-particular-images-that-the-model-is-confused-about-why-or-why-not" class="nav-link" data-scroll-target="#are-there-any-particular-images-that-the-model-is-confused-about-why-or-why-not">Are there any particular images that the model is confused about? Why or why not?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Comparing VGG Models</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Machine Learning</div>
+    <div class="quarto-category">Deep Learning</div>
+    <div class="quarto-category">Computer Vision</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Custom Implementation of VGG 1 Block, VGG 3 Block, VGG 16 and MLP 18 for a detailed comparative study.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Soumyaratna Debnath </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 19, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p><a href="https://github.com/SoumyaratnaDebnath/A-Comparative-Study-Between-Different-VGG-Models" style="text-decoration: none;"> <i class="bi bi-github"></i> <span class="about-link-text">GitHub</span> </a></p>
+<section id="code" class="level3">
+<h3 class="anchored" data-anchor-id="code">Code</h3>
+<div class="cell" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing the required libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.preprocessing.image <span class="im">import</span> ImageDataGenerator</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.models <span class="im">import</span> Sequential</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.layers <span class="im">import</span> Conv2D, MaxPooling2D, Flatten, Dense</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.callbacks <span class="im">import</span> TensorBoard</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow <span class="im">import</span> keras</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras <span class="im">import</span> layers</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> shutil</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:37:07.771981: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-04-19 14:37:07.807696: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-04-19 14:37:07.808495: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-04-19 14:37:08.701505: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT</code></pre>
+</div>
+</div>
+<section id="driver-code" class="level4">
+<h4 class="anchored" data-anchor-id="driver-code">Driver Code</h4>
+<div class="cell" data-tags="[]" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Are you sure want to override previous report '</span>, end<span class="op">=</span><span class="st">''</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>command <span class="op">=</span> <span class="bu">input</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> command <span class="op">==</span> <span class="st">'Yes'</span>:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Overriding previous report'</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Open the results file in write mode and adding the head</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="st">'results.csv'</span>, mode<span class="op">=</span><span class="st">'w'</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> results_file:</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        results_writer <span class="op">=</span> csv.writer(results_file)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        results_writer.writerow([<span class="st">'Model Name'</span>, <span class="st">'Training Time'</span>, <span class="st">'Train Loss'</span>, <span class="st">'Train Acc'</span>, <span class="st">'Test Acc'</span>, <span class="st">'Num Params'</span>])</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    folders_to_remove <span class="op">=</span> [<span class="st">"saved_models"</span>, <span class="st">"log_images"</span>, <span class="st">"log_stats"</span>]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> folder <span class="kw">in</span> folders_to_remove:</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> os.path.exists(folder):</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            shutil.rmtree(folder)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Directory </span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss"> removed."</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Directory </span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss"> does not exist."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Are you sure want to override previous report  Yes
+Overriding previous report
+Directory saved_models does not exist.
+Directory log_images does not exist.
+Directory log_stats does not exist.</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define directories for training and testing data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>train_dir <span class="op">=</span> <span class="st">'dataset/train/'</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>test_dir <span class="op">=</span> <span class="st">'dataset/test/'</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the image size to be used for resizing the images</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>img_size <span class="op">=</span> (<span class="dv">128</span>, <span class="dv">128</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the input image size (including the number of color channels)</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>input_img_size <span class="op">=</span> (<span class="dv">128</span>, <span class="dv">128</span>, <span class="dv">3</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the batch size for training the model</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>batch_size <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the number of epochs for training the model</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>num_epochs <span class="op">=</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an ImageDataGenerator object for data augmentation and normalization of training data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>train_datagen <span class="op">=</span> ImageDataGenerator(rescale<span class="op">=</span><span class="fl">1.</span><span class="op">/</span><span class="dv">255</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a generator for loading training data from the directory</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>train_generator <span class="op">=</span> train_datagen.flow_from_directory(train_dir, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                                                    target_size<span class="op">=</span>img_size, <span class="co"># Resizes the images to a target size</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                                                    batch_size<span class="op">=</span>batch_size, <span class="co"># Defines the batch size</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                                                    class_mode<span class="op">=</span><span class="st">'binary'</span>) <span class="co"># Defines the type of labels to use</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an ImageDataGenerator object for normalization of testing data</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>test_datagen <span class="op">=</span> ImageDataGenerator(rescale<span class="op">=</span><span class="fl">1.</span><span class="op">/</span><span class="dv">255</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a generator for loading testing data from the directory</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>test_generator <span class="op">=</span> test_datagen.flow_from_directory(test_dir, </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                                                  target_size<span class="op">=</span>img_size, <span class="co"># Resizes the images to a target size</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                                                  batch_size<span class="op">=</span>batch_size, <span class="co"># Defines the batch size</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>                                                  class_mode<span class="op">=</span><span class="st">'binary'</span>) <span class="co"># Defines the type of labels to use</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Data generators for prediction</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>prediction_datagen <span class="op">=</span> ImageDataGenerator(rescale<span class="op">=</span><span class="fl">1.</span><span class="op">/</span><span class="dv">255</span>)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>preprocess_input <span class="op">=</span> tf.keras.applications.vgg16.preprocess_input</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>prediction_datagen_vgg <span class="op">=</span> keras.preprocessing.image.ImageDataGenerator(preprocessing_function<span class="op">=</span>preprocess_input)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>prediction_generator <span class="op">=</span> test_datagen.flow_from_directory(test_dir, target_size<span class="op">=</span>img_size, batch_size<span class="op">=</span><span class="dv">1</span>, class_mode<span class="op">=</span><span class="st">'binary'</span>, shuffle<span class="op">=</span><span class="va">False</span>) </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>prediction_generator_vgg <span class="op">=</span> prediction_datagen_vgg.flow_from_directory(test_dir, target_size<span class="op">=</span>img_size, batch_size<span class="op">=</span><span class="dv">1</span>, class_mode<span class="op">=</span><span class="st">'binary'</span>, shuffle<span class="op">=</span><span class="va">False</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Found 160 images belonging to 2 classes.
+Found 40 images belonging to 2 classes.
+Found 40 images belonging to 2 classes.
+Found 40 images belonging to 2 classes.</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function for plotting the predictions and writing to TensorBoard</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_predictions(title, model, log_dir, test_generator):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create a summary writer for TensorBoard</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    writer <span class="op">=</span> tf.summary.create_file_writer(log_dir)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the predicted classes for the test set</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    y_pred <span class="op">=</span> model.predict(test_generator)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    y_pred_classes <span class="op">=</span> tf.<span class="bu">round</span>(y_pred).numpy().astype(<span class="bu">int</span>).flatten()</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the true classes for the test set</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    y_true <span class="op">=</span> test_generator.classes.astype(<span class="bu">int</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the class labels for the dataset</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    class_labels <span class="op">=</span> <span class="bu">list</span>(test_generator.class_indices.keys())</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get all the images and their corresponding labels from the test set generator</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    images <span class="op">=</span> []</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> []</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(test_generator)):</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        batch <span class="op">=</span> test_generator[i]</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        images.extend(batch[<span class="dv">0</span>])</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        labels.extend(batch[<span class="dv">1</span>].astype(<span class="bu">int</span>))</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(test_generator)):</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Write the image to TensorBoard</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> tf.summary.create_file_writer(log_dir).as_default():</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>            tf.summary.image(<span class="st">"</span><span class="sc">{}</span><span class="st">   Image </span><span class="sc">{}</span><span class="st">   Predicted: </span><span class="sc">{}</span><span class="st">   True: </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(title, i<span class="op">+</span><span class="dv">1</span>, class_labels[y_pred_classes[i]], class_labels[labels[i]]), np.expand_dims(images[i], <span class="dv">0</span>), step<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="vgg-1-block" class="level4">
+<h4 class="anchored" data-anchor-id="vgg-1-block">VGG 1 Block</h4>
+<div class="cell" data-tags="[]" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function that creates a VGG block with one convolutional layer</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vgg_1_block():</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create a Sequential model object with a name</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> Sequential(name <span class="op">=</span> <span class="st">'vgg_block_1'</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a convolutional layer with 64 filters, a 3x3 kernel size, 'relu' activation, and 'same' padding</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    model.add(Conv2D(<span class="dv">64</span>, (<span class="dv">3</span>, <span class="dv">3</span>), activation<span class="op">=</span><span class="st">'relu'</span>, padding<span class="op">=</span><span class="st">'same'</span>, input_shape<span class="op">=</span>input_img_size))</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a max pooling layer with a 2x2 pool size</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    model.add(MaxPooling2D((<span class="dv">2</span>, <span class="dv">2</span>)))</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a flatten layer to convert the 2D feature maps to a 1D feature vector</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    model.add(Flatten())</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a fully connected layer with 128 units and 'relu' activation</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">128</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add an output layer with 1 unit and 'sigmoid' activation (for binary classification)</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">1</span>, activation<span class="op">=</span><span class="st">'sigmoid'</span>))</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Return the model</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a VGG block with one convolutional layer</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>model1 <span class="op">=</span> vgg_1_block()</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the model's architecture</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>model1.summary()</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a log directory for TensorBoard</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>log_dir <span class="op">=</span> <span class="st">'log_stats/vgg_1_block'</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the TensorBoard callback with update_freq='batch'</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>tensorboard_callback <span class="op">=</span> tf.keras.callbacks.TensorBoard(log_dir<span class="op">=</span>log_dir, update_freq<span class="op">=</span><span class="st">'batch'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model: "vgg_block_1"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 128, 128, 64)      1792      
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, 64, 64, 64)       0         
+ )                                                               
+                                                                 
+ flatten (Flatten)           (None, 262144)            0         
+                                                                 
+ dense (Dense)               (None, 128)               33554560  
+                                                                 
+ dense_1 (Dense)             (None, 1)                 129       
+                                                                 
+=================================================================
+Total params: 33,556,481
+Trainable params: 33,556,481
+Non-trainable params: 0
+_________________________________________________________________</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:38:27.877910: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1956] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compile the model with 'adam' optimizer, 'binary_crossentropy' loss function, and 'accuracy' metric</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>model1.<span class="bu">compile</span>(optimizer<span class="op">=</span><span class="st">'adam'</span>, loss<span class="op">=</span><span class="st">'binary_crossentropy'</span>, metrics<span class="op">=</span>[<span class="st">'accuracy'</span>])</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start timing the training</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using the training generator for a specified number of epochs, and save the history</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> model1.fit(train_generator, steps_per_epoch<span class="op">=</span><span class="bu">len</span>(train_generator), epochs<span class="op">=</span>num_epochs, callbacks<span class="op">=</span>[tensorboard_callback])</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Stop timing the training</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>end_time <span class="op">=</span> time.time()</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the training time by subtracting the start time from the end time</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>training_time <span class="op">=</span> end_time <span class="op">-</span> start_time</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model on the training set and get the training loss and accuracy</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>train_loss, train_acc <span class="op">=</span> model1.evaluate(train_generator)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model on the test set and get the test loss and accuracy</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>test_loss, test_acc <span class="op">=</span> model1.evaluate(test_generator)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of parameters in the model</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>num_params <span class="op">=</span> model1.count_params()</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the results file in append mode and writing the results</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'results.csv'</span>, mode<span class="op">=</span><span class="st">'a'</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> results_file:</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    results_writer <span class="op">=</span> csv.writer(results_file)</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    results_writer.writerow([<span class="st">'VGG 1 Block'</span>, training_time, train_loss, train_acc, test_acc, num_params])</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>model1.save(<span class="st">'saved_models/vgg_1_block.h5'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/20
+8/8 [==============================] - 4s 443ms/step - loss: 16.0090 - accuracy: 0.4938
+Epoch 2/20
+8/8 [==============================] - 4s 441ms/step - loss: 1.3641 - accuracy: 0.5063
+Epoch 3/20
+8/8 [==============================] - 4s 440ms/step - loss: 0.8025 - accuracy: 0.6000
+Epoch 4/20
+8/8 [==============================] - 4s 439ms/step - loss: 0.5900 - accuracy: 0.6875
+Epoch 5/20
+8/8 [==============================] - 4s 439ms/step - loss: 0.4382 - accuracy: 0.7750
+Epoch 6/20
+8/8 [==============================] - 4s 441ms/step - loss: 0.3841 - accuracy: 0.8687
+Epoch 7/20
+8/8 [==============================] - 4s 440ms/step - loss: 0.2853 - accuracy: 0.8875
+Epoch 8/20
+8/8 [==============================] - 4s 440ms/step - loss: 0.2322 - accuracy: 0.9438
+Epoch 9/20
+8/8 [==============================] - 4s 442ms/step - loss: 0.1883 - accuracy: 0.9563
+Epoch 10/20
+8/8 [==============================] - 4s 440ms/step - loss: 0.1287 - accuracy: 0.9812
+Epoch 11/20
+8/8 [==============================] - 4s 440ms/step - loss: 0.1186 - accuracy: 0.9875
+Epoch 12/20
+8/8 [==============================] - 4s 442ms/step - loss: 0.0991 - accuracy: 0.9625
+Epoch 13/20
+8/8 [==============================] - 4s 440ms/step - loss: 0.0737 - accuracy: 0.9812
+Epoch 14/20
+8/8 [==============================] - 4s 442ms/step - loss: 0.0589 - accuracy: 1.0000
+Epoch 15/20
+8/8 [==============================] - 4s 448ms/step - loss: 0.0466 - accuracy: 1.0000
+Epoch 16/20
+8/8 [==============================] - 4s 443ms/step - loss: 0.0412 - accuracy: 0.9937
+Epoch 17/20
+8/8 [==============================] - 4s 441ms/step - loss: 0.0302 - accuracy: 1.0000
+Epoch 18/20
+8/8 [==============================] - 4s 442ms/step - loss: 0.0279 - accuracy: 1.0000
+Epoch 19/20
+8/8 [==============================] - 4s 443ms/step - loss: 0.0257 - accuracy: 1.0000
+Epoch 20/20
+8/8 [==============================] - 4s 443ms/step - loss: 0.0187 - accuracy: 1.0000
+1/8 [==&gt;...........................] - ETA: 1s - loss: 0.0182 - accuracy: 1.00008/8 [==============================] - 1s 54ms/step - loss: 0.0206 - accuracy: 1.0000
+2/2 [==============================] - 0s 58ms/step - loss: 0.5984 - accuracy: 0.8250</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:38:31.364769: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]
+2023-04-19 14:39:43.633980: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]
+2023-04-19 14:39:44.234190: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plot_predictions(<span class="st">'Vgg1'</span>, model1, <span class="st">'log_images/vgg_1_block'</span>, prediction_generator)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 4/40 [==&gt;...........................] - ETA: 0s40/40 [==============================] - 1s 20ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:39:44.990430: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]</code></pre>
+</div>
+</div>
+</section>
+<section id="vgg-3-block" class="level4">
+<h4 class="anchored" data-anchor-id="vgg-3-block">VGG 3 Block</h4>
+<div class="cell" data-tags="[]" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function to create a VGG block with three convolutional layers</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vgg_3_block():</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create a Sequential model object with the name 'vgg_block_3'</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> Sequential(name<span class="op">=</span><span class="st">'vgg_block_3'</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a convolutional layer with 64 filters, a kernel size of 3x3, 'same' padding, and ReLU activation,</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># and specify the input shape as the desired image size and 3 color channels</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    model.add(Conv2D(<span class="dv">64</span>, (<span class="dv">3</span>, <span class="dv">3</span>), activation<span class="op">=</span><span class="st">'relu'</span>, padding<span class="op">=</span><span class="st">'same'</span>, input_shape<span class="op">=</span>input_img_size))</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a max pooling layer with a pool size of 2x2</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    model.add(MaxPooling2D((<span class="dv">2</span>, <span class="dv">2</span>)))</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add another convolutional layer with 128 filters and 'same' padding</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    model.add(Conv2D(<span class="dv">128</span>, (<span class="dv">3</span>, <span class="dv">3</span>), activation<span class="op">=</span><span class="st">'relu'</span>, padding<span class="op">=</span><span class="st">'same'</span>))</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add another max pooling layer</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    model.add(MaxPooling2D((<span class="dv">2</span>, <span class="dv">2</span>)))</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a third convolutional layer with 256 filters and 'same' padding</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    model.add(Conv2D(<span class="dv">256</span>, (<span class="dv">3</span>, <span class="dv">3</span>), activation<span class="op">=</span><span class="st">'relu'</span>, padding<span class="op">=</span><span class="st">'same'</span>))</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a third max pooling layer</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    model.add(MaxPooling2D((<span class="dv">2</span>, <span class="dv">2</span>)))</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Flatten the output of the convolutional layers</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    model.add(Flatten())</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a fully connected layer with 128 units and ReLU activation</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">128</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a final output layer with a single unit and sigmoid activation (for binary classification)</span></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">1</span>, activation<span class="op">=</span><span class="st">'sigmoid'</span>))</span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Return the completed model object</span></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an instance of the VGG block using the vgg_3_block function</span></span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> vgg_3_block()</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the model's architecture</span></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>model2.summary()</span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a log directory for TensorBoard</span></span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>log_dir <span class="op">=</span> <span class="st">'log_stats/vgg_3_block'</span></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the TensorBoard callback with update_freq='batch'</span></span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>tensorboard_callback <span class="op">=</span> tf.keras.callbacks.TensorBoard(log_dir<span class="op">=</span>log_dir, update_freq<span class="op">=</span><span class="st">'batch'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model: "vgg_block_3"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d_1 (Conv2D)           (None, 128, 128, 64)      1792      
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, 64, 64, 64)       0         
+ 2D)                                                             
+                                                                 
+ conv2d_2 (Conv2D)           (None, 64, 64, 128)       73856     
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, 32, 32, 128)      0         
+ 2D)                                                             
+                                                                 
+ conv2d_3 (Conv2D)           (None, 32, 32, 256)       295168    
+                                                                 
+ max_pooling2d_3 (MaxPooling  (None, 16, 16, 256)      0         
+ 2D)                                                             
+                                                                 
+ flatten_1 (Flatten)         (None, 65536)             0         
+                                                                 
+ dense_2 (Dense)             (None, 128)               8388736   
+                                                                 
+ dense_3 (Dense)             (None, 1)                 129       
+                                                                 
+=================================================================
+Total params: 8,759,681
+Trainable params: 8,759,681
+Non-trainable params: 0
+_________________________________________________________________</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compile the model with 'adam' optimizer, 'binary_crossentropy' loss function, and 'accuracy' metric</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>model2.<span class="bu">compile</span>(optimizer<span class="op">=</span><span class="st">'adam'</span>, loss<span class="op">=</span><span class="st">'binary_crossentropy'</span>, metrics<span class="op">=</span>[<span class="st">'accuracy'</span>])</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start timing the training</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using the training generator for a specified number of epochs, and save the history</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> model2.fit(train_generator, steps_per_epoch<span class="op">=</span><span class="bu">len</span>(train_generator), epochs<span class="op">=</span>num_epochs, callbacks<span class="op">=</span>[tensorboard_callback])</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Stop timing the training</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>end_time <span class="op">=</span> time.time()</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the training time by subtracting the start time from the end time</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>training_time <span class="op">=</span> end_time <span class="op">-</span> start_time</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model on the training set and get the training loss and accuracy</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>train_loss, train_acc <span class="op">=</span> model2.evaluate(train_generator)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model on the test set and get the test loss and accuracy</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>test_loss, test_acc <span class="op">=</span> model2.evaluate(test_generator)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of parameters in the model</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>num_params <span class="op">=</span> model2.count_params()</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the results file in append mode and writing the results</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'results.csv'</span>, mode<span class="op">=</span><span class="st">'a'</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> results_file:</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    results_writer <span class="op">=</span> csv.writer(results_file)</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    results_writer.writerow([<span class="st">'VGG 3 Block'</span>, training_time, train_loss, train_acc, test_acc, num_params])</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>model2.save(<span class="st">'saved_models/vgg_3_block.h5'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/20
+8/8 [==============================] - 4s 452ms/step - loss: 1.2802 - accuracy: 0.5250
+Epoch 2/20
+8/8 [==============================] - 4s 445ms/step - loss: 0.6984 - accuracy: 0.5437
+Epoch 3/20
+8/8 [==============================] - 4s 446ms/step - loss: 0.7064 - accuracy: 0.5000
+Epoch 4/20
+8/8 [==============================] - 4s 446ms/step - loss: 0.6933 - accuracy: 0.6125
+Epoch 5/20
+8/8 [==============================] - 4s 452ms/step - loss: 0.6818 - accuracy: 0.5437
+Epoch 6/20
+8/8 [==============================] - 4s 452ms/step - loss: 0.6226 - accuracy: 0.6562
+Epoch 7/20
+8/8 [==============================] - 4s 449ms/step - loss: 0.5584 - accuracy: 0.7250
+Epoch 8/20
+8/8 [==============================] - 4s 446ms/step - loss: 0.4817 - accuracy: 0.7625
+Epoch 9/20
+8/8 [==============================] - 4s 446ms/step - loss: 0.4709 - accuracy: 0.8188
+Epoch 10/20
+8/8 [==============================] - 4s 451ms/step - loss: 0.3938 - accuracy: 0.8000
+Epoch 11/20
+8/8 [==============================] - 4s 445ms/step - loss: 0.3187 - accuracy: 0.8438
+Epoch 12/20
+8/8 [==============================] - 4s 448ms/step - loss: 0.2332 - accuracy: 0.9062
+Epoch 13/20
+8/8 [==============================] - 4s 449ms/step - loss: 0.1594 - accuracy: 0.9438
+Epoch 14/20
+8/8 [==============================] - 4s 456ms/step - loss: 0.0972 - accuracy: 0.9688
+Epoch 15/20
+8/8 [==============================] - 4s 469ms/step - loss: 0.0486 - accuracy: 0.9812
+Epoch 16/20
+8/8 [==============================] - 4s 445ms/step - loss: 0.0302 - accuracy: 1.0000
+Epoch 17/20
+8/8 [==============================] - 4s 453ms/step - loss: 0.0142 - accuracy: 1.0000
+Epoch 18/20
+8/8 [==============================] - 4s 448ms/step - loss: 0.0089 - accuracy: 1.0000
+Epoch 19/20
+8/8 [==============================] - 4s 449ms/step - loss: 0.0033 - accuracy: 1.0000
+Epoch 20/20
+8/8 [==============================] - 4s 446ms/step - loss: 0.0023 - accuracy: 1.0000
+8/8 [==============================] - 1s 78ms/step - loss: 0.0012 - accuracy: 1.0000
+1/2 [==============&gt;...............] - ETA: 0s - loss: 0.9936 - accuracy: 0.85002/2 [==============================] - 0s 79ms/step - loss: 1.0520 - accuracy: 0.8250</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:39:46.379523: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]
+2023-04-19 14:41:00.131167: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]
+2023-04-19 14:41:00.947230: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plot_predictions(<span class="st">'Vgg3'</span>, model2, <span class="st">'log_images/vgg_3_block'</span>, prediction_generator)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 9/40 [=====&gt;........................] - ETA: 0s40/40 [==============================] - 1s 14ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:41:01.335855: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]</code></pre>
+</div>
+</div>
+</section>
+<section id="vgg-3-block-with-data-argumentation" class="level4">
+<h4 class="anchored" data-anchor-id="vgg-3-block-with-data-argumentation">VGG 3 Block with Data Argumentation</h4>
+<div class="cell" data-tags="[]" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define an ImageDataGenerator for data augmentation during training</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>train_datagen <span class="op">=</span> ImageDataGenerator(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    rescale<span class="op">=</span><span class="fl">1.</span><span class="op">/</span><span class="dv">255</span>,                   <span class="co"># rescale pixel values to [0,1]</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    rotation_range<span class="op">=</span><span class="dv">45</span>,                <span class="co"># random rotation between 0-45 degrees</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># width_shift_range=0.2,            # random shift horizontally up to 20% of the image width</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># height_shift_range=0.2,           # random shift vertically up to 20% of the image height</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    shear_range<span class="op">=</span><span class="fl">0.2</span>,                  <span class="co"># random shear up to 20%</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    zoom_range<span class="op">=</span><span class="fl">0.2</span>,                   <span class="co"># random zoom up to 20%</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># horizontal_flip=True,             # randomly flip images horizontally </span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    fill_mode<span class="op">=</span><span class="st">'nearest'</span>               <span class="co"># fill any missing pixels with the nearest available pixel</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a flow of augmented training data from the training directory</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>train_generator <span class="op">=</span> train_datagen.flow_from_directory(</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    train_dir,                        <span class="co"># path to training data directory</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    target_size<span class="op">=</span>img_size,             <span class="co"># size of input images</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span>batch_size,            <span class="co"># number of images per batch</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    class_mode<span class="op">=</span><span class="st">'binary'</span>               <span class="co"># type of classification problem (binary or categorical)</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Define an ImageDataGenerator for rescaling pixel values in the test set</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>test_datagen <span class="op">=</span> ImageDataGenerator(rescale<span class="op">=</span><span class="fl">1.</span><span class="op">/</span><span class="dv">255</span>)</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a flow of test data from the test directory</span></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>test_generator <span class="op">=</span> test_datagen.flow_from_directory(</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>    test_dir,                         <span class="co"># path to test data directory</span></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>    target_size<span class="op">=</span>img_size,             <span class="co"># size of input images</span></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span>batch_size,            <span class="co"># number of images per batch</span></span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>    class_mode<span class="op">=</span><span class="st">'binary'</span>               <span class="co"># type of classification problem (binary or categorical)</span></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Found 160 images belonging to 2 classes.
+Found 40 images belonging to 2 classes.</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an instance of the VGG block using the vgg_3_block function</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>model3 <span class="op">=</span> vgg_3_block()</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the model's architecture</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>model3.summary()</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a log directory for TensorBoard</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>log_dir <span class="op">=</span> <span class="st">'log_stats/vgg_3_block_with_args'</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the TensorBoard callback with update_freq='batch'</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>tensorboard_callback <span class="op">=</span> tf.keras.callbacks.TensorBoard(log_dir<span class="op">=</span>log_dir, update_freq<span class="op">=</span><span class="st">'batch'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model: "vgg_block_3"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d_4 (Conv2D)           (None, 128, 128, 64)      1792      
+                                                                 
+ max_pooling2d_4 (MaxPooling  (None, 64, 64, 64)       0         
+ 2D)                                                             
+                                                                 
+ conv2d_5 (Conv2D)           (None, 64, 64, 128)       73856     
+                                                                 
+ max_pooling2d_5 (MaxPooling  (None, 32, 32, 128)      0         
+ 2D)                                                             
+                                                                 
+ conv2d_6 (Conv2D)           (None, 32, 32, 256)       295168    
+                                                                 
+ max_pooling2d_6 (MaxPooling  (None, 16, 16, 256)      0         
+ 2D)                                                             
+                                                                 
+ flatten_2 (Flatten)         (None, 65536)             0         
+                                                                 
+ dense_4 (Dense)             (None, 128)               8388736   
+                                                                 
+ dense_5 (Dense)             (None, 1)                 129       
+                                                                 
+=================================================================
+Total params: 8,759,681
+Trainable params: 8,759,681
+Non-trainable params: 0
+_________________________________________________________________</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compile the model with 'adam' optimizer, 'binary_crossentropy' loss function, and 'accuracy' metric</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>model3.<span class="bu">compile</span>(optimizer<span class="op">=</span><span class="st">'adam'</span>, loss<span class="op">=</span><span class="st">'binary_crossentropy'</span>, metrics<span class="op">=</span>[<span class="st">'accuracy'</span>])</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start timing the training</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using the training generator for a specified number of epochs, and save the history</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> model3.fit(train_generator, steps_per_epoch<span class="op">=</span><span class="bu">len</span>(train_generator), epochs<span class="op">=</span>num_epochs, callbacks<span class="op">=</span>[tensorboard_callback])</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Stop timing the training</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>end_time <span class="op">=</span> time.time()</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the training time by subtracting the start time from the end time</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>training_time <span class="op">=</span> end_time <span class="op">-</span> start_time</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model on the training set and get the training loss and accuracy</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>train_loss, train_acc <span class="op">=</span> model3.evaluate(train_generator)</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model on the test set and get the test loss and accuracy</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>test_loss, test_acc <span class="op">=</span> model3.evaluate(test_generator)</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of parameters in the model</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>num_params <span class="op">=</span> model3.count_params()</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the results file in append mode and writing the results</span></span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'results.csv'</span>, mode<span class="op">=</span><span class="st">'a'</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> results_file:</span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>    results_writer <span class="op">=</span> csv.writer(results_file)</span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>    results_writer.writerow([<span class="st">'VGG 3 Block with Argumentation'</span>, training_time, train_loss, train_acc, test_acc, num_params])</span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>model3.save(<span class="st">'saved_models/vgg_3_block_with_args.h5'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/20
+8/8 [==============================] - 4s 463ms/step - loss: 1.2631 - accuracy: 0.4812
+Epoch 2/20
+8/8 [==============================] - 4s 456ms/step - loss: 0.6834 - accuracy: 0.5750
+Epoch 3/20
+8/8 [==============================] - 4s 453ms/step - loss: 0.6574 - accuracy: 0.5813
+Epoch 4/20
+8/8 [==============================] - 4s 453ms/step - loss: 0.6267 - accuracy: 0.7375
+Epoch 5/20
+8/8 [==============================] - 4s 452ms/step - loss: 0.5854 - accuracy: 0.7125
+Epoch 6/20
+8/8 [==============================] - 4s 449ms/step - loss: 0.5650 - accuracy: 0.7500
+Epoch 7/20
+8/8 [==============================] - 4s 450ms/step - loss: 0.5137 - accuracy: 0.7875
+Epoch 8/20
+8/8 [==============================] - 4s 452ms/step - loss: 0.4996 - accuracy: 0.7812
+Epoch 9/20
+8/8 [==============================] - 4s 452ms/step - loss: 0.4974 - accuracy: 0.7688
+Epoch 10/20
+8/8 [==============================] - 4s 449ms/step - loss: 0.4721 - accuracy: 0.7688
+Epoch 11/20
+8/8 [==============================] - 4s 451ms/step - loss: 0.4361 - accuracy: 0.8250
+Epoch 12/20
+8/8 [==============================] - 4s 455ms/step - loss: 0.4523 - accuracy: 0.8125
+Epoch 13/20
+8/8 [==============================] - 4s 448ms/step - loss: 0.4220 - accuracy: 0.8125
+Epoch 14/20
+8/8 [==============================] - 4s 447ms/step - loss: 0.4201 - accuracy: 0.8000
+Epoch 15/20
+8/8 [==============================] - 4s 450ms/step - loss: 0.4078 - accuracy: 0.8125
+Epoch 16/20
+8/8 [==============================] - 4s 452ms/step - loss: 0.4350 - accuracy: 0.8375
+Epoch 17/20
+8/8 [==============================] - 4s 453ms/step - loss: 0.4067 - accuracy: 0.8125
+Epoch 18/20
+8/8 [==============================] - 4s 453ms/step - loss: 0.3679 - accuracy: 0.8813
+Epoch 19/20
+8/8 [==============================] - 4s 452ms/step - loss: 0.3514 - accuracy: 0.8313
+Epoch 20/20
+8/8 [==============================] - 4s 448ms/step - loss: 0.3851 - accuracy: 0.8188
+8/8 [==============================] - 1s 109ms/step - loss: 0.3559 - accuracy: 0.8438
+1/2 [==============&gt;...............] - ETA: 0s - loss: 0.5282 - accuracy: 0.80002/2 [==============================] - 0s 80ms/step - loss: 0.5902 - accuracy: 0.7500</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:41:02.555902: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]
+2023-04-19 14:42:17.701998: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]
+2023-04-19 14:42:18.761244: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>plot_predictions(<span class="st">'Vgg3_args'</span>, model3, <span class="st">'log_images/vgg_3_block_with_args'</span>, prediction_generator)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 9/40 [=====&gt;........................] - ETA: 0s40/40 [==============================] - 1s 14ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:42:19.125891: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]</code></pre>
+</div>
+</div>
+</section>
+<section id="vgg-16-transfer-learning" class="level4">
+<h4 class="anchored" data-anchor-id="vgg-16-transfer-learning">VGG 16 Transfer Learning</h4>
+<div class="cell" data-tags="[]" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the preprocessing function for VGG16 model</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>preprocess_input <span class="op">=</span> tf.keras.applications.vgg16.preprocess_input</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a train data generator with the preprocessing function</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>train_datagen <span class="op">=</span> keras.preprocessing.image.ImageDataGenerator(preprocessing_function<span class="op">=</span>preprocess_input)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the train generator by reading the images from the train directory</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>train_generator <span class="op">=</span> train_datagen.flow_from_directory(</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    train_dir,                        <span class="co"># path to training data directory</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    target_size<span class="op">=</span>img_size,             <span class="co"># size of input images</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span>batch_size,            <span class="co"># number of images per batch</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    class_mode<span class="op">=</span><span class="st">'binary'</span>               <span class="co"># type of classification problem (binary or categorical)</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a test data generator with the same preprocessing function as train generator</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>test_datagen <span class="op">=</span> keras.preprocessing.image.ImageDataGenerator(preprocessing_function<span class="op">=</span>preprocess_input)</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the test generator by reading the images from the test directory</span></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>test_generator <span class="op">=</span> test_datagen.flow_from_directory(</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>    test_dir,                         <span class="co"># path to test data directory</span></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>    target_size<span class="op">=</span>img_size,             <span class="co"># size of input images</span></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span>batch_size,            <span class="co"># number of images per batch</span></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>    class_mode<span class="op">=</span><span class="st">'binary'</span>               <span class="co"># type of classification problem (binary or categorical)</span></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Found 160 images belonging to 2 classes.
+Found 40 images belonging to 2 classes.</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vgg_16_transfer_learning():</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># load model</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> tf.keras.applications.vgg16.VGG16(include_top<span class="op">=</span><span class="va">False</span>, input_shape<span class="op">=</span>input_img_size)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># mark loaded layers as not trainable</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> layer <span class="kw">in</span> model.layers:</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>        layer.trainable <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add new classifier layers</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    flat1 <span class="op">=</span> Flatten()(model.layers[<span class="op">-</span><span class="dv">1</span>].output)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    class1 <span class="op">=</span> Dense(<span class="dv">128</span>, activation<span class="op">=</span><span class="st">'relu'</span>, kernel_initializer<span class="op">=</span><span class="st">'he_uniform'</span>)(flat1)</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> Dense(<span class="dv">1</span>, activation<span class="op">=</span><span class="st">'sigmoid'</span>)(class1)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># define new model</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> keras.models.Model(inputs<span class="op">=</span>model.inputs, outputs<span class="op">=</span>output, name<span class="op">=</span><span class="st">'vgg_16'</span>)</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>model4 <span class="op">=</span> vgg_16_transfer_learning()</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the model's architecture</span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>model4.summary()</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a log directory for TensorBoard</span></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>log_dir <span class="op">=</span> <span class="st">'log_stats/vgg_16'</span></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the TensorBoard callback with update_freq='batch'</span></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>tensorboard_callback <span class="op">=</span> tf.keras.callbacks.TensorBoard(log_dir<span class="op">=</span>log_dir, update_freq<span class="op">=</span><span class="st">'batch'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model: "vgg_16"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ input_1 (InputLayer)        [(None, 128, 128, 3)]     0         
+                                                                 
+ block1_conv1 (Conv2D)       (None, 128, 128, 64)      1792      
+                                                                 
+ block1_conv2 (Conv2D)       (None, 128, 128, 64)      36928     
+                                                                 
+ block1_pool (MaxPooling2D)  (None, 64, 64, 64)        0         
+                                                                 
+ block2_conv1 (Conv2D)       (None, 64, 64, 128)       73856     
+                                                                 
+ block2_conv2 (Conv2D)       (None, 64, 64, 128)       147584    
+                                                                 
+ block2_pool (MaxPooling2D)  (None, 32, 32, 128)       0         
+                                                                 
+ block3_conv1 (Conv2D)       (None, 32, 32, 256)       295168    
+                                                                 
+ block3_conv2 (Conv2D)       (None, 32, 32, 256)       590080    
+                                                                 
+ block3_conv3 (Conv2D)       (None, 32, 32, 256)       590080    
+                                                                 
+ block3_pool (MaxPooling2D)  (None, 16, 16, 256)       0         
+                                                                 
+ block4_conv1 (Conv2D)       (None, 16, 16, 512)       1180160   
+                                                                 
+ block4_conv2 (Conv2D)       (None, 16, 16, 512)       2359808   
+                                                                 
+ block4_conv3 (Conv2D)       (None, 16, 16, 512)       2359808   
+                                                                 
+ block4_pool (MaxPooling2D)  (None, 8, 8, 512)         0         
+                                                                 
+ block5_conv1 (Conv2D)       (None, 8, 8, 512)         2359808   
+                                                                 
+ block5_conv2 (Conv2D)       (None, 8, 8, 512)         2359808   
+                                                                 
+ block5_conv3 (Conv2D)       (None, 8, 8, 512)         2359808   
+                                                                 
+ block5_pool (MaxPooling2D)  (None, 4, 4, 512)         0         
+                                                                 
+ flatten_3 (Flatten)         (None, 8192)              0         
+                                                                 
+ dense_6 (Dense)             (None, 128)               1048704   
+                                                                 
+ dense_7 (Dense)             (None, 1)                 129       
+                                                                 
+=================================================================
+Total params: 15,763,521
+Trainable params: 1,048,833
+Non-trainable params: 14,714,688
+_________________________________________________________________</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compile the model with 'adam' optimizer, 'binary_crossentropy' loss function, and 'accuracy' metric</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>model4.<span class="bu">compile</span>(optimizer<span class="op">=</span><span class="st">'adam'</span>, loss<span class="op">=</span><span class="st">'binary_crossentropy'</span>, metrics<span class="op">=</span>[<span class="st">'accuracy'</span>])</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start timing the training</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using the training generator for a specified number of epochs, and save the history</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> model4.fit(train_generator, steps_per_epoch<span class="op">=</span><span class="bu">len</span>(train_generator), epochs<span class="op">=</span>num_epochs, callbacks<span class="op">=</span>[tensorboard_callback])</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Stop timing the training</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>end_time <span class="op">=</span> time.time()</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the training time by subtracting the start time from the end time</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>training_time <span class="op">=</span> end_time <span class="op">-</span> start_time</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model on the training set and get the training loss and accuracy</span></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>train_loss, train_acc <span class="op">=</span> model4.evaluate(train_generator)</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model on the test set and get the test loss and accuracy</span></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>test_loss, test_acc <span class="op">=</span> model4.evaluate(test_generator)</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of parameters in the model</span></span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>num_params <span class="op">=</span> model4.count_params()</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the results file in append mode and writing the results</span></span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'results.csv'</span>, mode<span class="op">=</span><span class="st">'a'</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> results_file:</span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>    results_writer <span class="op">=</span> csv.writer(results_file)</span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>    results_writer.writerow([<span class="st">'VGG 16'</span>, training_time, train_loss, train_acc, test_acc, num_params])</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>model4.save(<span class="st">'saved_models/vgg_16_transfer_learning.h5'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/20
+8/8 [==============================] - 3s 349ms/step - loss: 5.2201 - accuracy: 0.7875
+Epoch 2/20
+8/8 [==============================] - 3s 337ms/step - loss: 1.4520 - accuracy: 0.9250
+Epoch 3/20
+8/8 [==============================] - 3s 342ms/step - loss: 0.2833 - accuracy: 0.9625
+Epoch 4/20
+8/8 [==============================] - 3s 340ms/step - loss: 3.8766e-07 - accuracy: 1.0000
+Epoch 5/20
+8/8 [==============================] - 3s 335ms/step - loss: 2.5094e-04 - accuracy: 1.0000
+Epoch 6/20
+8/8 [==============================] - 3s 336ms/step - loss: 9.4699e-06 - accuracy: 1.0000
+Epoch 7/20
+8/8 [==============================] - 3s 335ms/step - loss: 5.3511e-07 - accuracy: 1.0000
+Epoch 8/20
+8/8 [==============================] - 3s 339ms/step - loss: 3.5025e-07 - accuracy: 1.0000
+Epoch 9/20
+8/8 [==============================] - 3s 336ms/step - loss: 2.1423e-07 - accuracy: 1.0000
+Epoch 10/20
+8/8 [==============================] - 3s 337ms/step - loss: 1.9476e-07 - accuracy: 1.0000
+Epoch 11/20
+8/8 [==============================] - 3s 337ms/step - loss: 1.4968e-07 - accuracy: 1.0000
+Epoch 12/20
+8/8 [==============================] - 3s 337ms/step - loss: 1.2451e-07 - accuracy: 1.0000
+Epoch 13/20
+8/8 [==============================] - 3s 335ms/step - loss: 1.1644e-07 - accuracy: 1.0000
+Epoch 14/20
+8/8 [==============================] - 3s 336ms/step - loss: 1.0194e-07 - accuracy: 1.0000
+Epoch 15/20
+8/8 [==============================] - 3s 337ms/step - loss: 9.6853e-08 - accuracy: 1.0000
+Epoch 16/20
+8/8 [==============================] - 3s 339ms/step - loss: 8.6054e-08 - accuracy: 1.0000
+Epoch 17/20
+8/8 [==============================] - 3s 338ms/step - loss: 7.8499e-08 - accuracy: 1.0000
+Epoch 18/20
+8/8 [==============================] - 3s 337ms/step - loss: 7.4105e-08 - accuracy: 1.0000
+Epoch 19/20
+8/8 [==============================] - 3s 337ms/step - loss: 6.9560e-08 - accuracy: 1.0000
+Epoch 20/20
+8/8 [==============================] - 3s 337ms/step - loss: 6.3877e-08 - accuracy: 1.0000
+8/8 [==============================] - 3s 331ms/step - loss: 6.1388e-08 - accuracy: 1.0000
+2/2 [==============================] - 1s 323ms/step - loss: 3.0647 - accuracy: 0.8500</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:42:20.544130: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]
+2023-04-19 14:43:16.201525: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]
+2023-04-19 14:43:19.074663: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>test_loss, test_acc <span class="op">=</span> model4.evaluate(test_generator)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:43:19.915752: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2/2 [==============================] - 1s 332ms/step - loss: 3.0647 - accuracy: 0.8500</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>plot_predictions(<span class="st">'Vgg16'</span>, model4, <span class="st">'log_images/vgg_16'</span>, prediction_generator_vgg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 4/40 [==&gt;...........................] - ETA: 0s40/40 [==============================] - 1s 21ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:43:20.693366: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]</code></pre>
+</div>
+</div>
+</section>
+<section id="mlp-with-18-million-trainable-parameters" class="level4">
+<h4 class="anchored" data-anchor-id="mlp-with-18-million-trainable-parameters">MLP with 18 million trainable parameters</h4>
+<div class="cell" data-tags="[]" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the MLP model</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_mlp_18():</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> Sequential(name <span class="op">=</span> <span class="st">'MLP'</span>)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    model.add(Flatten(input_shape<span class="op">=</span>input_img_size))</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">256</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">4096</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">1024</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># model.add(Dropout(0.2))</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">1</span>, activation<span class="op">=</span><span class="st">'sigmoid'</span>))</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>model5 <span class="op">=</span> create_mlp_18()</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the model summary to see the number of parameters</span></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>model5.summary()</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a log directory for TensorBoard</span></span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>log_dir <span class="op">=</span> <span class="st">'log_stats/mlp_18'</span></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the TensorBoard callback with update_freq='batch'</span></span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>tensorboard_callback <span class="op">=</span> tf.keras.callbacks.TensorBoard(log_dir<span class="op">=</span>log_dir, update_freq<span class="op">=</span><span class="st">'batch'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model: "MLP"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ flatten_4 (Flatten)         (None, 49152)             0         
+                                                                 
+ dense_8 (Dense)             (None, 256)               12583168  
+                                                                 
+ dense_9 (Dense)             (None, 4096)              1052672   
+                                                                 
+ dense_10 (Dense)            (None, 1024)              4195328   
+                                                                 
+ dense_11 (Dense)            (None, 1)                 1025      
+                                                                 
+=================================================================
+Total params: 17,832,193
+Trainable params: 17,832,193
+Non-trainable params: 0
+_________________________________________________________________</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compile the model with 'adam' optimizer, 'binary_crossentropy' loss function, and 'accuracy' metric</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>model5.<span class="bu">compile</span>(optimizer<span class="op">=</span><span class="st">'adam'</span>, loss<span class="op">=</span><span class="st">'binary_crossentropy'</span>, metrics<span class="op">=</span>[<span class="st">'accuracy'</span>])</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start timing the training</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using the training generator for a specified number of epochs, and save the history</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> model5.fit(train_generator, steps_per_epoch<span class="op">=</span><span class="bu">len</span>(train_generator), epochs<span class="op">=</span>num_epochs, callbacks<span class="op">=</span>[tensorboard_callback])</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Stop timing the training</span></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>end_time <span class="op">=</span> time.time()</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the training time by subtracting the start time from the end time</span></span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>training_time <span class="op">=</span> end_time <span class="op">-</span> start_time</span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model on the training set and get the training loss and accuracy</span></span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>train_loss, train_acc <span class="op">=</span> model5.evaluate(train_generator)</span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model on the test set and get the test loss and accuracy</span></span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>test_loss, test_acc <span class="op">=</span> model5.evaluate(test_generator)</span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of parameters in the model</span></span>
+<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a>num_params <span class="op">=</span> model5.count_params()</span>
+<span id="cb51-24"><a href="#cb51-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-25"><a href="#cb51-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the results file in append mode and writing the results</span></span>
+<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'results.csv'</span>, mode<span class="op">=</span><span class="st">'a'</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> results_file:</span>
+<span id="cb51-27"><a href="#cb51-27" aria-hidden="true" tabindex="-1"></a>    results_writer <span class="op">=</span> csv.writer(results_file)</span>
+<span id="cb51-28"><a href="#cb51-28" aria-hidden="true" tabindex="-1"></a>    results_writer.writerow([<span class="st">'MLP18'</span>, training_time, train_loss, train_acc, test_acc, num_params])</span>
+<span id="cb51-29"><a href="#cb51-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb51-30"><a href="#cb51-30" aria-hidden="true" tabindex="-1"></a>model5.save(<span class="st">'saved_models/mlp18.h5'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/20
+8/8 [==============================] - 2s 181ms/step - loss: 828.1496 - accuracy: 0.5188
+Epoch 2/20
+8/8 [==============================] - 1s 181ms/step - loss: 16.2150 - accuracy: 0.5375
+Epoch 3/20
+8/8 [==============================] - 1s 180ms/step - loss: 15.6720 - accuracy: 0.7688
+Epoch 4/20
+8/8 [==============================] - 1s 177ms/step - loss: 12.2998 - accuracy: 0.7250
+Epoch 5/20
+8/8 [==============================] - 1s 179ms/step - loss: 5.2125 - accuracy: 0.7750
+Epoch 6/20
+8/8 [==============================] - 1s 180ms/step - loss: 0.6979 - accuracy: 0.7625
+Epoch 7/20
+8/8 [==============================] - 1s 180ms/step - loss: 0.4396 - accuracy: 0.8125
+Epoch 8/20
+8/8 [==============================] - 1s 177ms/step - loss: 0.2875 - accuracy: 0.8375
+Epoch 9/20
+8/8 [==============================] - 1s 179ms/step - loss: 0.2572 - accuracy: 0.8562
+Epoch 10/20
+8/8 [==============================] - 1s 176ms/step - loss: 0.2298 - accuracy: 0.8813
+Epoch 11/20
+8/8 [==============================] - 1s 176ms/step - loss: 0.2363 - accuracy: 0.8625
+Epoch 12/20
+8/8 [==============================] - 1s 176ms/step - loss: 0.2186 - accuracy: 0.8813
+Epoch 13/20
+8/8 [==============================] - 1s 178ms/step - loss: 0.2041 - accuracy: 0.8875
+Epoch 14/20
+8/8 [==============================] - 1s 182ms/step - loss: 0.1776 - accuracy: 0.8875
+Epoch 15/20
+8/8 [==============================] - 1s 180ms/step - loss: 0.1936 - accuracy: 0.8813
+Epoch 16/20
+8/8 [==============================] - 1s 181ms/step - loss: 0.1938 - accuracy: 0.8750
+Epoch 17/20
+8/8 [==============================] - 1s 178ms/step - loss: 0.2023 - accuracy: 0.8562
+Epoch 18/20
+8/8 [==============================] - 1s 178ms/step - loss: 0.2071 - accuracy: 0.8562
+Epoch 19/20
+8/8 [==============================] - 1s 179ms/step - loss: 0.2038 - accuracy: 0.8562
+Epoch 20/20
+8/8 [==============================] - 1s 177ms/step - loss: 0.2014 - accuracy: 0.8562
+1/8 [==&gt;...........................] - ETA: 1s - loss: 0.1485 - accuracy: 0.95008/8 [==============================] - 0s 34ms/step - loss: 0.1929 - accuracy: 0.8562
+2/2 [==============================] - 0s 28ms/step - loss: 1.7975 - accuracy: 0.6750</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:43:22.001196: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]
+2023-04-19 14:43:51.992711: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]
+2023-04-19 14:43:52.421763: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>plot_predictions(<span class="st">'MLP18'</span>, model5, <span class="st">'log_images/mlp18'</span>, prediction_generator)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 6/40 [===&gt;..........................] - ETA: 0s40/40 [==============================] - 1s 11ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:43:53.022685: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]</code></pre>
+</div>
+</div>
+</section>
+<section id="mlp-with-135-million-trainable-parameters" class="level4">
+<h4 class="anchored" data-anchor-id="mlp-with-135-million-trainable-parameters">MLP with 135 Million Trainable Parameters</h4>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the MLP model</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_mlp_135():</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> Sequential(name <span class="op">=</span> <span class="st">'MLP'</span>)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    model.add(Flatten(input_shape<span class="op">=</span>input_img_size))</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">2500</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">2500</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">2500</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># model.add(Dropout(0.2))</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">1</span>, activation<span class="op">=</span><span class="st">'sigmoid'</span>))</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>model6 <span class="op">=</span> create_mlp_135()</span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the model summary to see the number of parameters</span></span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>model6.summary()</span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a log directory for TensorBoard</span></span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>log_dir <span class="op">=</span> <span class="st">'log_stats/mlp_135'</span></span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the TensorBoard callback with update_freq='batch'</span></span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>tensorboard_callback <span class="op">=</span> tf.keras.callbacks.TensorBoard(log_dir<span class="op">=</span>log_dir, update_freq<span class="op">=</span><span class="st">'batch'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:55:06.216229: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 491520000 exceeds 10% of free system memory.
+2023-04-19 14:55:06.543298: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 491520000 exceeds 10% of free system memory.
+2023-04-19 14:55:06.622387: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 491520000 exceeds 10% of free system memory.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model: "MLP"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ flatten_5 (Flatten)         (None, 49152)             0         
+                                                                 
+ dense_12 (Dense)            (None, 2500)              122882500 
+                                                                 
+ dense_13 (Dense)            (None, 2500)              6252500   
+                                                                 
+ dense_14 (Dense)            (None, 2500)              6252500   
+                                                                 
+ dense_15 (Dense)            (None, 1)                 2501      
+                                                                 
+=================================================================
+Total params: 135,390,001
+Trainable params: 135,390,001
+Non-trainable params: 0
+_________________________________________________________________</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compile the model with 'adam' optimizer, 'binary_crossentropy' loss function, and 'accuracy' metric</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>model6.<span class="bu">compile</span>(optimizer<span class="op">=</span><span class="st">'adam'</span>, loss<span class="op">=</span><span class="st">'binary_crossentropy'</span>, metrics<span class="op">=</span>[<span class="st">'accuracy'</span>])</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start timing the training</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using the training generator for a specified number of epochs, and save the history</span></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> model6.fit(train_generator, steps_per_epoch<span class="op">=</span><span class="bu">len</span>(train_generator), epochs<span class="op">=</span>num_epochs, callbacks<span class="op">=</span>[tensorboard_callback])</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Stop timing the training</span></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>end_time <span class="op">=</span> time.time()</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the training time by subtracting the start time from the end time</span></span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>training_time <span class="op">=</span> end_time <span class="op">-</span> start_time</span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model on the training set and get the training loss and accuracy</span></span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>train_loss, train_acc <span class="op">=</span> model6.evaluate(train_generator)</span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model on the test set and get the test loss and accuracy</span></span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a>test_loss, test_acc <span class="op">=</span> model6.evaluate(test_generator)</span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of parameters in the model</span></span>
+<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a>num_params <span class="op">=</span> model6.count_params()</span>
+<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the results file in append mode and writing the results</span></span>
+<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'results.csv'</span>, mode<span class="op">=</span><span class="st">'a'</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> results_file:</span>
+<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a>    results_writer <span class="op">=</span> csv.writer(results_file)</span>
+<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a>    results_writer.writerow([<span class="st">'MLP135'</span>, training_time, train_loss, train_acc, test_acc, num_params])</span>
+<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a>model5.save(<span class="st">'saved_models/mlp135.h5'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/20
+8/8 [==============================] - 11s 1s/step - loss: 8302.7051 - accuracy: 0.4750
+Epoch 2/20
+8/8 [==============================] - 10s 1s/step - loss: 871.6079 - accuracy: 0.6062
+Epoch 3/20
+8/8 [==============================] - 10s 1s/step - loss: 273.8789 - accuracy: 0.7188
+Epoch 4/20
+8/8 [==============================] - 10s 1s/step - loss: 134.2486 - accuracy: 0.7250
+Epoch 5/20
+8/8 [==============================] - 10s 1s/step - loss: 77.9153 - accuracy: 0.8062
+Epoch 6/20
+8/8 [==============================] - 10s 1s/step - loss: 115.3639 - accuracy: 0.8125
+Epoch 7/20
+8/8 [==============================] - 10s 1s/step - loss: 86.5102 - accuracy: 0.8813
+Epoch 8/20
+8/8 [==============================] - 10s 1s/step - loss: 5.3630 - accuracy: 0.9563
+Epoch 9/20
+8/8 [==============================] - 10s 1s/step - loss: 40.6399 - accuracy: 0.9187
+Epoch 10/20
+8/8 [==============================] - 10s 1s/step - loss: 8.1418 - accuracy: 0.9375
+Epoch 11/20
+8/8 [==============================] - 10s 1s/step - loss: 22.5314 - accuracy: 0.9375
+Epoch 12/20
+8/8 [==============================] - 10s 1s/step - loss: 50.7123 - accuracy: 0.9000
+Epoch 13/20
+8/8 [==============================] - 10s 1s/step - loss: 57.6497 - accuracy: 0.8813
+Epoch 14/20
+8/8 [==============================] - 10s 1s/step - loss: 34.0063 - accuracy: 0.9187
+Epoch 15/20
+8/8 [==============================] - 10s 1s/step - loss: 21.8980 - accuracy: 0.9187
+Epoch 16/20
+8/8 [==============================] - 10s 1s/step - loss: 0.7129 - accuracy: 0.9812
+Epoch 17/20
+8/8 [==============================] - 10s 1s/step - loss: 128.1349 - accuracy: 0.8875
+Epoch 18/20
+8/8 [==============================] - 10s 1s/step - loss: 12.1085 - accuracy: 0.9625
+Epoch 19/20
+8/8 [==============================] - 10s 1s/step - loss: 7.0070 - accuracy: 0.9750
+Epoch 20/20
+8/8 [==============================] - 10s 1s/step - loss: 36.5162 - accuracy: 0.9625
+1/8 [==&gt;...........................] - ETA: 1s - loss: 3.6694e-20 - accuracy: 1.00008/8 [==============================] - 0s 38ms/step - loss: 39.5354 - accuracy: 0.9812
+2/2 [==============================] - 0s 49ms/step - loss: 298.6696 - accuracy: 0.7000</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:55:09.682721: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]
+2023-04-19 14:55:09.831306: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 491520000 exceeds 10% of free system memory.
+2023-04-19 14:55:09.874048: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 491520000 exceeds 10% of free system memory.
+2023-04-19 14:58:32.310921: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]
+2023-04-19 14:58:32.793472: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>plot_predictions(<span class="st">'MLP135'</span>, model6, <span class="st">'log_images/mlp135'</span>, prediction_generator)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 2/40 [&gt;.............................] - ETA: 2s40/40 [==============================] - 2s 52ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-19 14:58:33.204956: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+     [[{{node Placeholder/_0}}]]</code></pre>
+</div>
+</div>
+</section>
+<section id="comparisons" class="level4">
+<h4 class="anchored" data-anchor-id="comparisons">Comparisons</h4>
+<div class="cell" data-tags="[]" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'results.csv'</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>display(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Training Time</th>
+<th data-quarto-table-cell-role="th">Train Loss</th>
+<th data-quarto-table-cell-role="th">Train Acc</th>
+<th data-quarto-table-cell-role="th">Test Acc</th>
+<th data-quarto-table-cell-role="th">Num Params</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Model Name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">VGG 1 Block</td>
+<td>72.288201</td>
+<td>2.056565e-02</td>
+<td>1.00000</td>
+<td>0.825</td>
+<td>33556481</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">VGG 3 Block</td>
+<td>73.744514</td>
+<td>1.194572e-03</td>
+<td>1.00000</td>
+<td>0.825</td>
+<td>8759681</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">VGG 3 Block with Argumentation</td>
+<td>75.150163</td>
+<td>3.559158e-01</td>
+<td>0.84375</td>
+<td>0.750</td>
+<td>8759681</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">VGG 16</td>
+<td>55.661988</td>
+<td>6.138818e-08</td>
+<td>1.00000</td>
+<td>0.850</td>
+<td>15763521</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">MLP18</td>
+<td>29.990009</td>
+<td>1.929377e-01</td>
+<td>0.85625</td>
+<td>0.675</td>
+<td>17832193</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">MLP135</td>
+<td>202.682255</td>
+<td>3.953538e+01</td>
+<td>0.98125</td>
+<td>0.700</td>
+<td>135390001</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="are-the-results-as-expected-why-or-why-not" class="level3">
+<h3 class="anchored" data-anchor-id="are-the-results-as-expected-why-or-why-not">Are the results as expected? Why or why not?</h3>
+<p><code>VGG (1 Block)</code></p>
+<p>In VGG (1 block) architecture, max-pooling and fully connected layers are placed after the single block of convolutional layers . Although this architecture has a limited number of parameters and trains quite quickly, it might not be able to recognise complicated aspects in the input.</p>
+<p><code>VGG (3 blocks)</code></p>
+<p>This architecture made up of three blocks of convolutional layers, and each block is followed by fully connected and max-pooling layers. This architecture can capture more complicated aspects in the data because it has more parameters than VGG (1 block). However, because there are more parameters, it takes longer to train than VGG (1 block).</p>
+<p><code>VGG (3 blocks with data argumentation)</code></p>
+<p>By adding different changes to the input images, such as rotation, scaling, and cropping, we inflate the size of the training set. By exposing the model to a larger range of input images when it is used with VGG (3 blocks), data augmentation can increase the model’s capacity to generalise to new data.</p>
+<p><code>VGG 16 Tranfer Learning</code></p>
+<p>When training a new model on a different dataset, transfer learning entails using a previously trained model as a starting point. Two pre-trained models that can be utilised for transfer learning are VGG16 and VGG19. These models have already learned to recognise a range of visual traits after being trained on massive datasets like ImageNet. For us, we used VGG16. We can reduce the amount of time and computational resources required to train a new model on a smaller dataset by starting with these pre-trained models.</p>
+<p>Furthermore, when the target dataset is modest, transfer learning using VGG16 outperforms training a model from scratch in terms of performance.</p>
+<p><code>MLP with 135 million parameters</code></p>
+<p>The choice between using a MLP with 135 million parameters versus transfer learning with VGG16 depends on several factors, including the specific task, available resources, and the size of the dataset.</p>
+<p>In general, using an MLP with 135 million parameters can potentially achieve higher accuracy compared to transfer learning with VGG16, especially for more complex tasks. However, training such a large MLP from scratch requires a significant amount of computational resources and time, making it impractical for many applications. Additionally, having such a large number of parameters increases the risk of overfitting, which can negatively impact model performance.</p>
+<p>On the other hand, transfer learning with VGG16 can be a good choice for image classification tasks, especially if the dataset is small.</p>
+<p><code>MLP with 18 million parameters</code></p>
+<p>In general, an MLP with 135 million parameters is likely to have a higher capacity to model complex relationships within the data compared to an MLP with 18 million parameters. However, having a larger number of parameters does not necessarily guarantee better performance, and can increase the risk of overfitting, especially if the dataset is small.</p>
+<p>On the other hand, an MLP with 18 million parameters is likely to require fewer computational resources and training time compared to an MLP with 135 million parameters. This can be beneficial, especially if the available resources are limited.</p>
+<p>The number of layers in both MLPs being 3, it’s important to note that the depth of the neural network is also an important factor to consider. Increasing the depth of the network can help to model more complex relationships within the data. However, it can also increase the risk of vanishing or exploding gradients, making it more difficult to train the network.</p>
+<table class="table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 15%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Model Name</th>
+<th style="text-align: center;">Training Time</th>
+<th style="text-align: center;">Train Loss</th>
+<th style="text-align: center;">Train Acc</th>
+<th style="text-align: center;">Test Acc</th>
+<th style="text-align: center;">Num Params</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">VGG 1 Block</td>
+<td style="text-align: center;">72.28820062</td>
+<td style="text-align: center;">0.020565649</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.824999988</td>
+<td style="text-align: center;">33556481</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">VGG 3 Block</td>
+<td style="text-align: center;">73.74451399</td>
+<td style="text-align: center;">0.001194572</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.824999988</td>
+<td style="text-align: center;">8759681</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">VGG 3 Block with Argumentation</td>
+<td style="text-align: center;">75.15016341</td>
+<td style="text-align: center;">0.355915844</td>
+<td style="text-align: center;">0.84375</td>
+<td style="text-align: center;">0.75</td>
+<td style="text-align: center;">8759681</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">VGG 16</td>
+<td style="text-align: center;">55.6619885</td>
+<td style="text-align: center;">6.14E-08</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.850000024</td>
+<td style="text-align: center;">15763521</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">MLP18</td>
+<td style="text-align: center;">29.99000883</td>
+<td style="text-align: center;">0.192937687</td>
+<td style="text-align: center;">0.856249988</td>
+<td style="text-align: center;">0.675000012</td>
+<td style="text-align: center;">17832193</td>
+</tr>
+</tbody>
+</table>
+<p><img title="" src="plots/1.png" alt="" data-align="left" width="339"></p>
+<p><img src="plots/2.png" title="" alt="" width="337"></p>
+<p><img src="plots/4.png" title="" alt="" width="336"></p>
+<p><img src="plots/5.png" title="" alt="" width="335"></p>
+<hr>
+</section>
+<section id="does-data-augmentation-help-why-or-why-not" class="level3">
+<h3 class="anchored" data-anchor-id="does-data-augmentation-help-why-or-why-not">Does data augmentation help? Why or why not?</h3>
+<p>Data augmentation is a method of creating additional training data from the existing datase by using various transformations including rotation, scaling, flipping, cropping, and other picture modificationst.</p>
+<p>By doing this, the model is exposed to a wider variety of training data and can improve its ability to identify and generalise to fresh, unexplored data.</p>
+<p>Data augmentation can reduce overfitting, which occurs when the model memorises the training data rather than generalising to new data, by expanding the quantity and diversity of the training dataset. This may enable the model to perform more effectively on the test data.</p>
+<p>In other words, data augmentation makes the model more reliable and capable of identifying objects or patterns.</p>
+<p>For us, the argumented model is working worse than the original one. One reason could be, less number of epochs to train with, perhaps may with with higher epoch, we will get better results.</p>
+<hr>
+</section>
+<section id="does-it-matter-how-many-epochs-you-fine-tune-the-model-why-or-why-not" class="level3">
+<h3 class="anchored" data-anchor-id="does-it-matter-how-many-epochs-you-fine-tune-the-model-why-or-why-not">Does it matter how many epochs you fine tune the model? Why or why not?</h3>
+<p>The term “number of epochs” refers to how many times the complete dataset was run through the model during training while fine-tuning a pre-trained model.</p>
+<p>If the number of epoch is low, the model will underfit.</p>
+<p>On the other side, if the number of epochs is too high , then model might begin to overfit to the training data, which would mean that it would memorise the training data rather than generalising to new data.</p>
+<p>It is crucial to select the right number of epochs for fine-tuning in accordance with the difficulty of the task, the size of the dataset, and the unique properties of the model and data. Normally, this value is calculated by keeping track of the model’s performance on a validation set during training and halting when the validation accuracy stops increasing or begins to drop.</p>
+<p>Even though we have not implemented it, but early stopping could be a good measure to utilize, when it comes to number of epochs.</p>
+<p>Early stopping is a callback technique that can help prevent overfitting and save computational resources by stopping the training process before it completes all epochs. It can improve model performance, reduce training time, and help generalize the model better to unseen data.</p>
+<hr>
+</section>
+<section id="are-there-any-particular-images-that-the-model-is-confused-about-why-or-why-not" class="level3">
+<h3 class="anchored" data-anchor-id="are-there-any-particular-images-that-the-model-is-confused-about-why-or-why-not">Are there any particular images that the model is confused about? Why or why not?</h3>
+<p><img src="plots/3.png" title="" alt="" width="311"></p>
+<p>This was the image for which each model got confused.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+  </div>
+</body>
+</html>

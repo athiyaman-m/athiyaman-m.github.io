@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Soumyaratna Debnath">
+  <meta name="description" content="Software with a clean and simplistic user interface, which allows a user to inscribe a digital color image with passcode protected messages.">
+  <meta name="dcterms.date" content="2021-05-25">
+  <title>Picrypt-It</title>
+  <link rel="icon" href="../../badge-sd-fill.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../styles.css">
+  
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+  
+  <script defer src="../../assets/js/site.js"></script>
+</head>
+<body data-root="../../" data-page="projects" data-kind="detail">
+  <div class="site-main">
+    <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#features" id="toc-features" class="nav-link" data-scroll-target="#features">Features</a></li>
+  <li><a href="#technical-implementation" id="toc-technical-implementation" class="nav-link" data-scroll-target="#technical-implementation">Technical Implementation</a></li>
+  <li><a href="#use-cases" id="toc-use-cases" class="nav-link" data-scroll-target="#use-cases">Use Cases</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">Future Work</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Picrypt-It</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Image Processing</div>
+    <div class="quarto-category">Steganography</div>
+    <div class="quarto-category">Desktop Application</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Software with a clean and simplistic user interface, which allows a user to inscribe a digital color image with passcode protected messages.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Soumyaratna Debnath </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 25, 2021</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p><a href="https://github.com/SoumyaratnaDebnath/Picrypt-It/tree/main" style="text-decoration: none;"> <i class="bi bi-github"></i> <span class="about-link-text">GitHub</span> </a>   <a href="https://github.com/SoumyaratnaDebnath/Picrypt-It/blob/main/Copyright%20Certificate.pdf" style="text-decoration: none;"> <i class="bi bi-c-circle"></i> <span class="about-link-text">Copyright</span> </a></p>
+<p><img loading="lazy" decoding="async" src="Banner.png" class="img-fluid"></p>
+<section id="abstract" class="level3">
+<h3 class="anchored" data-anchor-id="abstract">Abstract</h3>
+<p style="text-align:justify;">
+Inspired by the principle “why send less, when you can send more,” Picrypt is a user-friendly software featuring a clean and simplistic interface, designed for inscribing digital color images with passcode-protected messages. This software allows users to download and locally save these inscribed images, which can then be sent digitally across the globe while preserving and protecting the embedded data message. The passcode used to inscribe the messages serves as the key for successful decryption, ensuring that the messages remain secure and accessible only to intended recipients.
+</p>
+</section>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p style="text-align:justify;">
+In today’s digital age, billions of images are shared among people every day. Often, these images require accompanying descriptions, especially in professional contexts such as journalism, where detailed reports must be submitted alongside photographs. Traditional methods involve sending text separately, which can be cumbersome and insecure. Picrypt addresses this challenge by enabling users to embed descriptive text directly into images, protected by a passcode.
+</p>
+</section>
+<section id="features" class="level3">
+<h3 class="anchored" data-anchor-id="features">Features</h3>
+<section id="user-friendly-interface" class="level4">
+<h4 class="anchored" data-anchor-id="user-friendly-interface">User-Friendly Interface</h4>
+<p style="text-align:justify;">
+Picrypt boasts a clean and simplistic user interface, making it accessible and easy to use for individuals of all technical backgrounds. The software’s design emphasizes simplicity and efficiency, allowing users to inscribe images with messages using just a few clicks.
+</p>
+</section>
+<section id="passcode-protection" class="level4">
+<h4 class="anchored" data-anchor-id="passcode-protection">Passcode Protection</h4>
+<p style="text-align:justify;">
+To ensure that the embedded messages remain secure, Picrypt employs passcode protection. The passcode acts as the key to decrypt the inscribed messages, guaranteeing that only intended recipients can access the data.
+</p>
+</section>
+<section id="local-storage-and-sharing" class="level4">
+<h4 class="anchored" data-anchor-id="local-storage-and-sharing">Local Storage and Sharing</h4>
+<p style="text-align:justify;">
+Once an image is inscribed with a message, it can be downloaded and saved locally. Users can then share the image digitally across the globe, with the confidence that the embedded message remains protected and intact throughout the transmission.
+</p>
+</section>
+</section>
+<section id="technical-implementation" class="level3">
+<h3 class="anchored" data-anchor-id="technical-implementation">Technical Implementation</h3>
+<section id="data-encryption" class="level4">
+<h4 class="anchored" data-anchor-id="data-encryption">Data Encryption</h4>
+<p style="text-align:justify;">
+Picrypt uses advanced encryption techniques to secure the data embedded within images. The data is encrypted using Vernam Cipher and Playfair Cipher before being inscribed into the image. This ensures that even if the image is intercepted, the message remains unreadable without the correct passcode.
+</p>
+</section>
+<section id="pixel-based-inscription" class="level4">
+<h4 class="anchored" data-anchor-id="pixel-based-inscription">Pixel-Based Inscription</h4>
+<p style="text-align:justify;">
+The software leverages the pixel intensity values of a color image to inscribe encrypted data into the image on a pixel-by-pixel basis. This method preserves the original components, details, quality, and aspect ratio of the image, ensuring that the visual integrity of the image is maintained.
+</p>
+</section>
+<section id="parity-check" class="level4">
+<h4 class="anchored" data-anchor-id="parity-check">Parity Check</h4>
+<p style="text-align:justify;">
+To maintain the consistency and integrity of the inscribed data, Picrypt implements an odd/even parity check. This additional layer of validation helps to ensure that the data remains accurate and consistent throughout the process.
+</p>
+</section>
+</section>
+<section id="use-cases" class="level3">
+<h3 class="anchored" data-anchor-id="use-cases">Use Cases</h3>
+<section id="journalism" class="level4">
+<h4 class="anchored" data-anchor-id="journalism">Journalism</h4>
+<p style="text-align:justify;">
+Journalists can use Picrypt to embed detailed descriptions of situations directly into photographs. This simplifies the reporting process and ensures that critical information is securely transmitted alongside the images.
+</p>
+</section>
+<section id="secure-communication" class="level4">
+<h4 class="anchored" data-anchor-id="secure-communication">Secure Communication</h4>
+<p style="text-align:justify;">
+Picrypt can be used for secure communication in various contexts where sensitive information needs to be shared alongside images. By embedding the message directly into the image and protecting it with a passcode, users can ensure that their communication remains confidential.
+</p>
+</section>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p style="text-align:justify;">
+Picrypt represents a significant advancement in the way we share images and information. By combining user-friendly design with robust security features, Picrypt offers a powerful tool for embedding and protecting messages within digital images. Whether for professional use in journalism or secure personal communication, Picrypt provides a reliable and efficient solution for inscribing and sharing information.
+</p>
+</section>
+<section id="future-work" class="level3">
+<h3 class="anchored" data-anchor-id="future-work">Future Work</h3>
+<p style="text-align:justify;">
+Future enhancements to Picrypt could include support for different image formats, improved encryption algorithms, and the ability to embed larger amounts of data. Additionally, expanding the software’s compatibility with various operating systems and devices will further enhance its usability and accessibility.
+</p>
+
+
+</section>
+
+</main> <!-- /main -->
+  </div>
+</body>
+</html>

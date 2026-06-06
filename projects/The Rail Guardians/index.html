@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Soumyaratna Debnath">
+  <meta name="description" content="Inspired from Eternal Vertex Cover problem, The Rail Guardians is a two-player game where the players alternate between defending and attacking positions in a dynamic, strategic showdown.">
+  <meta name="dcterms.date" content="2024-04-21">
+  <title>index</title>
+  <link rel="icon" href="../../badge-sd-fill.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../styles.css">
+  
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+#quarto-document-content p:not(.project-action-links),
+#quarto-document-content li {
+  text-align: justify;
+  text-justify: inter-word;
+}
+#quarto-document-content em,
+#quarto-document-content i {
+  font-style: normal;
+}
+#quarto-document-content p {
+  margin-top: 0;
+  margin-bottom: 0.62rem;
+  line-height: 1.62;
+}
+#quarto-document-content p.table-caption {
+  text-align: center;
+  margin-top: 0.15rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+#quarto-document-content table.table {
+  width: 72%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0.65rem auto 0.95rem;
+  font-size: 0.88rem;
+  table-layout: auto;
+  min-width: 520px;
+  max-width: 680px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ffffff;
+}
+#quarto-document-content table.table th,
+#quarto-document-content table.table td {
+  padding: 0.42rem 0.56rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  text-align: center;
+  vertical-align: middle;
+}
+#quarto-document-content table.table thead th {
+  font-weight: 650;
+  background: #f7f9fc;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+}
+#quarto-document-content table.table tbody tr:nth-child(even) {
+  background: #fbfcff;
+}
+#quarto-document-content table.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+@media (max-width: 760px) {
+  #quarto-document-content table.table {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    font-size: 0.86rem;
+  }
+}
+</style>
+  
+  <script defer src="../../assets/js/site.js"></script>
+</head>
+<body data-root="../../" data-page="projects" data-kind="detail">
+  <div class="site-main">
+    <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
+  <li><a href="#the-rail-guardians" id="toc-the-rail-guardians" class="nav-link" data-scroll-target="#the-rail-guardians">The Rail Guardians</a></li>
+  <li><a href="#analysis-of-max-score-for-energy-aware-evc-on-linear-paths" id="toc-analysis-of-max-score-for-energy-aware-evc-on-linear-paths" class="nav-link" data-scroll-target="#analysis-of-max-score-for-energy-aware-evc-on-linear-paths">Analysis of Max Score for Energy Aware EVC</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Rail Guardians</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Game Theory</div>
+    <div class="quarto-category">Graph Theory</div>
+    <div class="quarto-category">Game Development</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Inspired from Eternal Vertex Cover problem, The Rail Guardians is a two-player game where the players alternate between defending and attacking positions in a dynamic, strategic showdown.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Soumyaratna Debnath </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 21, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p class="project-action-links"><a href="https://github.com/SoumyaratnaDebnath/The-Rail-Guardians" style="text-decoration: none;"><span class="about-link-text">GitHub</span></a> <a href="https://soumyaratnadebnath.github.io/The-Rail-Guardians/" style="text-decoration: none;"><span class="about-link-text">Play the Game</span></a></p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>The Rail Guardians is an interactive implementation of the Eternal Vertex Cover (EVC) problem from graph theory.</p>
+<p>A <strong>vertex cover</strong> is a subset of vertices such that every edge in a graph has at least one endpoint in that subset. For a graph G(V, E), the size of the smallest such subset is the <strong>minimum vertex cover</strong>, denoted <strong>mvc(G)</strong>.</p>
+<p>In the dynamic setting, the problem becomes a defender-attacker game. The defender places guards on vertices and the attacker chooses edges to attack. An attack is defended only if a guard can move along the attacked edge. The minimum number of guards that guarantees perpetual defense is the <strong>eternal vertex cover number</strong>, denoted <strong>evc(G)</strong>.</p>
+</section>
+<section id="background" class="level3">
+<h3 class="anchored" data-anchor-id="background">Background</h3>
+<p>Eternal Vertex Cover was introduced by Klostermeyer and Mynhardt [2], with the classical bound mvc(G) ≤ evc(G) ≤ 2mvc(G). Subsequent work explored structural graph classes, grids, complexity, and approximation behavior [3][4][5][6]. This project focuses on making that theory playable and intuitive through a clean browser-based strategy game.</p>
+</section>
+<section id="the-rail-guardians" class="level3">
+<h3 class="anchored" data-anchor-id="the-rail-guardians">The Rail Guardians</h3>
+<p>The Rail Guardians is a two-player web game where the defender protects railway tracks (edges) and the attacker attempts to break them. The game mechanics follow the formal EVC rules while keeping the interaction fast and visual.</p>
+<h4 class="anchored" data-anchor-id="storyline">Storyline</h4>
+<p>You lead railway operations in a high-risk setting with frequent sabotage attempts. Your objective is to deploy builders (guards) so that every track stays defendable against an attacker's move sequence.</p>
+<h4 class="anchored" data-anchor-id="mode-1-generic-eternal-vertex-cover">Mode 1: Generic Eternal Vertex Cover</h4>
+<p>This baseline mode implements the standard EVC gameplay. The defender places builders first and then alternates turns with the attacker. If an unguarded edge is attacked, the attacker wins. Otherwise, the defender must respond with a valid movement and survive the configured number of rounds.</p>
+<h4 class="anchored" data-anchor-id="mode-2-partial-visibility-memory-challenge">Mode 2: Partial-Visibility Memory Challenge</h4>
+<p>The same core rules apply, but the defender does not see the full graph at once. Local neighborhood information is revealed contextually, requiring memory and strategic planning under uncertainty.</p>
+<h4 class="anchored" data-anchor-id="mode-3-energy-aware-eternal-vertex-cover">Mode 3: Energy-Aware Eternal Vertex Cover</h4>
+<p>Each builder has limited energy. Moving a builder reduces its energy, and pass moves also consume energy from the strongest remaining builder. The game ends when any builder reaches zero energy or when an undefendable attack happens. The score is the number of rounds survived.</p>
+</section>
+<section id="analysis-of-max-score-for-energy-aware-evc-on-linear-paths" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-of-max-score-for-energy-aware-evc-on-linear-paths">Analysis of Max Score for Energy Aware EVC</h3>
+<p>For the energy-aware variant (Mode 3), the project includes an analysis of maximum achievable defender score on linear path graphs when each builder starts with energy <strong>K</strong> (for large K). The objective is to understand how graph size and builder count affect survivability.</p>
+<p class="table-caption">Table 1: Max score trends for Energy-Aware Eternal Vertex Cover on path graphs.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th><strong>Stations</strong></th>
+<th><strong>Builders</strong></th>
+<th><strong>Energy</strong></th>
+<th><strong>Max Score</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>1</td>
+<td>K</td>
+<td><strong>K</strong></td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>1</td>
+<td>K</td>
+<td><strong>1</strong></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>2</td>
+<td>K</td>
+<td><strong>2K – 1</strong></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+<td>K</td>
+<td><strong>0</strong></td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>2</td>
+<td>K</td>
+<td><strong>2</strong></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>3</td>
+<td>K</td>
+<td><strong>3K – 2</strong></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>1</td>
+<td>K</td>
+<td><strong>0</strong></td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>2</td>
+<td>K</td>
+<td><strong>1</strong></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>3</td>
+<td>K</td>
+<td><strong>3</strong></td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>4</td>
+<td>K</td>
+<td><strong>4K – 3</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key observations:</strong></p>
+<ul>
+<li>As builder count approaches the number of stations needed for robust coverage, the score scales approximately linearly with <strong>K</strong>.</li>
+<li>Undersupplied configurations collapse quickly regardless of large initial energy.</li>
+<li>Optimal initial placement matters as much as movement policy in long-horizon play.</li>
+<li>The energy-aware mode creates a clear trade-off between immediate defense and long-term sustainability.</li>
+</ul>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>The Rail Guardians presents Eternal Vertex Cover as an interactive strategy experience without diluting the underlying graph-theoretic rules. It combines formal gameplay constraints with a clear UI and progressively challenging modes.</p>
+<p>Future extensions include stronger AI agents, larger graph families, and heuristic or genetic approaches for maximizing score in the energy-aware setting.</p>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Thanks to Prof.&nbsp;Neeldhara Misra, Prof.&nbsp;Jyothi Krishnan, and Saraswati Girish Nanoti for helpful discussions on the problem setting, and to Sakshi for contribution to the storyline.</p>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">References</h3>
+<ol type="1">
+<li>“Vertex cover,” Wikipedia. Mar.&nbsp;01, 2024. Accessed: Apr.&nbsp;26, 2024. [Online]. Available: https://en.wikipedia.org/w/index.php?title=Vertex_cover&amp;oldid=1211245782</li>
+<li>W. F. Klostermeyer and C. M. Mynhardt, “Edge protection in graphs”.</li>
+<li>T. Calamoneri and F. Corò, “(Eternal) Vertex Cover Number of Infinite and Finite Grid Graphs.” arXiv, Sep.&nbsp;12, 2022. doi: 10.48550/arXiv.2209.05102.</li>
+<li>J. Babu, L. S. Chandran, M. Francis, V. Prabhakaran, D. Rajendraprasad, and J. N. Warrier, “On Graphs with Minimal Eternal Vertex Cover Number,” in Algorithms and Discrete Applied Mathematics, S. P. Pal and A. Vijayakumar, Eds., Cham: Springer International Publishing, 2019, pp.&nbsp;263–273. doi: 10.1007/978-3-030-11509-8_22.</li>
+<li>F. V. Fomin, S. Gaspers, P. A. Golovach, D. Kratsch, and S. Saurabh, “Parameterized algorithm for eternal vertex cover,” Inf. Process. Lett., vol.&nbsp;110, no. 16, pp.&nbsp;702–706, Jul.&nbsp;2010, doi: 10.1016/j.ipl.2010.05.029.</li>
+<li>J. Babu, N. Misra, and S. G. Nanoti, “Eternal Vertex Cover on Bipartite Graphs,” in Computer Science – Theory and Applications, A. S. Kulikov and S. Raskhodnikova, Eds., Cham: Springer International Publishing, 2022, pp.&nbsp;64–76. doi: 10.1007/978-3-031- 09574-0_5.</li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+  </div>
+</body>
+</html>

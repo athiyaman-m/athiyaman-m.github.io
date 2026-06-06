@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Soumyaratna Debnath">
+  <meta name="description" content="Custom Implemenation of Vison Trasformer from Scratch for Image Classification using Pytorch.">
+  <meta name="dcterms.date" content="2024-07-08">
+  <title>Vision Transformer Implementation from Scratch</title>
+  <link rel="icon" href="../../badge-sd-fill.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../styles.css">
+  
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+  
+  <script defer src="../../assets/js/site.js"></script>
+</head>
+<body data-root="../../" data-page="projects" data-kind="detail">
+  <div class="site-main">
+    <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Vision Transformer Implementation from Scratch</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Computer Vision</div>
+    <div class="quarto-category">Deep Learning</div>
+    <div class="quarto-category">Pytorch</div>
+    <div class="quarto-category">Vision Transformer</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Custom Implemenation of Vison Trasformer from Scratch for Image Classification using Pytorch.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Soumyaratna Debnath </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 8, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p><a href="https://github.com/SoumyaratnaDebnath/Byte-by-Byte-Vision/blob/main/vision-trasnformer-from-scratch/vit.ipynb" style="text-decoration: none;"> <i class="bi bi-github"></i> <span class="about-link-text">GitHub</span> </a></p>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> tqdm</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.optim <span class="im">as</span> optim</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.utils.data <span class="im">import</span> DataLoader</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchvision.datasets <span class="im">import</span> MNIST</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchvision.transforms <span class="im">import</span> ToTensor</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.nn <span class="im">import</span> CrossEntropyLoss</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pdb</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">0</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">0</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_device_ <span class="op">=</span> <span class="st">'cuda:1'</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">'cpu'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<table style="border:none;">
+<tbody><tr style="border:none;">
+<td style="border:none;">
+<h3 class="anchored">
+Image 1: Architecture of ViT
+</h3>
+<img loading="lazy" decoding="async" src="_images_/vit.png" alt="drawing" width="600px">
+</td>
+</tr>
+
+</tbody></table>
+<table style="border:none;">
+<tbody><tr style="border:none;">
+<td style="border:none;">
+<h3 class="anchored">
+Image 2: Architecture of ViT for Classification
+</h3>
+<img loading="lazy" decoding="async" src="_images_/vit_for_classification.png" alt="drawing" width="600px">
+</td>
+</tr>
+
+</tbody></table>
+<p>The idea of <strong>patch embedding</strong> is to divide the images into patches and then later flatten them to a one dimensional vector before feeding it to the model. Traditionally tramsformers are made to work with sequence of words, thus patch embedding allow us to sequencify the images.</p>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> patch_embedding(images, n_patch <span class="op">=</span> <span class="dv">7</span>): <span class="co"># n_patch = 7 means 7x7 grid of patches, so there will be 49 patches (note, image size is 28x28)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    n, c, h, w <span class="op">=</span> images.shape <span class="co"># for MNIST, n = n (number of images), c = 1 (channels), h = 28 (height), w = 28 (width)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> h <span class="op">==</span> w, <span class="st">'Input image should be square'</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    patches <span class="op">=</span> torch.zeros(n, n_patch <span class="op">**</span> <span class="dv">2</span>, h <span class="op">*</span> w <span class="op">*</span> c <span class="op">//</span> n_patch <span class="op">**</span> <span class="dv">2</span>)   <span class="co"># (N, 49, 16) holds all the patches for all the images</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                                                                        <span class="co"># 28 * 28 * 1 / 7 * 7 = 16 pixels per patch</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    patch_size <span class="op">=</span> h <span class="op">//</span> n_patch <span class="co"># 28 / 7 = 4</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> idx, image <span class="kw">in</span> <span class="bu">enumerate</span>(images): <span class="co"># ennumerate over the images</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_patch): <span class="co"># iterate over the patches</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n_patch): <span class="co"># iterate over the patches</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                patch <span class="op">=</span> image[:, i <span class="op">*</span> patch_size: (i <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> patch_size, j <span class="op">*</span> patch_size: (j <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> patch_size] <span class="co"># get the patch, (1, 4, 4)</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                patches[idx, i <span class="op">*</span> n_patch <span class="op">+</span> j] <span class="op">=</span> patch.flatten() <span class="co"># flatten the patch and assign it to the patches tensor</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> patches <span class="co"># N x 49 x 16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<table style="border:none;">
+<tbody><tr style="border:none;">
+<td style="border:none;">
+<h3 class="anchored">
+Image 3: Equation for posistional encodeing
+</h3>
+<img loading="lazy" decoding="async" src="_images_/positional_embedding.png" alt="drawing" width="600px">
+</td>
+</tr>
+
+</tbody></table>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> positional_encoding(sequence_length, d): <span class="co"># 50, 8</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> torch.ones(sequence_length, d) <span class="co"># 50 x 8</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(sequence_length):</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(d):</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="co"># the equation comes form the paper, depicted in the Image 3</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            result[i][j] <span class="op">=</span> np.sin(i <span class="op">/</span> (<span class="dv">10000</span> <span class="op">**</span> (j <span class="op">/</span> d))) <span class="cf">if</span> j <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> np.cos(i <span class="op">/</span> (<span class="dv">10000</span> <span class="op">**</span> (j <span class="op">/</span> d)))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result <span class="co"># 50 x 8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MultiHeadAttention(nn.Module):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, d, n_heads <span class="op">=</span> <span class="dv">2</span>): <span class="co"># we have 8 dimensional vectors and 2 heads</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.d <span class="op">=</span> d <span class="co"># d is the dimension</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n_heads <span class="op">=</span> n_heads <span class="co"># n_heads is the number of heads</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> d <span class="op">%</span> n_heads <span class="op">==</span> <span class="dv">0</span>, <span class="st">'d should be divisible by n_heads'</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.d_head <span class="op">=</span> d <span class="op">//</span> n_heads <span class="co"># 8 / 2 = 4</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.q <span class="op">=</span> nn.ModuleList([nn.Linear(<span class="va">self</span>.d_head, <span class="va">self</span>.d_head) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.n_heads)]) <span class="co"># [(4, 4), (4, 4)] =&gt; multi-heads</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.k <span class="op">=</span> nn.ModuleList([nn.Linear(<span class="va">self</span>.d_head, <span class="va">self</span>.d_head) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.n_heads)]) <span class="co"># [(4, 4), (4, 4)] =&gt; multi-heads</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.v <span class="op">=</span> nn.ModuleList([nn.Linear(<span class="va">self</span>.d_head, <span class="va">self</span>.d_head) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.n_heads)]) <span class="co"># [(4, 4), (4, 4)] =&gt; multi-heads</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.softmax <span class="op">=</span> nn.Softmax(dim <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, sequences):</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># N, seq_len, token_dim =&gt; N, 50, 8</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Each patch will have its own k, q, v</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Now each patch has a dimension 8, and we apply them across two heads, thus we do it twice with 4 dimensions each</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        results <span class="op">=</span> []</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> sequence <span class="kw">in</span> sequences:</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            seq_result <span class="op">=</span> []</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> head <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.n_heads): <span class="co"># 0, 1, or 2 (assuming n_heads is 3 for this example)</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>                q_mapping <span class="op">=</span> <span class="va">self</span>.q[head]</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>                k_mapping <span class="op">=</span> <span class="va">self</span>.k[head]</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>                v_mapping <span class="op">=</span> <span class="va">self</span>.v[head]</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                <span class="co"># We take the first d_head dimensions and the next d_head dimensions in the next iteration</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>                seq <span class="op">=</span> sequence[:, head <span class="op">*</span> <span class="va">self</span>.d_head : (head <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> <span class="va">self</span>.d_head] <span class="co"># [0: 4], [4: 8]</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>                <span class="co"># We multiply the sequence with the q, k, v matrices</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>                q <span class="op">=</span> q_mapping(seq)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>                k <span class="op">=</span> k_mapping(seq)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>                v <span class="op">=</span> v_mapping(seq)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Compute attention scores</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>                attention <span class="op">=</span> <span class="va">self</span>.softmax(torch.matmul(q, k.transpose(<span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">1</span>)) <span class="op">/</span> np.sqrt(<span class="va">self</span>.d_head)) <span class="co"># (batch_size, seq_len, seq_len)</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Apply attention to the value matrix</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>                attended_seq <span class="op">=</span> torch.matmul(attention, v) <span class="co"># (batch_size, seq_len, d_head)</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>                seq_result.append(attended_seq) <span class="co"># append the result of the current head</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Concatenate the results of the heads along the last dimension</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>            results.append(torch.hstack(seq_result)) <span class="co"># (batch_size, seq_len, d_model)</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Concatenate the results of the sequences along the batch dimension</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> torch.cat([torch.unsqueeze(r, dim<span class="op">=</span><span class="dv">0</span>) <span class="cf">for</span> r <span class="kw">in</span> results], dim<span class="op">=</span><span class="dv">0</span>) <span class="co"># (total_sequences, batch_size, seq_len, d_model)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> EncoderVIT(nn.Module):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, hidden_d, n_heads, mlp_ratio <span class="op">=</span> <span class="dv">4</span>):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.hidden_d <span class="op">=</span> hidden_d</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n_heads <span class="op">=</span> n_heads</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.mlp_ratio <span class="op">=</span> mlp_ratio</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># here we are following the flow mentioned in image 1, norm -&gt; mha -&gt; norm -&gt; mlp</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.norm1 <span class="op">=</span> nn.LayerNorm(hidden_d) </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.mha <span class="op">=</span> MultiHeadAttention(hidden_d, n_heads)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.norm2 <span class="op">=</span> nn.LayerNorm(hidden_d)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.mlp <span class="op">=</span> nn.Sequential(</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            nn.Linear(hidden_d, hidden_d <span class="op">*</span> mlp_ratio),</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            nn.GELU(),</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            nn.Linear(hidden_d <span class="op">*</span> mlp_ratio, hidden_d)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        out1 <span class="op">=</span> <span class="va">self</span>.norm1(x) <span class="co"># 32 x 50 x 8</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        out1 <span class="op">=</span> <span class="va">self</span>.mha(out1) <span class="co"># 32 x 50 x 8</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        out1 <span class="op">=</span> x <span class="op">+</span> out1 <span class="co"># adding the x will do the residual connection as shown in image 1 # 32 x 50 x 8</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        out2 <span class="op">=</span> <span class="va">self</span>.norm2(out1)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>        out2 <span class="op">=</span> <span class="va">self</span>.mlp(out2)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        out2 <span class="op">=</span> out1 <span class="op">+</span> out2</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># # A compact way to fo the exact same thing is given below</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># out = x + self.mha(self.norm1(x))</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># out = out + self.mlp(self.norm2(out))</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> out2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> VIT(nn.Module):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, channel <span class="op">=</span> <span class="dv">1</span>, height <span class="op">=</span> <span class="dv">28</span>, width <span class="op">=</span> <span class="dv">28</span>, n_patch <span class="op">=</span> <span class="dv">7</span>, n_blocks <span class="op">=</span> <span class="dv">2</span>, hidden_d <span class="op">=</span> <span class="dv">8</span>, n_heads <span class="op">=</span> <span class="dv">2</span>, out_dim <span class="op">=</span> <span class="dv">10</span>):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.channel <span class="op">=</span> channel</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.height <span class="op">=</span> height</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.width <span class="op">=</span> width</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n_patch <span class="op">=</span> n_patch</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.hidden_d <span class="op">=</span> hidden_d</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n_blocks <span class="op">=</span> n_blocks</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n_heads <span class="op">=</span> n_heads</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> height <span class="op">==</span> width, <span class="st">'Input image should be square'</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> height <span class="op">%</span> n_patch <span class="op">==</span> <span class="dv">0</span>, <span class="st">'n_patch should be a factor of height'</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.patch_size <span class="op">=</span> (height <span class="op">//</span> n_patch, width <span class="op">//</span> n_patch) <span class="co"># (4, 4)</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># linear mapping of the patches</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.input_d <span class="op">=</span> <span class="bu">int</span>(channel <span class="op">*</span> <span class="va">self</span>.patch_size[<span class="dv">0</span>] <span class="op">*</span> <span class="va">self</span>.patch_size[<span class="dv">1</span>]) <span class="co"># 1 * 4 * 4 = 16</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.linear_mapper <span class="op">=</span> nn.Linear(<span class="va">self</span>.input_d, <span class="va">self</span>.hidden_d) <span class="co"># 16 -&gt; 8</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="co"># learnable class token</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.class_token <span class="op">=</span> nn.Parameter(torch.randn(<span class="dv">1</span>, <span class="va">self</span>.hidden_d)) <span class="co"># 1 x 8</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># positional embedding</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.pos_embed <span class="op">=</span> nn.Parameter(torch.zeros((<span class="va">self</span>.n_patch <span class="op">**</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">1</span>, <span class="va">self</span>.hidden_d))) <span class="co"># 50 x 8</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.pos_embed.requires_grad <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># In image 1, we see the encoder block is repeated n times, here we are repeating it 2 times</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Encoder block</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.blocks <span class="op">=</span> nn.ModuleList(</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>            [</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>                EncoderVIT(<span class="va">self</span>.hidden_d, <span class="va">self</span>.n_heads) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.n_blocks)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>        <span class="co"># we just need a final MLP layer to get the output</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.mlp <span class="op">=</span> nn.Sequential(</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>            nn.Linear(<span class="va">self</span>.hidden_d, out_dim),</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>            nn.Softmax(dim <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, images):</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>        n, c, h, w <span class="op">=</span> images.shape</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>        <span class="co"># we get the patches</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>        patches <span class="op">=</span> patch_embedding(images, <span class="va">self</span>.n_patch) <span class="co"># N x 49 x 16</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>        <span class="co"># in image 1, we see the patches get passed through a linear projection which outputs an eight dimnsional vector, the next line does the exact same thing</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>        <span class="co"># performing a linear projection on the patches</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>        tokens <span class="op">=</span> <span class="va">self</span>.linear_mapper(patches.to(device<span class="op">=</span>_device_)) <span class="co"># N x 49 x 8</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>        <span class="co"># in image 2, we see along with the patches there is a &lt;cls&gt; token which is passed with each image, thus for each image we need to append a classification</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>        <span class="co"># token, the next line does the exact same thing</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>        <span class="co"># adding the class token to the tokens</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>        tokens <span class="op">=</span> torch.stack([torch.vstack((<span class="va">self</span>.class_token, token)) <span class="cf">for</span> token <span class="kw">in</span> tokens]) <span class="co"># N x 50 x 8</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>        <span class="co"># in image 2, we see the positional encoding is added to the tokens, the next line does the exact same thing</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>        <span class="co"># adding the positional embedding to the tokens</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>        pos_embed <span class="op">=</span> <span class="va">self</span>.pos_embed.repeat(n, <span class="dv">1</span>, <span class="dv">1</span>) <span class="co"># N x 50 x 8</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>        <span class="co"># in image 1, we see the tokens and positional encoding are added together, the next line does the exact same thing</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>        out <span class="op">=</span> tokens <span class="op">+</span> pos_embed</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>        <span class="co"># transformer block</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> block <span class="kw">in</span> <span class="va">self</span>.blocks:</span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>            out <span class="op">=</span> block(out)</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>        <span class="co"># apply the final MLP layer only in the classification token, for that we need to extract the classification token</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>        cls_token <span class="op">=</span> out[:, <span class="dv">0</span>] <span class="co"># 1 x 8</span></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.mlp(cls_token) <span class="co"># 1 x 10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now since everything is set, we define the training loop</p>
+<div class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train():</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    transform <span class="op">=</span> ToTensor()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    train_set <span class="op">=</span> MNIST(root <span class="op">=</span> <span class="st">'./data'</span>, train <span class="op">=</span> <span class="va">True</span>, download <span class="op">=</span> <span class="va">True</span>, transform <span class="op">=</span> transform)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    test_set <span class="op">=</span> MNIST(root <span class="op">=</span> <span class="st">'./data'</span>, train <span class="op">=</span> <span class="va">False</span>, download <span class="op">=</span> <span class="va">True</span>, transform <span class="op">=</span> transform)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    train_loader <span class="op">=</span> DataLoader(train_set, batch_size <span class="op">=</span> <span class="dv">32</span>, shuffle <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    test_loader <span class="op">=</span> DataLoader(test_set, batch_size <span class="op">=</span> <span class="dv">32</span>, shuffle <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    device <span class="op">=</span> _device_</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> VIT(channel<span class="op">=</span><span class="dv">1</span>, height<span class="op">=</span><span class="dv">28</span>, width<span class="op">=</span><span class="dv">28</span>, n_patch<span class="op">=</span><span class="dv">7</span>, n_blocks<span class="op">=</span><span class="dv">2</span>, hidden_d<span class="op">=</span><span class="dv">8</span>, n_heads<span class="op">=</span><span class="dv">2</span>, out_dim<span class="op">=</span><span class="dv">10</span>).to(device)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    n_epochs <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    lr <span class="op">=</span> <span class="fl">0.005</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    optimizer <span class="op">=</span> optim.Adam(model.parameters(), lr <span class="op">=</span> lr)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    criterion <span class="op">=</span> CrossEntropyLoss()</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># training loop</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(n_epochs):</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        train_loss <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> batch <span class="kw">in</span> tqdm(train_loader, desc<span class="op">=</span><span class="ss">f"Epoch </span><span class="sc">{</span>epoch <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n_epochs<span class="sc">}</span><span class="ss"> - Training"</span>):</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            images, labels <span class="op">=</span> batch</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>            images, labels <span class="op">=</span> images.to(device), labels.to(device)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>            y_hat <span class="op">=</span> model(images)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>            loss <span class="op">=</span> criterion(y_hat, labels)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>            optimizer.zero_grad()</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>            loss.backward()</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>            optimizer.step()</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>            train_loss <span class="op">+=</span> loss.detach().cpu().item() <span class="op">/</span> <span class="bu">len</span>(train_loader)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Epoch </span><span class="sc">{</span>epoch <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n_epochs<span class="sc">}</span><span class="ss"> - Training loss: </span><span class="sc">{</span>train_loss<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># testing loop</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>        correct <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>        total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> batch <span class="kw">in</span> tqdm(test_loader, desc<span class="op">=</span><span class="ss">f"Epoch </span><span class="sc">{</span>epoch <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n_epochs<span class="sc">}</span><span class="ss"> - Testing"</span>):</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>            images, labels <span class="op">=</span> batch</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>            images, labels <span class="op">=</span> images.to(device), labels.to(device)</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>            y_hat <span class="op">=</span> model(images)</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>            _, predicted <span class="op">=</span> torch.<span class="bu">max</span>(y_hat, <span class="dv">1</span>)</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>            total <span class="op">+=</span> labels.size(<span class="dv">0</span>)</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>            correct <span class="op">+=</span> (predicted <span class="op">==</span> labels).<span class="bu">sum</span>().item()</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Epoch </span><span class="sc">{</span>epoch <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n_epochs<span class="sc">}</span><span class="ss"> - Testing accuracy: </span><span class="sc">{</span>correct <span class="op">/</span> total<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Epoch 1/2 - Training: 100%|██████████| 1875/1875 [04:29&lt;00:00,  6.97it/s]
+Epoch 2/2 - Training: 100%|██████████| 1875/1875 [04:30&lt;00:00,  6.94it/s]
+Epoch 2/2 - Testing: 100%|██████████| 313/313 [00:21&lt;00:00, 14.52it/s]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/2 - Training loss: 2.1409480080922405
+Epoch 2/2 - Training loss: 2.093113217480978
+Epoch 2/2 - Testing accuracy: 0.3824</code></pre>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+  </div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Soumyaratna Debnath">
+  <meta name="description" content="Underwater Image Enhancement and Object Detection using MIRNet and YOLO algorithms.">
+  <meta name="dcterms.date" content="2022-07-07">
+  <title>Underwater Detection</title>
+  <link rel="icon" href="../../badge-sd-fill.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../styles.css">
+  
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+  
+  <script defer src="../../assets/js/site.js"></script>
+</head>
+<body data-root="../../" data-page="projects" data-kind="detail">
+  <div class="site-main">
+    <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
+  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Underwater Detection</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Object Detection</div>
+    <div class="quarto-category">Image Enhancement</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Underwater Image Enhancement and Object Detection using MIRNet and YOLO algorithms.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Soumyaratna Debnath </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 7, 2022</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p><a href="https://github.com/SoumyaratnaDebnath/Underwater-Image-Enhancement-and-Object-Detection-using-MIRNet-and-YOLO" style="text-decoration: none;"> <i class="bi bi-github"></i> <span class="about-link-text">GitHub</span> </a></p>
+<section id="abstract" class="level3">
+<h3 class="anchored" data-anchor-id="abstract">Abstract</h3>
+<p align="justify">
+With the goal of recovering high-quality image content from its degraded version, image restoration finds numerous applications in fields such as surveillance, computational photography, medical imaging, and remote sensing. Recently, convolutional neural networks (CNNs) have significantly improved the image restoration process. MIRNet is a novel architecture designed to maintain spatially precise high-resolution representations throughout the network while extracting strong contextual information from low-resolution representations. Additionally, YOLO, an efficient real-time object detection algorithm, enhances the practicality of this combined approach by accurately identifying objects within restored images. This integration addresses the dual needs of image restoration and object detection in various applications. The source code and pre-trained models are available at the MIRNet repository: https://github.com/swz30/MIRNet.
+</p>
+</section>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p align="justify">
+Image restoration and enhancement are critical tasks in computer vision, aimed at recovering high-quality images from degraded inputs. Applications span across surveillance, computational photography, medical imaging, and remote sensing. Traditional image restoration pipelines either focus on full-resolution processing or encoder-decoder architectures. MIRNet and YOLO combine these approaches to provide a solution that satisfies both spatial precision and contextual robustness, making it ideal for real-world tasks.
+</p>
+</section>
+<section id="methodology" class="level3">
+<h3 class="anchored" data-anchor-id="methodology">Methodology</h3>
+<section id="mirnet-architecture" class="level4">
+<h4 class="anchored" data-anchor-id="mirnet-architecture">MIRNet Architecture</h4>
+<p align="justify">
+MIRNet integrates full-resolution processing and multi-scale feature extraction. Its main branch ensures spatial precision, while parallel branches enhance contextual features. The multi-scale residual blocks, with parallel convolution streams, information exchange, and attention mechanisms, capture and aggregate features from multiple scales, preserving high-resolution spatial details.
+</p>
+<p><img loading="lazy" decoding="async" src="Enhancement-Samples.png" class="img-fluid"></p>
+</section>
+<section id="yolo-object-detection" class="level4">
+<h4 class="anchored" data-anchor-id="yolo-object-detection">YOLO Object Detection</h4>
+<p align="justify">
+YOLO (You Only Look Once) processes the entire image in a single pass, dividing it into a grid and predicting bounding boxes and class probabilities. This fully convolutional approach enhances detection speed and efficiency by treating object detection as a regression problem, allowing global reasoning about object classes and appearances.
+</p>
+</section>
+</section>
+<section id="implementation" class="level3">
+<h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
+<p align="justify">
+MIRNet processes images in full resolution to retain spatial details, while parallel branches capture contextual information at multiple scales. YOLO’s architecture leverages these restored images, providing real-time object detection with high precision. The combination ensures comprehensive restoration and accurate object identification.
+</p>
+</section>
+<section id="results-and-discussion" class="level3">
+<h3 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h3>
+<p><img loading="lazy" decoding="async" src="Detection-Samples.png" class="img-fluid"></p>
+<p align="justify">
+The integration of MIRNet and YOLO demonstrates significant improvements in both image restoration and object detection. MIRNet achieves a balance between spatial precision and contextual robustness, while YOLO’s efficient detection pipeline enhances performance. The combined approach ensures high-resolution details and enriched contextual information, making it suitable for diverse applications.
+</p>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p align="justify">
+MIRNet and YOLO together form a powerful tool for image restoration and object detection, combining spatial precision, contextual robustness, and real-time performance. This integrated approach addresses the dual needs of recovering high-quality images and accurately detecting objects, enhancing the overall effectiveness in various fields. Future improvements could involve refining the network architecture and exploring additional datasets to further validate and extend capabilities.
+</p>
+
+
+</section>
+
+</main> <!-- /main -->
+  </div>
+</body>
+</html>

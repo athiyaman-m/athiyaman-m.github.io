@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Soumyaratna Debnath">
+  <meta name="description" content="October is a virtual assistant for controlling the mouse pointer using only voice commands.">
+  <meta name="dcterms.date" content="2021-07-24">
+  <title>October Virtual Mouse</title>
+  <link rel="icon" href="../../badge-sd-fill.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../styles.css">
+  
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+  
+  <script defer src="../../assets/js/site.js"></script>
+</head>
+<body data-root="../../" data-page="projects" data-kind="detail">
+  <div class="site-main">
+    <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#features" id="toc-features" class="nav-link" data-scroll-target="#features">Features</a>
+  <ul class="collapse">
+  <li><a href="#voice-controlled-mouse-pointer" id="toc-voice-controlled-mouse-pointer" class="nav-link" data-scroll-target="#voice-controlled-mouse-pointer">Voice-Controlled Mouse Pointer</a></li>
+  <li><a href="#speech-recognition" id="toc-speech-recognition" class="nav-link" data-scroll-target="#speech-recognition">Speech Recognition</a></li>
+  <li><a href="#multiprogramming-capabilities" id="toc-multiprogramming-capabilities" class="nav-link" data-scroll-target="#multiprogramming-capabilities">Multiprogramming Capabilities</a></li>
+  </ul></li>
+  <li><a href="#technical-implementation" id="toc-technical-implementation" class="nav-link" data-scroll-target="#technical-implementation">Technical Implementation</a>
+  <ul class="collapse">
+  <li><a href="#python" id="toc-python" class="nav-link" data-scroll-target="#python">Python</a></li>
+  <li><a href="#google-speech-recognition-api" id="toc-google-speech-recognition-api" class="nav-link" data-scroll-target="#google-speech-recognition-api">Google Speech Recognition API</a></li>
+  <li><a href="#multiprogramming" id="toc-multiprogramming" class="nav-link" data-scroll-target="#multiprogramming">Multiprogramming</a></li>
+  </ul></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">How It Works</a></li>
+  <li><a href="#benefits" id="toc-benefits" class="nav-link" data-scroll-target="#benefits">Benefits</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">October Virtual Mouse</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">Virtual Assistant</div>
+    <div class="quarto-category">Voice Recognition</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    October is a virtual assistant for controlling the mouse pointer using only voice commands.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Soumyaratna Debnath </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 24, 2021</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p><a href="https://github.com/SoumyaratnaDebnath/October-VM" style="text-decoration: none;"> <i class="bi bi-github"></i> <span class="about-link-text">GitHub</span> </a></p>
+<p><img loading="lazy" decoding="async" src="Banner.png" class="img-fluid"></p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>October is an innovative virtual assistant designed specifically for desktop computers. The primary goal of October is to provide users with the ability to control their mouse pointer using only voice commands. This can be particularly beneficial for individuals with mobility impairments, offering them an easier and more efficient way to navigate and interact with their computer systems.</p>
+</section>
+<section id="features" class="level2">
+<h2 class="anchored" data-anchor-id="features">Features</h2>
+<section id="voice-controlled-mouse-pointer" class="level3">
+<h3 class="anchored" data-anchor-id="voice-controlled-mouse-pointer">Voice-Controlled Mouse Pointer</h3>
+<p>October enables users to move their mouse pointer and perform various actions such as clicking, double-clicking, and dragging through voice commands. This feature significantly enhances accessibility and can improve the overall user experience for those who find traditional input devices challenging to use.</p>
+</section>
+<section id="speech-recognition" class="level3">
+<h3 class="anchored" data-anchor-id="speech-recognition">Speech Recognition</h3>
+<p>October leverages the Google Speech Recognition API to accurately interpret and process voice commands. This integration ensures that the virtual assistant can understand a wide range of voice inputs with high accuracy, making it a reliable tool for everyday use.</p>
+</section>
+<section id="multiprogramming-capabilities" class="level3">
+<h3 class="anchored" data-anchor-id="multiprogramming-capabilities">Multiprogramming Capabilities</h3>
+<p>The application is built using advanced multiprogramming concepts in Python, which allows it to handle multiple tasks simultaneously. This ensures that October can respond to voice commands in real-time while managing other background processes efficiently.</p>
+</section>
+</section>
+<section id="technical-implementation" class="level2">
+<h2 class="anchored" data-anchor-id="technical-implementation">Technical Implementation</h2>
+<section id="python" class="level3">
+<h3 class="anchored" data-anchor-id="python">Python</h3>
+<p>Python is the primary programming language used for developing October. Its simplicity and extensive library support make it an ideal choice for creating a robust and scalable virtual assistant.</p>
+</section>
+<section id="google-speech-recognition-api" class="level3">
+<h3 class="anchored" data-anchor-id="google-speech-recognition-api">Google Speech Recognition API</h3>
+<p>The Google Speech Recognition API is integrated into October to provide high-quality voice recognition services. This API converts spoken language into text, which October then interprets to execute the appropriate mouse actions.</p>
+</section>
+<section id="multiprogramming" class="level3">
+<h3 class="anchored" data-anchor-id="multiprogramming">Multiprogramming</h3>
+<p>October’s architecture is designed using multiprogramming principles, enabling it to perform multiple operations concurrently. This design ensures that voice commands are processed quickly and that the virtual assistant remains responsive during extended use.</p>
+</section>
+</section>
+<section id="how-it-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-it-works">How It Works</h2>
+<ol type="1">
+<li><p><strong>Initialization</strong>: Upon launching October, the application initializes the speech recognition engine and prepares to receive voice commands.</p></li>
+<li><p><strong>Listening for Commands</strong>: October continuously listens for voice inputs from the user. The audio data is captured and sent to the Google Speech Recognition API for processing.</p></li>
+<li><p><strong>Processing Voice Commands</strong>: The speech recognition API converts the audio input into text. October then parses this text to determine the appropriate action to perform with the mouse pointer.</p></li>
+<li><p><strong>Executing Mouse Actions</strong>: Based on the parsed commands, October moves the mouse pointer, clicks, double-clicks, or performs other mouse-related actions as instructed by the user.</p></li>
+</ol>
+</section>
+<section id="benefits" class="level2">
+<h2 class="anchored" data-anchor-id="benefits">Benefits</h2>
+<ul>
+<li><strong>Accessibility</strong>: October provides an alternative input method for users with physical disabilities, allowing them to interact with their computers more easily.</li>
+<li><strong>Efficiency</strong>: Voice commands can be quicker and more intuitive for certain tasks, improving overall productivity.</li>
+<li><strong>User-Friendly</strong>: The application is designed to be easy to use, requiring minimal setup and offering a straightforward interface for voice command input.</li>
+</ul>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>October is a powerful virtual assistant that enhances desktop computer accessibility through voice-controlled mouse pointer manipulation. By utilizing Python, the Google Speech Recognition API, and multiprogramming concepts, October delivers a responsive and reliable tool for users seeking an alternative to traditional input devices. Whether for accessibility purposes or simply to streamline workflow, October represents a significant advancement in voice-controlled technology for desktop computing.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+  </div>
+</body>
+</html>

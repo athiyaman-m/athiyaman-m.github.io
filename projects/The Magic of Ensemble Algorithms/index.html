@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Soumyaratna Debnath">
+  <meta name="description" content="Custom Implementation of Bagging, ADABoost, Decission Tree, Weighted Decision Tree, Gradient Boosted Decision Tree and Random Forest Algorithms for solving some subjective questions.">
+  <meta name="dcterms.date" content="2023-06-03">
+  <title>The Magic of Ensemble Algorithms</title>
+  <link rel="icon" href="../../badge-sd-fill.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../styles.css">
+  
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+  
+  <script defer src="../../assets/js/site.js"></script>
+</head>
+<body data-root="../../" data-page="projects" data-kind="detail">
+  <div class="site-main">
+    <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#question-1" id="toc-question-1" class="nav-link active" data-scroll-target="#question-1">Question 1</a></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a></li>
+  <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4">Question 4</a></li>
+  <li><a href="#question-5" id="toc-question-5" class="nav-link" data-scroll-target="#question-5">Question 5</a></li>
+  <li><a href="#question-6" id="toc-question-6" class="nav-link" data-scroll-target="#question-6">Question 6</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Magic of Ensemble Algorithms</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Machine Learning</div>
+    <div class="quarto-category">Ensemble Algorithms</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Custom Implementation of Bagging, ADABoost, Decission Tree, Weighted Decision Tree, Gradient Boosted Decision Tree and Random Forest Algorithms for solving some subjective questions.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Soumyaratna Debnath </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 3, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p><a href="https://github.com/SoumyaratnaDebnath/The-Magic-of-Ensemble-Algorithms" style="text-decoration: none;"> <i class="bi bi-github"></i> <span class="about-link-text">GitHub</span> </a></p>
+<section id="question-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-1">Question 1</h3>
+<p>Show plots for bias and variance vs increasing complexity (depth) of decision tree on the given regression dataset. You can use the decision tree implementation from assignment 1 (or sklearn tree).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">1234</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">50</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>eps <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">50</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span><span class="dv">1</span> <span class="op">+</span> eps</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#for plotting</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, <span class="st">'o'</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>plt.plot(x, x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">1</span>, <span class="st">'r-'</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="solution" class="level4">
+<h4 class="anchored" data-anchor-id="solution">Solution</h4>
+<p>The toy data used for training and testing is as follows -</p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q1_p1.png" title="" alt="" data-align="center"></p>
+<p>The training and testing curve with respect to mean squared error and increasing complexity is as follows -</p>
+<p><code>Train-test split = 70:30</code></p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q1_p2.png" title="" alt="" data-align="center"></p>
+<p>The bias-varience vs depth curve is as follows -</p>
+<p><img loading="lazy" decoding="async" title="" src="./__plots__/q1_p3.png" alt="" data-align="center"></p>
+<section id="reference" class="level5">
+<h5 class="anchored" data-anchor-id="reference">Reference</h5>
+<p>Estimator. (2023, February 7). In <em>Wikipedia</em>. https://en.wikipedia.org/wiki/Estimator</p>
+</section>
+</section>
+</section>
+<section id="question-2" class="level3">
+<h3 class="anchored" data-anchor-id="question-2">Question 2</h3>
+<p>Shuffle the dataset and split the classification dataset into a training set (70%) and a test set (30%). Implement a weighted decision tree and train it using the training set. Use uniform(0,1) distribution to assign weights randomly to the samples. Plot and visualise the decision tree boundary. Use the test set to evaluate the performance of the weighted decision tree and compare your implementation with sklearn. You can copy your implementation of decision tree from assignment 1 to this repository and edit it to take sample weights as an argument while learning the decision tree(Default weight is 1 for each sample).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> make_classification(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>n_features<span class="op">=</span><span class="dv">2</span>, n_redundant<span class="op">=</span><span class="dv">0</span>, n_informative<span class="op">=</span><span class="dv">2</span>, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>random_state<span class="op">=</span><span class="dv">1</span>, n_clusters_per_class<span class="op">=</span><span class="dv">2</span>, class_sep<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For plotting</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>plt.scatter(X[:, <span class="dv">0</span>], X[:, <span class="dv">1</span>], c<span class="op">=</span>y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="soultuion" class="level5">
+<h5 class="anchored" data-anchor-id="soultuion">Soultuion</h5>
+<p>The data used for training and testing looks like -</p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q2_p1.png" title="" alt="" data-align="center"></p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q2_p2.png" title="" alt="" data-align="center"></p>
+<p><code>Criterion = information_gain</code></p>
+<p><strong>Metrics for Weighted Decision Tree</strong></p>
+<pre><code>Training metrics
+Accuracy:  1.0
+
+Class:  1
+    Precision:  1.0
+    Recall:  1.0
+
+Class:  0
+    Precision:  1.0
+    Recall:  1.0
+
+Testing metrics
+Accuracy:  0.7666666666666667
+
+Class:  1
+    Precision:  0.6875
+    Recall:  0.8461538461538461
+
+Class:  0
+    Precision:  0.8571428571428571
+    Recall:  0.7058823529411765</code></pre>
+<p><img loading="lazy" decoding="async" src="./__plots__/q2_p3.png" title="" alt="" data-align="center"></p>
+<p><strong>Metrics for Sklearn Implementation</strong></p>
+<pre><code>Training metrics
+Accuracy:  1.0
+
+Class:  1
+    Precision:  1.0
+    Recall:  1.0
+
+Class:  0
+    Precision:  1.0
+    Recall:  1.0
+
+Testing metrics
+Accuracy:  0.7333333333333333
+
+Class:  1
+    Precision:  0.6666666666666666
+    Recall:  0.7692307692307693
+
+Class:  0
+    Precision:  0.8
+    Recall:  0.7058823529411765</code></pre>
+<p><img loading="lazy" decoding="async" src="./__plots__/q2_p4.png" title="" alt="" data-align="center"></p>
+<p><code>Criterion = gini_index</code></p>
+<p><strong>Metrics for Weighted Decision Tree</strong></p>
+<pre><code>Training metrics
+Accuracy:  1.0
+
+Class:  1
+    Precision:  1.0
+    Recall:  1.0
+
+Class:  0
+    Precision:  1.0
+    Recall:  1.0
+
+Testing metrics
+Accuracy:  0.8
+
+Class:  1
+    Precision:  0.7333333333333333
+    Recall:  0.8461538461538461
+
+Class:  0
+    Precision:  0.8666666666666667
+    Recall:  0.7647058823529411</code></pre>
+<p><img loading="lazy" decoding="async" src="./__plots__/q2_p5.png" title="" alt="" data-align="center"></p>
+<p><strong>Metrics for Sklearn Implementation</strong></p>
+<pre><code>Training metrics
+Accuracy:  1.0
+
+Class:  1
+    Precision:  1.0
+    Recall:  1.0
+
+Class:  0
+    Precision:  1.0
+    Recall:  1.0
+
+Testing metrics
+Accuracy:  0.8
+
+Class:  1
+    Precision:  0.7333333333333333
+    Recall:  0.8461538461538461
+
+Class:  0
+    Precision:  0.8666666666666667
+    Recall:  0.7647058823529411</code></pre>
+<p><img loading="lazy" decoding="async" src="./__plots__/q2_p6.png" title="" alt="" data-align="center"></p>
+</section>
+</section>
+<section id="question-3" class="level3">
+<h3 class="anchored" data-anchor-id="question-3">Question 3</h3>
+<p><strong><code>Part A</code></strong></p>
+<p>Implement Adaboost on Decision Stump (depth=1 tree). You can use Decision Tree learnt in assignment 1 or sklearn decision tree and solve it for the case of real input and discrete output. Edit&nbsp;<code>ensemble/ADABoost.py</code>&nbsp;</p>
+<section id="solution-1" class="level5">
+<h5 class="anchored" data-anchor-id="solution-1">Solution</h5>
+<p>The dataset used for tarining looks like -</p>
+<p><code>Number of samples = 100</code> <code>Number of features = 2</code> <code>Number of classes = 2</code> <code>Numbeer of estimators = 3</code> <code>Criteria = gini</code></p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q3_p1.png" title="" alt="" data-align="center"></p>
+<p>The performace of the model can be comprehended as -</p>
+<pre><code>Criteria  : gini
+Accuracy  : 0.99
+
+Class     : 0
+Precision : 1.0
+Recall    : 0.98
+
+Class     : 1
+Precision : 0.9803921568627451
+Recall    : 1.0</code></pre>
+<hr>
+<p><strong><code>Part B</code></strong></p>
+<p>Implement AdaBoostClassifier on classification data set. Plot the decision surfaces and compare the accuracy of AdaBoostClassifier using 3 estimators over decision stump. Include your code in&nbsp;<code>q3_ADABoost.py</code>.</p>
+</section>
+<section id="solution-2" class="level5">
+<h5 class="anchored" data-anchor-id="solution-2">Solution</h5>
+<p>The dataset used for tarining looks like -</p>
+<p><code>Number of samples = 100</code> <code>Number of features = 2</code> <code>Number of classes = 2</code> <code>Numbeer of estimators = 3</code> <code>Criteria = gini</code></p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q3_p1.png" title="" alt="" data-align="center"></p>
+<p>Decision surfaces of the indivisual estimators -</p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q3_p2.png" title="" alt="" data-align="center"></p>
+<p>The combined decision surface looks like -</p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q3_p3.png" title="" alt="" data-align="center"></p>
+</section>
+</section>
+<section id="question-4" class="level3">
+<h3 class="anchored" data-anchor-id="question-4">Question 4</h3>
+<p><strong><code>Part A</code></strong> Implement Bagging(BaseModel, num_estimators): where base model is the DecisionTree you had implemented in assignment 1 (or sklearn decision tree). In a later assignment, you would have to implement the above over LinearRegression() also, but for now you only have to implement it for Decision Trees. Edit&nbsp;<code>ensemble/bagging.py</code>. Use&nbsp;<code>q4_Bagging.py</code>&nbsp;for testing.</p>
+<section id="soultion" class="level5">
+<h5 class="anchored" data-anchor-id="soultion">Soultion</h5>
+<p>The toy dataset which is used for training the model is as follows -</p>
+<p><code>Number of samples = 50</code> <code>Number of features = 2</code> <code>Number of classes = 2</code> <code>Number of estimators = 5</code> <code>Max depth of each estimator = 20</code></p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q4_p1.png" title="" alt="" data-align="center"></p>
+<p>The decision boundries of each estimator is as follows -</p>
+<p><img loading="lazy" decoding="async" title="" src="./__plots__/q4_p2.png" alt="" data-align="center" width="793"></p>
+<p>The combined decision boundary is as follows -</p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q4_p3.png" title="" alt="" data-align="center"></p>
+<p>The performce of the model can be estimated from the following results</p>
+<pre><code>Criteria   : gini
+Accuracy   : 0.82
+
+Class      : 0
+Precision  : 0.8181818181818182
+Recall     : 0.782608695652174
+
+Class      : 1
+Precision  : 0.8214285714285714
+Recall     : 0.8518518518518519</code></pre>
+<hr>
+<p><strong><code>Part B</code></strong> Implement bagging in parallel fashion, where each decision tree is learnt simultaneously. Perform timing analysis for parallel implementation and normal implementation.</p>
+</section>
+<section id="solution-3" class="level5">
+<h5 class="anchored" data-anchor-id="solution-3">Solution</h5>
+<p><strong><code>Study 1</code></strong></p>
+<p>The toy dataset which is used for training both the model is as follows -</p>
+<p><code>Number of samples = 2000</code> <code>Number of features = 2</code> <code>Number of classes = 4</code> <code>Number of estimators = 20</code> <code>Max depth of each estimator = 20</code></p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q4_p4.png" title="" alt="" data-align="center"></p>
+<p>The performace and time required for tarining of the models can be compared from the following metrics -</p>
+<pre><code>Criteria            : gini
+Accuracy Sequencial : 0.5385
+Accuracy Parallel   : 0.536
+
+Time elapsed in sequencial execution : 0.1579 seconds
+Time elapsed in parallel execution   : 0.1095 seconds</code></pre>
+<p><strong><code>Study 2</code></strong></p>
+<p>The toy dataset which is used for training both the model is as follows -</p>
+<p><code>Number of samples = 500</code> <code>Number of features = 2</code> <code>Number of classes = 4</code> <code>Number of estimators = 50</code> <code>Max depth of each estimator = 100</code></p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q4_p5.png" title="" alt="" data-align="center"></p>
+<p>The performace and time required for tarining of the models can be compared from the following metrics -</p>
+<pre><code>Criteria            : gini
+Accuracy Sequencial : 0.683
+Accuracy Parallel   : 0.678
+
+Time elapsed in sequencial execution : 0.9955 seconds
+Time elapsed in parallel execution   : 0.5297 seconds</code></pre>
+<p><strong><code>Study 3</code></strong></p>
+<p>The toy dataset which is used for training both the model is as follows -</p>
+<p><code>Number of samples = 10000</code> <code>Number of features = 2</code> <code>Number of classes = 6</code> <code>Number of estimators = 500</code> <code>Max depth of each estimator = 1000</code></p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q4_p6.png" title="" alt="" data-align="center"></p>
+<p>The performace and time required for tarining of the models can be compared from the following metrics -</p>
+<pre><code>Criteria            : gini
+Accuracy Sequencial : 0.457
+Accuracy Parallel   : 0.4561
+
+Time elapsed in sequencial execution : 32.3758 seconds
+Time elapsed in parallel execution   : 27.2234 seconds</code></pre>
+</section>
+</section>
+<section id="question-5" class="level3">
+<h3 class="anchored" data-anchor-id="question-5">Question 5</h3>
+<p><strong><code>Part A</code></strong></p>
+<p>Implement RandomForestClassifier() and RandomForestRegressor() classes in&nbsp;<code>tree/randomForest.py</code>. Use&nbsp;<code>q5_RandomForest.py</code>&nbsp;for testing.</p>
+<section id="solution-4" class="level5">
+<h5 class="anchored" data-anchor-id="solution-4">Solution</h5>
+<p>Random forest classifier over <code>entropy</code> as criterion returns the following trees as output -</p>
+<p><code>Number of samples = 30</code> <code>Number of features = 5</code> <code>Sampling = row sampling</code></p>
+<p><code>Max Depth = 5</code> <code>Number of estimators = 3</code> <code>Number of classes = 5</code></p>
+<p><img loading="lazy" decoding="async" title="" src="./__plots__/q5_p1.png" alt="" data-align="center">The performace of the model can be quantified as -</p>
+<pre><code>Criteria  : entropy
+Accuracy  : 0.8333333333333334
+
+Class 0
+Precision : 0.7777777777777778
+Recall    : 0.7777777777777778
+
+Class 3
+Precision : 0.875
+Recall    : 1.0
+
+Class 2
+Precision : 1.0
+Recall    : 0.7142857142857143
+
+Class 4
+Precision : 0.6
+Recall    : 0.75
+
+Class 1
+Precision : 1.0
+Recall    : 1.0</code></pre>
+<p><br></p>
+<p>Random forest classifier over <code>gini</code> as criterion returns the following trees as output -</p>
+<p><code>Number of samples = 30</code> <code>Number of features = 5</code> <code>Sampling = row sampling</code></p>
+<p><code>Max Depth = 5</code> <code>Number of estimators = 3</code> <code>Number of classes = 5</code></p>
+<p><img loading="lazy" decoding="async" src=".\__plots__/q5_p2.png" title="" alt="" data-align="center"></p>
+<p>The performace of the model can be quantified as -</p>
+<pre><code>Criteria  : gini
+Accuracy  : 0.8333333333333334
+
+Class 0
+Precision : 0.875
+Recall    : 0.7777777777777778
+
+Class 3
+Precision : 1.0
+Recall    : 0.7142857142857143
+
+Class 2
+Precision : 0.875
+Recall    : 1.0
+
+Class 4
+Precision : 1.0
+Recall    : 0.75
+
+Class 1
+Precision : 0.5
+Recall    : 1.0</code></pre>
+<p><br></p>
+<p>Random forest classifier over <code>squared_error</code> as criterion returns the following trees as output -</p>
+<p><code>Number of samples = 30</code> <code>Number of features = 5</code> <code>Sampling = row sampling</code></p>
+<p><code>Max Depth = 5</code> <code>Number of estimators = 3</code></p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q5_p3.png" title="" alt="" data-align="center"></p>
+<p>The performace of the model can be quantified as -</p>
+<pre><code>Criteria : squared_error
+RMSE     : 0.5159266120836465
+MAE      : 0.364302808727380</code></pre>
+<p><br></p>
+<p>Random forest classifier over <code>squared_error</code> as criterion returns the following trees as output -</p>
+<p><code>Number of samples = 30</code> <code>Number of features = 3</code> <code>Sampling = column sampling</code></p>
+<p><code>Max Depth = 5</code> <code>Number of estimators = 3</code></p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q5_p8.png" title="" alt="" data-align="center"></p>
+<p>The performace of the model can be quantified as -</p>
+<pre><code>Criteria : squared_error
+RMSE     : 40.52918401932447
+MAE      : 24.29257288596476</code></pre>
+<hr>
+<p><strong><code>Part B</code></strong></p>
+<p>Generate the plots for classification data set. Include you code in&nbsp;<code>random_forest_classification.py</code></p>
+</section>
+<section id="solution-5" class="level5">
+<h5 class="anchored" data-anchor-id="solution-5">Solution</h5>
+<p>The toy dataset used for tarining is as follows -</p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q5_p7.png" title="" alt="" data-align="center"></p>
+<p>Random forest classifier over <code>gini</code> as criterion returns the following trees as output -</p>
+<p><code>Number of samples = 100</code> <code>Number of features = 3</code> <code>Sampling = column sampling</code></p>
+<p><code>Max Depth = 5</code> <code>Number of estimators = 3</code> <code>Number of classes = 2</code></p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q5_p4.png" class="img-fluid"></p>
+<p>The decision surfaces for the corrosponding estimators is as follows -</p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q5_p5.png" title="" alt="" data-align="center"></p>
+<p>The combined decision surface is as follows -</p>
+<p><img loading="lazy" decoding="async" title="" src="./__plots__/q5_p6.png" alt="" data-align="center" width="346"></p>
+<p>The performace of the model can be quantified as -</p>
+<pre><code>Criteria  : gini
+Accuracy  : 0.91
+
+Class 1
+Precision : 1.0
+Recall    : 0.88
+
+Class 0
+Precision : 1.0
+Recall    : 0.94</code></pre>
+</section>
+</section>
+<section id="question-6" class="level3">
+<h3 class="anchored" data-anchor-id="question-6">Question 6</h3>
+<p>Implement Gradient Boosted Decision trees on the regression dataset given below. You need to edit the&nbsp;<code>ensemble/gradientBoosted.py</code>&nbsp;and&nbsp;<code>q6_gradientBoosted.py</code></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_regression</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>X, y<span class="op">=</span> make_regression(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    n_features<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    n_informative<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    noise<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    tail_strength<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># For plotting</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>plt.scatter(X[:, <span class="dv">0</span>], y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="solution-6" class="level5">
+<h5 class="anchored" data-anchor-id="solution-6">Solution</h5>
+<p>The rabdomly generated data for the training looks like -</p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q6_p1.png" title="" alt="" data-align="center"></p>
+<p>We trained an ensamble with gradient boosted decision tree upon the given data with the following parameters -</p>
+<p><code>Criteria = squared_error</code> <code>Number of estimators = 20</code> <code>Learning rate = 0.1</code> <code>Max depth = 3</code></p>
+<p>The performace of the model can be comprehended with the following results -</p>
+<p><img loading="lazy" decoding="async" src="./__plots__/q6_p2.png" title="" alt="" data-align="center"></p>
+<pre><code>Criteria : squared_error
+RMSE     : 8.74626791232833
+MAE      : 7.075693381159919</code></pre>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+  </div>
+</body>
+</html>
