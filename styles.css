@@ -24,3 +24,152 @@
   border-radius:50px;
   box-shadow: 10px 10px 10px 0px rgba(100,100,100,0.8);
 }
+
+/* 1. Center-align nav links (Home to Blogs) in header */
+.site-header__nav {
+  justify-content: center !important;
+}
+
+.site-header__links {
+  flex: 1;
+  justify-content: center;
+}
+
+/* 2. View Resume button below icon links on home page */
+.home-resume-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.6rem 1rem;
+  margin-top: 0.5rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #374151;
+  background: #f3f4f6;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background 150ms ease, transform 150ms ease, color 150ms ease;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    radial-gradient(130% 128% at 0% 0%, rgba(94, 128, 255, 0.56) 0%, rgba(94, 128, 255, 0) 56%) border-box,
+    radial-gradient(124% 122% at 100% 100%, rgba(241, 102, 134, 0.5) 0%, rgba(241, 102, 134, 0) 56%) border-box,
+    linear-gradient(135deg, rgba(94, 128, 255, 0.46), rgba(241, 102, 134, 0.4)) border-box;
+  box-shadow: var(--soft-shadow);
+}
+
+.home-resume-btn:hover {
+  transform: translateY(-2px);
+  color: #1f2937;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    radial-gradient(130% 128% at 0% 0%, rgba(94, 128, 255, 0.7) 0%, rgba(94, 128, 255, 0) 56%) border-box,
+    radial-gradient(124% 122% at 100% 100%, rgba(241, 102, 134, 0.64) 0%, rgba(241, 102, 134, 0) 56%) border-box,
+    linear-gradient(135deg, rgba(94, 128, 255, 0.58), rgba(241, 102, 134, 0.52)) border-box;
+}
+
+.home-resume-btn .bi-download {
+  margin-right: 0.4rem;
+}
+
+/* 3. Projects: GitHub view button */
+.proj-github-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.45rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+  background: #24292e;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.proj-github-btn:hover {
+  background: #444d56;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.proj-github-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* Projects: hide thumbnail when no image */
+body[data-page="projects"] .proj-item-thumb--empty {
+  display: none;
+}
+
+body[data-page="projects"] .proj-item--no-thumb {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* 4. News: image support */
+.news-entry-img {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  display: block;
+  margin-top: 0.3rem;
+}
+
+.news-entry-img--contain {
+  object-fit: contain;
+  background: #ffffff;
+}
+
+/* 5. Blogs: Medium-style preview card */
+body[data-page="blogs"] .quarto-post .thumbnail {
+  display: none;
+}
+
+body[data-page="blogs"] .quarto-post {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+body[data-page="blogs"] .blog-medium-preview {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8f9fa;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  margin-top: 0.5rem;
+}
+
+body[data-page="blogs"] .blog-medium-preview img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+body[data-page="blogs"] .blog-medium-preview .blog-preview-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.78rem;
+  color: #6b7280;
+  border-top: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+body[data-page="blogs"] .blog-medium-preview .blog-preview-bar svg {
+  width: 18px;
+  height: 18px;
+  fill: #1a8917;
+}
+
+body[data-page="blogs"] .blog-medium-preview .blog-preview-source {
+  font-weight: 600;
+  color: #1a8917;
+}

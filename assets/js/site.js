@@ -664,6 +664,7 @@
         description: descriptionNode ? descriptionNode.textContent.trim() : "",
         imageSrc: imageNode ? imageNode.getAttribute("src") || "" : "",
         imageAlt: imageNode ? imageNode.getAttribute("alt") || "" : "",
+        githubUrl: card.dataset.githubUrl || "",
         categories: categoryNodes.map(function (node) {
           return node.textContent.trim();
         }).filter(Boolean)
@@ -699,16 +700,24 @@
         const article = document.createElement("article");
         article.className = "proj-item";
 
-        const thumb = document.createElement("a");
-        thumb.className = "proj-item-thumb";
-        thumb.href = entry.href;
-        if (entry.imageSrc) {
+        // Only show thumbnail if image exists and is not the badge placeholder
+        var hasImage = entry.imageSrc && entry.imageSrc.indexOf("badge-sd-fill") === -1;
+        if (hasImage) {
+          const thumb = document.createElement("div");
+          thumb.className = "proj-item-thumb";
           const image = document.createElement("img");
           image.loading = "lazy";
           image.decoding = "async";
           image.src = entry.imageSrc;
           image.alt = entry.imageAlt || entry.title;
+          image.onerror = function () {
+            thumb.style.display = "none";
+            article.classList.add("proj-item--no-thumb");
+          };
           thumb.appendChild(image);
+          article.appendChild(thumb);
+        } else {
+          article.classList.add("proj-item--no-thumb");
         }
 
         const content = document.createElement("div");
@@ -716,10 +725,9 @@
 
         const title = document.createElement("h3");
         title.className = "proj-item-title";
-        const titleLink = document.createElement("a");
-        titleLink.href = entry.href;
-        titleLink.textContent = entry.title;
-        title.appendChild(titleLink);
+        const titleText = document.createElement("span");
+        titleText.textContent = entry.title;
+        title.appendChild(titleText);
         content.appendChild(title);
 
         const meta = document.createElement("div");
@@ -747,14 +755,17 @@
           content.appendChild(description);
         }
 
-        if (entry.author) {
-          const author = document.createElement("p");
-          author.className = "proj-author";
-          author.textContent = entry.author;
-          content.appendChild(author);
+        // GitHub button
+        if (entry.githubUrl) {
+          const ghBtn = document.createElement("a");
+          ghBtn.className = "proj-github-btn";
+          ghBtn.href = entry.githubUrl;
+          ghBtn.target = "_blank";
+          ghBtn.rel = "noopener";
+          ghBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2.75A9.25 9.25 0 0 0 9.07 20.8c.46.08.63-.2.63-.45l-.01-1.57c-2.55.56-3.09-1.09-3.09-1.09-.42-1.06-1.01-1.34-1.01-1.34-.83-.57.06-.56.06-.56.92.06 1.4.94 1.4.94.81 1.39 2.12.99 2.64.76.08-.59.32-.99.58-1.22-2.04-.23-4.18-1.02-4.18-4.54 0-1 .36-1.82.94-2.46-.1-.23-.41-1.16.09-2.42 0 0 .77-.25 2.53.94A8.8 8.8 0 0 1 12 7.4c.79 0 1.58.11 2.31.33 1.76-1.19 2.53-.94 2.53-.94.5 1.26.19 2.19.09 2.42.58.64.94 1.46.94 2.46 0 3.53-2.14 4.31-4.19 4.54.33.28.62.82.62 1.66v2.46c0 .25.17.54.64.45A9.25 9.25 0 0 0 12 2.75z"/></svg> View on GitHub';
+          content.appendChild(ghBtn);
         }
 
-        article.appendChild(thumb);
         article.appendChild(content);
         listWrap.appendChild(article);
       });
