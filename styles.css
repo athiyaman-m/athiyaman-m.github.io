@@ -173,3 +173,31 @@ body[data-page="blogs"] .blog-medium-preview .blog-preview-source {
   font-weight: 600;
   color: #1a8917;
 }
+
+/* 6. News: LinkedIn embed card */
+.news-linkedin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+  background: #0a66c2;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.news-linkedin-link:hover {
+  background: #004182;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.news-linkedin-link svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
