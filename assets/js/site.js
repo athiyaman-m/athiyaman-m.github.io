@@ -12,13 +12,13 @@
   };
 
   const navLinks = [
-    { slug: "home", label: "Home", href: "index.html" },
-    { slug: "education", label: "Education", href: "education.html" },
-    { slug: "experience", label: "Experience", href: "experience.html" },
-    { slug: "publications", label: "Publications", href: "publications.html" },
-    { slug: "projects", label: "Projects", href: "projects.html" },
-    { slug: "news", label: "News", href: "news.html" },
-    { slug: "blogs", label: "Blogs", href: "blogs.html" }
+    { slug: "home", label: "Home", href: "index.html", emoji: "🏠" },
+    { slug: "education", label: "Education", href: "education.html", emoji: "🎓" },
+    { slug: "experience", label: "Experience", href: "experience.html", emoji: "💼" },
+    { slug: "publications", label: "Publications", href: "publications.html", emoji: "📄" },
+    { slug: "projects", label: "Projects", href: "projects.html", emoji: "🚀" },
+    { slug: "news", label: "News", href: "news.html", emoji: "📢" },
+    { slug: "blogs", label: "Blogs", href: "blogs.html", emoji: "✍️" }
   ];
 
   const actionLinks = [
@@ -99,6 +99,31 @@
       "</div>";
     document.body.appendChild(footer);
   }
+
+  function renderMobileBottomNav() {
+    const root = document.body.dataset.root || "";
+    const currentPage = document.body.dataset.page || "";
+
+    const nav = document.createElement("nav");
+    nav.className = "site-bottom-nav";
+    nav.setAttribute("aria-label", "Mobile navigation");
+
+    const inner = document.createElement("div");
+    inner.className = "site-bottom-nav__inner";
+
+    navLinks.forEach(function (link) {
+      const activeClass = link.slug === currentPage ? "is-active" : "";
+      const a = document.createElement("a");
+      a.className = "site-bottom-nav__link " + activeClass;
+      a.href = pathFromRoot(root, link.href);
+      a.innerHTML = '<span class="site-bottom-nav__emoji">' + link.emoji + '</span><span class="site-bottom-nav__label">' + link.label + '</span>';
+      inner.appendChild(a);
+    });
+
+    nav.appendChild(inner);
+    document.body.appendChild(nav);
+  }
+
 
   function renderIcons() {
     document.querySelectorAll("i.bi").forEach(function (iconNode) {
@@ -979,6 +1004,7 @@
       document.body.classList.add("has-sidebar");
     }
     renderHeader();
+    renderMobileBottomNav();
     if (document.body.dataset.footer === "true") {
       renderFooter();
     }
