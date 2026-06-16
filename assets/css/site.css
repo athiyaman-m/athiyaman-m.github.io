@@ -120,6 +120,30 @@ body:not([data-page="home"]) .site-header {
   box-shadow: var(--soft-shadow);
 }
 
+
+.site-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #495057;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  transition: background 150ms ease, color 150ms ease;
+  flex-shrink: 0;
+}
+
+.site-brand:hover {
+  background: #f1f3f5;
+  color: #212529;
+}
+
+.site-brand .bi {
+  width: 18px;
+  height: 18px;
+}
+
 .site-header__toggle span,
 .site-header__toggle::before,
 .site-header__toggle::after {
@@ -1735,14 +1759,18 @@ pre,
   color: #0d6efd;
 }
 
-.site-bottom-nav__link.is-active .site-bottom-nav__emoji {
+.site-bottom-nav__link.is-active .bi {
   transform: scale(1.1);
 }
 
-.site-bottom-nav__emoji {
+.site-bottom-nav__link .bi {
   font-size: 1.3rem;
   line-height: 1;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
   transition: transform 150ms ease;
 }
 

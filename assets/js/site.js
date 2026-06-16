@@ -8,17 +8,25 @@
     "bi-controller": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8h10a4 4 0 0 1 3.9 4.9l-.7 3a3 3 0 0 1-2.9 2.3c-.9 0-1.8-.4-2.4-1.1l-1.2-1.3h-3.4l-1.2 1.3c-.6.7-1.5 1.1-2.4 1.1a3 3 0 0 1-2.9-2.3l-.7-3A4 4 0 0 1 7 8Zm0 2a2 2 0 0 0-2 2.5l.7 3c.1.4.5.7.9.7.3 0 .6-.1.8-.3l1.8-1.9h5l1.8 1.9c.2.2.5.3.8.3.4 0 .8-.3.9-.7l.7-3A2 2 0 0 0 17 10H7Zm1.5 1.5h1.2v1.2h1.2v1.2H9.7v1.2H8.5v-1.2H7.3v-1.2h1.2v-1.2Zm7 1.2a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm2.6-1.2a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>',
     "bi-plugin": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h2v5h4V3h2v5h1a3 3 0 0 1 3 3v1h-5v4a6 6 0 0 1-5 5.91V23H8v-2.09A6 6 0 0 1 3 16v-4H0v-1a3 3 0 0 1 3-3h1V3h2v5h2V3Zm5 9H5v4a4 4 0 0 0 8 0v-4Z"/></svg>',
     "bi-c-circle": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.75a9.25 9.25 0 1 0 0 18.5 9.25 9.25 0 0 0 0-18.5Zm0 1.8a7.45 7.45 0 1 1 0 14.9 7.45 7.45 0 0 1 0-14.9Zm2.7 5.2-.6 1.4c-.5-.3-1-.4-1.5-.4-1.4 0-2.4 1-2.4 2.4 0 1.5 1 2.4 2.4 2.4.6 0 1.1-.1 1.6-.4l.5 1.4c-.6.4-1.4.6-2.3.6-2.4 0-4-1.6-4-4 0-2.3 1.7-4 4-4 .8 0 1.6.2 2.3.6Z"/></svg>',
-    "bi-download": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a1 1 0 0 1 1 1v8.17l2.59-2.58L17 11l-5 5-5-5 1.41-1.41L11 12.17V4a1 1 0 0 1 1-1Zm-7 14h14v2H5v-2Z"/></svg>'
+    "bi-download": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a1 1 0 0 1 1 1v8.17l2.59-2.58L17 11l-5 5-5-5 1.41-1.41L11 12.17V4a1 1 0 0 1 1-1Zm-7 14h14v2H5v-2Z"/></svg>',
+    "bi-house": '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z"/></svg>',
+    "bi-mortarboard": '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5ZM8 8.46 1.758 5.965 8 3.052l6.242 2.913L8 8.46Z"/><path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46l-3.892-1.556Z"/></svg>',
+    "bi-briefcase": '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"/></svg>',
+    "bi-file-earmark-text": '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/><path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/></svg>',
+    "bi-code-slash": '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>',
+    "bi-newspaper": '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .618-.262.75-.532.17-.345.25-.703.25-.94V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.225.5.497.5H12z"/><path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v2H2v-2zm0 3h9v1H2v-1zm5-4h4v.5a.5.5 0 0 1-.5.5H7.5a.5.5 0 0 1-.5-.5V9zm5-3h.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5H12V6z"/></svg>',
+    "bi-pencil": '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>',
+
   };
 
   const navLinks = [
-    { slug: "home", label: "Home", href: "index.html", emoji: "🏠" },
-    { slug: "education", label: "Education", href: "education.html", emoji: "🎓" },
-    { slug: "experience", label: "Experience", href: "experience.html", emoji: "💼" },
-    { slug: "publications", label: "Publications", href: "publications.html", emoji: "📄" },
-    { slug: "projects", label: "Projects", href: "projects.html", emoji: "🚀" },
-    { slug: "news", label: "News", href: "news.html", emoji: "📢" },
-    { slug: "blogs", label: "Blogs", href: "blogs.html", emoji: "✍️" }
+    { slug: "home", label: "Home", href: "index.html", icon: "bi-house" },
+    { slug: "education", label: "Education", href: "education.html", icon: "bi-mortarboard" },
+    { slug: "experience", label: "Experience", href: "experience.html", icon: "bi-briefcase" },
+    { slug: "publications", label: "Publications", href: "publications.html", icon: "bi-file-earmark-text" },
+    { slug: "projects", label: "Projects", href: "projects.html", icon: "bi-code-slash" },
+    { slug: "news", label: "News", href: "news.html", icon: "bi-newspaper" },
+    { slug: "blogs", label: "Blogs", href: "blogs.html", icon: "bi-pencil" }
   ];
 
   const actionLinks = [
@@ -65,6 +73,7 @@
     header.className = "site-header";
     header.innerHTML =
       '<div class="site-header__inner">' +
+      '<a class="site-brand" href="' + pathFromRoot(root, "index.html") + '" aria-label="Home" title="Home"><i class="bi bi-house"></i></a>' +
       '<button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Toggle navigation"><span></span></button>' +
       '<nav class="site-header__nav" id="site-navigation">' +
       '<ul class="site-header__links">' + nav + "</ul>" +
@@ -116,7 +125,7 @@
       const a = document.createElement("a");
       a.className = "site-bottom-nav__link " + activeClass;
       a.href = pathFromRoot(root, link.href);
-      a.innerHTML = '<span class="site-bottom-nav__emoji">' + link.emoji + '</span><span class="site-bottom-nav__label">' + link.label + '</span>';
+      a.innerHTML = '<i class="bi ' + link.icon + '"></i><span class="site-bottom-nav__label">' + link.label + '</span>';
       inner.appendChild(a);
     });
 
