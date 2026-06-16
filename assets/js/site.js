@@ -21,12 +21,12 @@
 
   const navLinks = [
     { slug: "home", label: "Home", href: "index.html", icon: "bi-house" },
-    { slug: "education", label: "Education", href: "education.html", icon: "bi-mortarboard" },
     { slug: "experience", label: "Experience", href: "experience.html", icon: "bi-briefcase" },
-    { slug: "publications", label: "Publications", href: "publications.html", icon: "bi-file-earmark-text" },
+    { slug: "education", label: "Education", href: "education.html", icon: "bi-mortarboard" },
     { slug: "projects", label: "Projects", href: "projects.html", icon: "bi-code-slash" },
-    { slug: "news", label: "News", href: "news.html", icon: "bi-newspaper" },
-    { slug: "blogs", label: "Blogs", href: "blogs.html", icon: "bi-pencil" }
+    { slug: "publications", label: "Publications", href: "publications.html", icon: "bi-file-earmark-text" },
+    { slug: "blogs", label: "Blogs", href: "blogs.html", icon: "bi-pencil" },
+    { slug: "news", label: "News", href: "news.html", icon: "bi-newspaper" }
   ];
 
   const actionLinks = [
