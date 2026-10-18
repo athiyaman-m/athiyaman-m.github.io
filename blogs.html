@@ -3,87 +3,132 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <title>Writing | Athiyaman M</title>
-  <link rel="stylesheet" href="assets/css/site.css?v=20260701">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-</style>
-  <script defer src="assets/js/site.js?v=20260701"></script>
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    // Prevent flash of wrong theme on page load
+    (function() {
+      var theme = 'light';
+      try { theme = localStorage.getItem('theme') || 'light'; } catch (e) {}
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/inner.css">
 </head>
-<body data-root="" data-page="blogs" data-kind="listing">
-  <div class="site-main">
-    <header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page">
-      <h1 class="title" >Writing</h1>
-    </div>
-  </div>
-  </header>
-  <hr>
-  <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-content">
+        <a class="brand" href="index.html">Athiyaman M</a>
+        <nav>
+          <ul class="nav">
+            <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+            <li><a href="index.html#education" class="nav-link">Education</a></li>
+            <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+            <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+            <li><a href="index.html#news" class="nav-link">News</a></li>
+            <li><a href="index.html#publications" class="nav-link">Publications</a></li>
+            <li><a href="index.html#writing" class="nav-link">Writing</a></li>
+          </ul>
+        </nav>
+        <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
 
-<!-- BLOG 1 -->
-<div class="quarto-post image-right" data-index="0" data-categories="AI,Healthcare,XAI" data-listing-date-sort="1765000000000">
-<div class="body"><h3 class="no-anchor listing-title">Explainable AI for Healthcare: Building Transparent Clinical Models</h3><div class="listing-description"><p>Notes on building transparent and trustworthy AI models for clinical use, including best practices for SHAP, LIME, and counterfactual reasoning in mental health risk detection systems.</p></div>
-<!-- Medium-style preview: set your blog image and Medium URL below -->
-<div class="blog-medium-preview">
-  <img src="images/blogs/xai-healthcare.png" alt="Explainable AI for Healthcare" loading="lazy">
-  <div class="blog-preview-bar">
-    <svg viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42zm2.04 0c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75c.66 0 1.19 2.58 1.19 5.75z"/></svg>
-    <span class="blog-preview-source">Medium</span>
-    <span>· Read on Medium</span>
-  </div>
-</div>
-<div class="listing-categories"><div class="listing-category">XAI</div><div class="listing-category">Healthcare</div><div class="listing-category">BERT</div></div>
-</div>
-<div class="metadata"><div class="listing-date">2025</div><div class="listing-author">Athiyaman M</div></div>
-</div>
+    <main>
+      <section class="page-header">
+        <h1 class="page-title">Writing</h1>
+        <p class="page-subtitle">Technical notes, guides, and explorations from the field.</p>
+      </section>
 
-<!-- BLOG 2 -->
-<div class="quarto-post image-right" data-index="1" data-categories="RAG,LLM,NLP" data-listing-date-sort="1764000000000">
-<div class="body"><h3 class="no-anchor listing-title">Building Document Intelligence Systems with RAG</h3><div class="listing-description"><p>A practical guide to building retrieval-augmented question answering systems over PDF documents using embeddings, vector search (FAISS, Pinecone), and large language models like Llama 2.</p></div>
-<div class="blog-medium-preview">
-  <img src="images/blogs/rag-document.png" alt="RAG Document Intelligence" loading="lazy">
-  <div class="blog-preview-bar">
-    <svg viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42zm2.04 0c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75c.66 0 1.19 2.58 1.19 5.75z"/></svg>
-    <span class="blog-preview-source">Medium</span>
-    <span>· Read on Medium</span>
-  </div>
-</div>
-<div class="listing-categories"><div class="listing-category">LangChain</div><div class="listing-category">LLMs</div><div class="listing-category">RAG</div></div>
-</div>
-<div class="metadata"><div class="listing-date">2025</div><div class="listing-author">Athiyaman M</div></div>
-</div>
+      <section class="content-section">
+        <div class="card-list">
+          <article class="card">
+            <h3 class="card-title">Explainable AI for Healthcare: Building Transparent Clinical Models</h3>
+            <p class="card-description">Notes on building transparent and trustworthy AI models for clinical use, including best practices for SHAP, LIME, and counterfactual reasoning in mental health risk detection systems.</p>
+            <div class="tags">
+              <span class="tag">XAI</span>
+              <span class="tag">Healthcare</span>
+              <span class="tag">BERT</span>
+            </div>
+          </article>
 
-<!-- BLOG 3 -->
-<div class="quarto-post image-right" data-index="2" data-categories="Agentic AI,Automation" data-listing-date-sort="1763000000000">
-<div class="body"><h3 class="no-anchor listing-title">Agentic AI Workflows with ReAct and LangGraph</h3><div class="listing-description"><p>Insights on using ReAct and autonomous agent patterns to integrate external tools, API calls, and multi-step reasoning into production AI workflows using LangGraph and FastAPI.</p></div>
-<div class="blog-medium-preview">
-  <img src="images/blogs/agentic-ai.png" alt="Agentic AI Workflows" loading="lazy">
-  <div class="blog-preview-bar">
-    <svg viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42zm2.04 0c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75c.66 0 1.19 2.58 1.19 5.75z"/></svg>
-    <span class="blog-preview-source">Medium</span>
-    <span>· Read on Medium</span>
-  </div>
-</div>
-<div class="listing-categories"><div class="listing-category">ReAct</div><div class="listing-category">LangGraph</div><div class="listing-category">FastAPI</div></div>
-</div>
-<div class="metadata"><div class="listing-date">2025</div><div class="listing-author">Athiyaman M</div></div>
-</div>
+          <article class="card">
+            <h3 class="card-title">Building Document Intelligence Systems with RAG</h3>
+            <p class="card-description">A practical guide to building retrieval-augmented question answering systems over PDF documents using embeddings, vector search (FAISS, Pinecone), and large language models.</p>
+            <div class="tags">
+              <span class="tag">LangChain</span>
+              <span class="tag">LLMs</span>
+              <span class="tag">RAG</span>
+            </div>
+          </article>
 
-</div>
-</main>
+          <article class="card">
+            <h3 class="card-title">Agentic AI Workflows with ReAct and LangGraph</h3>
+            <p class="card-description">Insights on using ReAct and autonomous agent patterns to integrate external tools, API calls, and multi-step reasoning into production AI workflows using LangGraph and FastAPI.</p>
+            <div class="tags">
+              <span class="tag">ReAct</span>
+              <span class="tag">LangGraph</span>
+              <span class="tag">FastAPI</span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Work &amp; Writings</h3>
+          <ul>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#publications">Publications</a></li>
+            <li><a href="index.html#writing">Writing</a></li>
+            <li><a href="index.html#news">News</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Profile</h3>
+          <ul>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#education">Education</a></li>
+            <li><a href="assets/documents/Resume-Athiyaman.pdf" target="_blank" rel="noopener">Résumé</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <ul>
+            <li><a href="https://github.com/athiyaman-m" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://scholar.google.com/citations?hl=en&user=QfHBWvgAAAAJ" target="_blank" rel="noopener">Google Scholar</a></li>
+            <li><a href="mailto:athiyamanpro@gmail.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Athiyaman M. Built with simplicity.</p>
+      </div>
+    </footer>
   </div>
-  </div>
+  <script src="assets/js/theme.js"></script>
 </body>
 </html>

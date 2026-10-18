@@ -1,233 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-  <title>News | Athiyaman M</title>
-  <link rel="stylesheet" href="assets/css/site.css?v=20260701">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    code {
-      white-space: pre-wrap;
-    }
-
-    span.smallcaps {
-      font-variant: small-caps;
-    }
-
-    div.columns {
-      display: flex;
-      gap: min(4vw, 1.5em);
-    }
-
-    div.column {
-      flex: auto;
-      overflow-x: auto;
-    }
-  </style>
-  <script defer src="assets/js/site.js?v=20260701"></script>
+  <title>News &amp; Achievements | Athiyaman M</title>
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    // Prevent flash of wrong theme on page load
+    (function() {
+      var theme = 'light';
+      try { theme = localStorage.getItem('theme') || 'light'; } catch (e) {}
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/inner.css">
 </head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-content">
+        <a class="brand" href="index.html">Athiyaman M</a>
+        <nav>
+          <ul class="nav">
+            <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+            <li><a href="index.html#education" class="nav-link">Education</a></li>
+            <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+            <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+            <li><a href="index.html#news" class="nav-link">News</a></li>
+            <li><a href="index.html#publications" class="nav-link">Publications</a></li>
+            <li><a href="index.html#writing" class="nav-link">Writing</a></li>
+          </ul>
+        </nav>
+        <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
 
-<body data-root="" data-page="news" data-kind="page">
-  <div class="site-main">
-    <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-      <main class="content" id="quarto-document-content">
-        <header id="title-block-header" class="quarto-title-block default">
-          <div class="quarto-title">
-            <h1 class="title" >News & Achievements</h1>
-          </div>
-        </header>
-        <hr>
-        <section class="news-accordion" aria-label="News updates by year">
-          <details class="news-year" open>
-            <summary class="news-year-summary">
-              <span class="news-year-label">2026</span>
-              <span class="news-year-count">1</span>
-            </summary>
-            <div class="news-year-list">
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">May</span></div>
-                <img src="news/2025/graduation.png" alt="Graduation" class="news-entry-img">
-                <p class="news-text">Graduated as an Engineer with the <b>Rank Holder & First Class with Distinction.</b> </p>
-              </article>
+    <main>
+      <section class="page-header">
+        <h1 class="page-title">News &amp; Achievements</h1>
+        <p class="page-subtitle">Milestones, awards, and things I'm proud of.</p>
+      </section>
+
+      <section class="news-year-section">
+        <h2 class="section-year">2026</h2>
+        <div class="news-grid">
+          <article class="news-card">
+            <div class="news-thumb"><div class="news-thumb-fallback">2026</div></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2026 · Publication</span>
+              <p class="news-card-text">Research paper on <strong class="kw">Mental Health Risk Detection via Explainable AI</strong> submitted to ICAITPR 2026 and currently under review.</p>
+              <a class="news-card-link" href="publications.html">View publications <span class="arrow">→</span></a>
             </div>
-          </details>
-          <details class="news-year" open>
-            <summary class="news-year-summary">
-              <span class="news-year-label">2025</span>
-              <span class="news-year-count">8</span>
-            </summary>
-            <div class="news-year-list">
+          </article>
+        </div>
+      </section>
 
-              <article class="news-entry">
-                <div class="news-head">
-                  <span class="news-month">January</span>
-                  <span class="news-month">#GDG_Cloud_Chennai_Meetup</span>
-                </div>
-                <img src="news/2025/GDG_meetup.png" alt="GDG Cloud Chennai Meetup" class="news-entry-img">
-                <p class="news-text">Had a great experience at the <b>GDG Cloud Chennai</b> community meetup at YuniQ. Gained valuable insights into Google Cloud technologies and its organization policies.</p>
-                <a href="https://www.linkedin.com/posts/athiyaman-m-a2843922a_googlecloud-gdgcloudchennai-techcommunity-activity-7297491197005025281-DWv6" class="news-linkedin-link" target="_blank" rel="noopener">
-                  <svg viewBox="0 0 24 24"><path d="M22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.39 4.3 5.5v6.24z"/></svg>
-                  View on LinkedIn
-                </a>
-              </article>
-
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">August</span></div>
-                <!-- <img src="images/news/cdac.png" alt="C-DAC" class="news-entry-img"> -->
-                <p class="news-text">Joined the Centre for Development of Advanced Computing (C-DAC), Government of
-                  India as Project Engineer (Software).</p>
-              </article>
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2025</span></div>
-                <!-- <img src="images/news/rank-holder.png" alt="Rank Holder" class="news-entry-img"> -->
-                <p class="news-text">Awarded the Rank Holder Award and Academic Excellence Award for outstanding
-                  academic performance.</p>
-              </article>
-              
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2025</span></div>
-                <!-- <img src="images/news/project-expo.png" alt="Project Expo" class="news-entry-img"> -->
-                <p class="news-text">Received the Best Innovation Project Award at Project Expo'25 for developing an
-                  impactful technology-based solution.</p>
-              </article>
-        
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2025</span></div>
-                <!-- <img src="images/news/sahithya.png" alt="SAHITHYA 2025" class="news-entry-img"> -->
-                <p class="news-text">Conference paper on hospital readmission prediction accepted at SAHITHYA 2025,
-                  NITTTR Chennai (ISBN Proceedings).</p>
-              </article>
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2025</span></div>
-                <!-- <img src="images/news/ichcsc.png" alt="ICHCSC 2025" class="news-entry-img"> -->
-                <p class="news-text">Conference paper on PON-FSO hospital network architecture accepted at ICHCSC 2025,
-                  Springer Nature Proceedings.</p>
-              </article>
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2025</span></div>
-                <!-- <img src="images/news/cdac-recognition.png" alt="C-DAC Recognition" class="news-entry-img"> -->
-                <p class="news-text">Recognized by C-DAC for outstanding work performance and contributions to software
-                  development projects.</p>
-              </article>
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2025</span></div>
-                <!-- <img src="images/news/bharatdb.png" alt="BharatDB" class="news-entry-img"> -->
-                <p class="news-text">Contributed to the BharatDB initiative — identified and reported PostgreSQL community
-                  issues, performed database performance analysis, and successfully fixed 3 open-source PostgreSQL bugs.</p>
-              </article>
+      <section class="news-year-section">
+        <h2 class="section-year">2025</h2>
+        <div class="news-grid">
+          <article class="news-card">
+            <div class="news-thumb"><div class="news-thumb-fallback">2025</div></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2025 · Career</span>
+              <p class="news-card-text">Joined the <strong>C-DAC (MeitY), Government of India</strong> as Project Engineer — Backend Software Engineer.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
             </div>
-          </details>
-
-          <details class="news-year" open>
-            <summary class="news-year-summary">
-              <span class="news-year-label">2024</span>
-              <span class="news-year-count">7</span>
-            </summary>
-            <div class="news-year-list">
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">June</span></div>
-                <!-- <img src="images/news/iitm.png" alt="IIT Madras" class="news-entry-img"> -->
-                <p class="news-text">Joined HTIC, IIT Madras as Project Intern (Software) — developing desktop clinical
-                  software using QT/VTK framework.</p>
-              </article>
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2024</span></div>
-                <!-- <img src="images/news/math-competition.png" alt="Math Competition" class="news-entry-img"> -->
-                <p class="news-text">Finalist in a National-Level Mathematics Competition, demonstrating strong
-                  analytical and problem-solving abilities.</p>
-              </article>
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2024</span></div>
-                <!-- <img src="images/news/linkedin-topvoice.png" alt="LinkedIn Top Voice" class="news-entry-img"> -->
-                <p class="news-text">Earned the LinkedIn Top Voice Badge on three occasions for sharing technical
-                  knowledge and industry insights.</p>
-              </article>
-
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2024</span></div>
-                <img src="news/2024/academic_excellence.png" alt="Academic Excellence" class="news-entry-img">
-                <p class="news-text">Awarded the <b>Academic Excellence </b>Award for outstanding
-                  academic performance.</p>
-              </article>
-
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2024</span></div>
-                <img src="news/2024/speech_competition.png" alt="Speech Competition" class="news-entry-img">
-                <p class="news-text">Honored for <b> winning </b> the Elocution competition on the topic "Engineer's Role in Eradication of Poverty!".</p>
-              </article>
-
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2024</span></div>
-                <img src="news/2024/hackathon.png" alt="Hackathon" class="news-entry-img" style="object-position: bottom;">
-                <p class="news-text">Participated in a national-level <b>Smart India Hackathon</b>, demonstrating strong problem-solving and teamwork skills.</p>
-              </article>
-
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2024</span></div>
-                <img src="news/2024/sports_anchoring.png" alt="Sports Anchoring" class="news-entry-img" style="object-position: bottom;">
-                <p class="news-text">Recognized for exceptional performance as a sports anchor, showcasing strong communication and presentation skills.</p>
-              </article>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><img src="news/2025/graduation.png" alt="Graduation — Rank Holder Award"></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2025 · Achievement</span>
+              <p class="news-card-text">Graduated with <strong class="kw">Rank Holder Award</strong> and First Class with Distinction from IFET College of Engineering, Anna University.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
             </div>
-          </details>
-
-          <details class="news-year" open>
-            <summary class="news-year-summary">
-              <span class="news-year-label">2023</span>
-              <span class="news-year-count">4</span>
-            </summary>
-            <div class="news-year-list">
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2023</span></div>
-                <img src="news/2023/top_rank.png" alt="Top Rank" class="news-entry-img">
-                <p class="news-text">Awarded <b>First Prize </b>Award for securing the top rank in my academy</p>
-              </article>
-
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2023</span></div>
-                <img src="news/2023/best_student.png" alt="Best Student" class="news-entry-img">
-                <p class="news-text">Recognized as the <b>Best Student</b> for consistent academic excellence,
-                  leadership
-                  contributions, and overall achievements.</p>
-              </article>
-
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2023</span></div>
-                <img src="news/2023/best_presentation.png" alt="Best Presentation" class="news-entry-img">
-                <p class="news-text">Awarded <b>Best Presentation </b> in the Technical Talk Competition for excellence in
-                  technical and research presentation.</p>
-              </article>
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2023</span></div>
-                <img src="news/2023/hackathon_1stprize.png" alt="Hackathon 1st Prize" class="news-entry-img">
-                <p class="news-text">Awarded <b>First Prize</b> in the Hackathon for exceptional talent and skill demonstrated on category "Health Analyzer" conducted on behalf of "World day for safety and health at work"</p>
-              </article>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><div class="news-thumb-fallback">2025</div></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2025 · Award</span>
+              <p class="news-card-text">Received the <strong class="kw">Best Innovation Project Award</strong> at Project Expo'25 for developing an impactful technology-based solution.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
             </div>
-          </details>
-
-          <details class="news-year" open>
-            <summary class="news-year-summary">
-              <span class="news-year-label">2022</span>
-              <span class="news-year-count">1</span>
-            </summary>
-            <div class="news-year-list">
-              <article class="news-entry">
-                <div class="news-head"><span class="news-month">2022</span></div>
-                <!-- <img src="images/news/cemp-expo.png" alt="CEMP Expo" class="news-entry-img"> -->
-                <p class="news-text">Secured Runner-Up position in the CEMP Project Expo 2022 for innovative project
-                  development and implementation.</p>
-              </article>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><div class="news-thumb-fallback">2025</div></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2025 · Publication</span>
+              <p class="news-card-text">Conference papers accepted at <strong>SAHITHYA 2025</strong> (NITTTR Chennai) and <strong>ICHCSC 2025</strong> (Springer Nature Proceedings).</p>
+              <a class="news-card-link" href="publications.html">View publications <span class="arrow">→</span></a>
             </div>
-          </details>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><div class="news-thumb-fallback">2025</div></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2025 · Open Source</span>
+              <p class="news-card-text">Contributed to the <strong class="kw">BharatDB</strong> initiative — performed PostgreSQL performance analysis and fixed 3 open-source PostgreSQL bugs.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><img src="news/2025/GDG_meetup.png" alt="GDG Cloud Chennai Meetup"></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2025 · Meetup</span>
+              <p class="news-card-text">Had a great experience at the <strong class="kw">GDG Cloud Chennai</strong> community meetup at YuniQ, with valuable insights into Google Cloud technologies.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/posts/athiyaman-m-a2843922a_googlecloud-gdgcloudchennai-techcommunity-activity-7297491197005025281-DWv6" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+        </div>
+      </section>
 
-        </section>
-      </main>
-    </div>
+      <section class="news-year-section">
+        <h2 class="section-year">2024</h2>
+        <div class="news-grid">
+          <article class="news-card">
+            <div class="news-thumb"><div class="news-thumb-fallback">2024</div></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2024 · Career</span>
+              <p class="news-card-text">Joined <strong>HTIC, IIT Madras</strong> as Project Intern — developing desktop clinical software using the QT/VTK framework.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><img src="news/2024/academic_excellence.png" alt="Academic Excellence Award"></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2024 · Award</span>
+              <p class="news-card-text">Awarded the <strong class="kw">Academic Excellence Award</strong> for outstanding academic performance.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><img src="news/2024/speech_competition.png" alt="Elocution Competition Win"></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2024 · Competition</span>
+              <p class="news-card-text">Honored for <strong class="kw">winning</strong> the Elocution competition on the topic "Engineer's Role in Eradication of Poverty!".</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><img src="news/2024/hackathon.png" alt="Smart India Hackathon"></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2024 · Hackathon</span>
+              <p class="news-card-text">Participated in the national-level <strong class="kw">Smart India Hackathon</strong>, demonstrating strong problem-solving and teamwork skills.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><img src="news/2024/sports_anchoring.png" alt="Sports Anchoring Recognition"></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2024 · Recognition</span>
+              <p class="news-card-text">Recognized for exceptional performance as a <strong>sports anchor</strong>, showcasing strong communication and presentation skills.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><div class="news-thumb-fallback">2024</div></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2024 · Recognition</span>
+              <p class="news-card-text">Earned the <strong class="kw">LinkedIn Top Voice Badge</strong> on three occasions for sharing technical knowledge and industry insights.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><div class="news-thumb-fallback">2024</div></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2024 · Competition</span>
+              <p class="news-card-text">Finalist in a <strong>National-Level Mathematics Competition</strong>, demonstrating strong analytical and problem-solving abilities.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="news-year-section">
+        <h2 class="section-year">2023</h2>
+        <div class="news-grid">
+          <article class="news-card">
+            <div class="news-thumb"><img src="news/2023/top_rank.png" alt="First Prize — Top Rank"></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2023 · Award</span>
+              <p class="news-card-text">Awarded <strong class="kw">First Prize</strong> for securing the top rank in the academy.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><img src="news/2023/best_student.png" alt="Best Student Award"></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2023 · Award</span>
+              <p class="news-card-text">Recognized as the <strong class="kw">Best Student</strong> for consistent academic excellence, leadership contributions, and overall achievements.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><img src="news/2023/best_presentation.png" alt="Best Presentation Award"></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2023 · Award</span>
+              <p class="news-card-text">Awarded <strong class="kw">Best Presentation</strong> in the Technical Talk Competition for excellence in technical and research presentation.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-thumb"><img src="news/2023/hackathon_1stprize.png" alt="Hackathon First Prize"></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2023 · Hackathon</span>
+              <p class="news-card-text">Awarded <strong class="kw">First Prize</strong> in the Hackathon for the category "Health Analyzer" on World Day for Safety and Health at Work.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="news-year-section">
+        <h2 class="section-year">2022</h2>
+        <div class="news-grid">
+          <article class="news-card">
+            <div class="news-thumb"><div class="news-thumb-fallback">2022</div></div>
+            <div class="news-card-body">
+              <span class="news-card-year">2022 · Expo</span>
+              <p class="news-card-text">Secured the <strong>Runner-Up</strong> position at the CEMP Project Expo 2022 for innovative project development and implementation.</p>
+              <a class="news-card-link" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">View on LinkedIn <span class="arrow">→</span></a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Work &amp; Writings</h3>
+          <ul>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#publications">Publications</a></li>
+            <li><a href="index.html#writing">Writing</a></li>
+            <li><a href="index.html#news">News</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Profile</h3>
+          <ul>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#education">Education</a></li>
+            <li><a href="assets/documents/Resume-Athiyaman.pdf" target="_blank" rel="noopener">Résumé</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <ul>
+            <li><a href="https://github.com/athiyaman-m" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://scholar.google.com/citations?hl=en&user=QfHBWvgAAAAJ" target="_blank" rel="noopener">Google Scholar</a></li>
+            <li><a href="mailto:athiyamanpro@gmail.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Athiyaman M. Built with simplicity.</p>
+      </div>
+    </footer>
   </div>
+  <script src="assets/js/theme.js"></script>
 </body>
-
 </html>

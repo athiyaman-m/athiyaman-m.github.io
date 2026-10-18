@@ -3,85 +3,130 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <title>Experience | Athiyaman M</title>
-  <meta name="description" content="Professional experience of Athiyaman M — Project Engineer at C-DAC, Government of India and Project Intern at HTIC, IIT Madras.">
-  <link rel="stylesheet" href="assets/css/site.css?v=20260701">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em;
-  vertical-align: middle;
-}
-</style>
-  <script defer src="assets/js/site.js?v=20260701"></script>
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    // Prevent flash of wrong theme on page load
+    (function() {
+      var theme = 'light';
+      try { theme = localStorage.getItem('theme') || 'light'; } catch (e) {}
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/inner.css">
 </head>
-<body data-root="" data-page="experience" data-kind="page">
-  <div class="site-main">
-    <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<main class="content" id="quarto-document-content">
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title" >Experience</h1>
-</div>
-</header>
-<hr>
-<div class="exp-block">
-  <b>Project Engineer - Backend Software Developer</b>
-  <span class="exp-meta">August 2025 – Present</span>
-  <br>
-  <a href="https://cdac.in" class="exp-org">Centre for Development of Advanced Computing (C-DAC), Government of India</a>
-  <span class="exp-meta">Chennai, India</span>
-  <p class="exp-text align-justify">
-  Developed and maintained a large-scale examination server-side security monitoring and risk-scoring system deployed on PXE servers across government examination centers nationwide, enabling real-time monitoring of thousands of client systems during SSC live exams. Architected FastAPI-based backend services for anomaly detection, device validation, security compliance monitoring, and automated risk assessment using 30+ security indicators, 5+ data sources, and severity-based scoring models, with real-time enforcement through API-driven blocking mechanisms for policy violations.
-  </p>
-  <p class="exp-text align-justify">
-  Engineered production-grade solutions leveraging Python, MariaDB, SQLite, REST APIs, Regex-based log parsing, JSON processing, structured logging, boot validation, and security telemetry analysis to ensure examination infrastructure integrity.
-  </p>
-  <p class="exp-text align-justify">
-  Built large-scale log analytics and monitoring pipelines using Elasticsearch, Kibana, Regex, and structured logging frameworks, enabling centralized security monitoring, forensic analysis, and operational reporting across distributed examination environments.
-  </p>
-  <p class="exp-text align-justify">
-  Delivered production-level mission-critical software supporting thousands of client systems across government examination centers nationwide, contributing to secure, scalable, and tamper-resistant assessment processes used across India.
-  </p>
-  <p class="exp-text align-justify">
-  Developed AI-powered proof-of-concepts for financial document intelligence, research paper summarization, and explainable healthcare AI applications using Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), and modern AI frameworks.
-  </p>
-  <p class="exp-text align-justify">
-  Contributed to the BharatDB initiative and PostgreSQL ecosystem by identifying and reporting community issues, performing database performance analysis, and successfully fixing 3 open-source PostgreSQL bugs.
-  </p>
-</div>
-<hr>
-<div class="exp-block">
-  <b>Project Intern - Healthcare Software Developer</b>
-  <span class="exp-meta">June 2024 – July 2025</span>
-  <br>
-  <a href="https://www.iitm.ac.in" class="exp-org">Healthcare Technology Innovation Centre (HTIC), IIT Madras</a>
-  <span class="exp-meta">Chennai, India</span>
-  <p class="exp-text align-justify">
-  Developed healthcare software applications for Total Knee Arthroplasty (TKA) planning using QT, C++, VTK, and ITK.
-  </p>
-  <p class="exp-text align-justify">
-  Built medical image-processing workflows for CT-based bone segmentation, 3D reconstruction, visualization, and surgical planning.
-  </p>
-  <p class="exp-text align-justify">
-  Integrated REST APIs and MySQL databases for healthcare data management and clinical workflow automation.
-  </p>
-  <p class="exp-text align-justify">
-  Utilized Azure DevOps, Git, CMake, and CI/CD practices for collaborative development, testing, version control, and deployment.
-  </p>
-</div>
-</main>
-    </div>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-content">
+        <a class="brand" href="index.html">Athiyaman M</a>
+        <nav>
+          <ul class="nav">
+            <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+            <li><a href="index.html#education" class="nav-link">Education</a></li>
+            <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+            <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+            <li><a href="index.html#news" class="nav-link">News</a></li>
+            <li><a href="index.html#publications" class="nav-link">Publications</a></li>
+            <li><a href="index.html#writing" class="nav-link">Writing</a></li>
+          </ul>
+        </nav>
+        <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-header">
+        <h1 class="page-title">Experience</h1>
+        <p class="page-subtitle">Backend engineering, security infrastructure, and clinical software.</p>
+      </section>
+
+      <section class="content-section">
+        <div class="card-list">
+          <article class="experience-item">
+            <h3 class="experience-role">Project Engineer — Backend Software Engineer</h3>
+            <p class="experience-org">C-DAC (Centre for Development of Advanced Computing), Government of India, Chennai</p>
+            <p class="experience-date">September 2025 – Present</p>
+            <div class="experience-details">
+              <ul>
+                <li>Architected and shipped <strong class="kw">FastAPI</strong> backend services powering a real-time <strong class="kw">security monitoring</strong> and <strong class="kw">risk-scoring</strong> system deployed on <strong class="kw">PXE servers</strong>, enabling live monitoring of <strong class="kw">thousands of client systems</strong> during national SSC examinations.</li>
+                <li>Built <strong class="kw">anomaly detection</strong>, device validation, and automated risk-assessment pipelines using <strong class="kw">30+ security indicators</strong> across <strong class="kw">5+ data sources</strong>, with severity-based scoring and API-driven blocking for real-time enforcement.</li>
+                <li>Engineered production-grade backend logic in <strong class="kw">Python</strong> with <strong class="kw">MariaDB</strong> and <strong class="kw">SQLite</strong> — including regex-based log parsing, structured logging, and boot validation — and deployed large-scale log analytics pipelines using <strong class="kw">Elasticsearch</strong> and <strong class="kw">Kibana</strong> for centralized security monitoring and forensic analysis.</li>
+                <li>Prototyped AI proof-of-concepts in financial document intelligence, research summarization, and explainable healthcare AI using <strong class="kw">LLMs</strong> and <strong class="kw">RAG</strong> frameworks; optimized <strong class="kw">SQL/PostgreSQL</strong> for the <strong class="kw">BharatDB</strong> initiative and resolved <strong class="kw">3 open-source PostgreSQL bugs</strong>.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="experience-item">
+            <h3 class="experience-role">Project Intern — Healthcare Software Developer</h3>
+            <p class="experience-org">Healthcare Technology Innovation Centre (HTIC), IIT Madras, Chennai</p>
+            <p class="experience-date">June 2024 – July 2025</p>
+            <div class="experience-details">
+              <ul>
+                <li>Built clinical software for <strong class="kw">Total Knee Arthroplasty (TKA)</strong> surgical planning using <strong class="kw">Qt</strong>, <strong class="kw">C++</strong>, <strong class="kw">VTK</strong>, and <strong class="kw">ITK</strong>, supporting real-world surgical workflows.</li>
+                <li>Developed medical image-processing pipelines for <strong class="kw">CT-based bone segmentation</strong> and <strong class="kw">3D reconstruction</strong>, improving accuracy for surgical planning.</li>
+                <li>Integrated <strong class="kw">REST APIs</strong> with <strong class="kw">MySQL</strong> databases to automate healthcare data management and clinical workflows.</li>
+                <li>Adopted <strong class="kw">Azure DevOps</strong>, <strong class="kw">Git</strong>, <strong class="kw">CMake</strong>, and <strong class="kw">CI/CD</strong> practices, streamlining collaborative development, testing, and deployment cycles.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Work &amp; Writings</h3>
+          <ul>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#publications">Publications</a></li>
+            <li><a href="index.html#writing">Writing</a></li>
+            <li><a href="index.html#news">News</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Profile</h3>
+          <ul>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#education">Education</a></li>
+            <li><a href="assets/documents/Resume-Athiyaman.pdf" target="_blank" rel="noopener">Résumé</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <ul>
+            <li><a href="https://github.com/athiyaman-m" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://scholar.google.com/citations?hl=en&user=QfHBWvgAAAAJ" target="_blank" rel="noopener">Google Scholar</a></li>
+            <li><a href="mailto:athiyamanpro@gmail.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Athiyaman M. Built with simplicity.</p>
+      </div>
+    </footer>
   </div>
+  <script src="assets/js/theme.js"></script>
 </body>
 </html>

@@ -1,139 +1,597 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-  <title>Athiyaman M | Software Engineer</title>
-  <meta name="description"
-    content="Portfolio of Athiyaman M — Software Engineer at C-DAC, Government of India. Specializing in large-scale backend systems, security monitoring, AI/LLM applications, healthcare technology, and database engineering.">
-  <link rel="stylesheet" href="assets/css/site.css?v=20260701">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    code {
-      white-space: pre-wrap;
-    }
-
-    span.smallcaps {
-      font-variant: small-caps;
-    }
-
-    div.columns {
-      display: flex;
-      gap: min(4vw, 1.5em);
-    }
-
-    div.column {
-      flex: auto;
-      overflow-x: auto;
-    }
-
-    div.hanging-indent {
-      margin-left: 1.5em;
-      text-indent: -1.5em;
-    }
-
-    ul.task-list {
-      list-style: none;
-    }
-
-    ul.task-list li input[type="checkbox"] {
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1em;
-      vertical-align: middle;
-    }
-  </style>
-  <script defer src="assets/js/site.js?v=20260701"></script>
-x</head>
-
-<body data-root="" data-page="home" data-kind="home">
-  <div class="site-main">
-    <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
-      <div class="quarto-about-trestles column-page">
-        <div class="about-entity">
-          <section class="home-photo-card">
-            <img loading="eager" fetchpriority="high" decoding="async" src="images/pic_1.png"
-              class="about-image rounded " style="width: 15em;">
-          </section>
-          <section class="home-name-card">
-            <header id="title-block-header" class="quarto-title-block default">
-              <div class="quarto-title">
-                <h1 class="title">Athiyaman M</h1>
-              </div>
-              <div class="quarto-title-meta">
-              </div>
-            </header>
-          </section>
-          <section class="home-links-card">
-            <div class="about-links">
-              <a href="https://scholar.google.com/citations?hl=en&user=QfHBWvgAAAAJ" class="about-link about-link--icon"
-                rel="" target="_blank" aria-label="Google Scholar" title="Google Scholar">
-                <i class="bi bi-book"></i>
-              </a>
-              <a href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" class="about-link about-link--icon" rel=""
-                target="_blank" aria-label="LinkedIn" title="LinkedIn">
-                <i class="bi bi-linkedin"></i>
-              </a>
-              <a href="https://github.com/athiyaman-m" class="about-link about-link--icon about-link--github" rel=""
-                target="_blank" aria-label="GitHub" title="GitHub">
-                <i class="bi bi-github"></i>
-              </a>
-              <a href="mailto:athiyamanpro@gmail.com" class="about-link about-link--icon" rel="" target=""
-                aria-label="Email" title="Email">
-                <i class="bi bi-envelope"></i>
-              </a>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Athiyaman M — Backend Software Engineer building production Python systems, AI/LLM apps, and RAG pipelines at C-DAC.">
+    <title>Athiyaman M</title>
+    <script>
+      // Prevent flash of wrong theme on page load
+      (function() {
+        var theme = 'light';
+        try { theme = localStorage.getItem('theme') || 'light'; } catch (e) {}
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+    <link rel="icon" href="assets/img/profile-pic.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="demo.css">
+    <style>
+      section[id] { scroll-margin-top: 5rem; }
+      .kw { color: #fa0000 !important; font-weight: 700; }
+      [data-theme="dark"] .kw { color: var(--text-primary) !important; }
+      .section-block { margin: 3rem 0; }
+      .section-title { font-size: 1.75rem; font-weight: 700; font-family: var(--font-serif, Lora), serif; font-style: italic; margin-bottom: 1.25rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-color); color: var(--text-secondary); }
+      .role-head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.25rem; align-items: baseline; }
+      .skill-group { margin-bottom: 1rem; }
+      .skill-group h4 { font-weight: 700; margin-bottom: 0.25rem; color: var(--text-secondary); }
+      .project-thumb { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden; background: var(--bg-primary); border: 1px solid var(--border-light); margin-bottom: 0.75rem; }
+      .project-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+      .project-thumb-fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.05rem; text-align: center; padding: 0.5rem; color: var(--text-muted); background: linear-gradient(135deg, #ececec, #dedede); }
+      [data-theme="dark"] .project-thumb-fallback { background: linear-gradient(135deg, #333333, #262626); }
+      .explore-section { margin: 2rem 0 3rem; }
+      .explore-header { margin-bottom: 1.25rem; }
+      .explore-grid { margin-top: 0 !important; }
+      .explore-card { height: 100%; display: flex; flex-direction: column; padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border-color); background-color: var(--bg-secondary); text-decoration: none !important; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+      .explore-card:hover { transform: translateY(-3px); border-color: #fa0000; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); }
+      .explore-card:hover .card-title { color: #fa0000 !important; }
+      .explore-card:hover .card-action { color: #fa0000; }
+      .explore-card:hover .card-action .arrow { transform: translateX(4px); }
+      .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; }
+      .card-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: var(--text-primary); opacity: 0.7; background: rgba(0, 0, 0, 0.05); padding: 0.15rem 0.45rem; border-radius: 4px; }
+      [data-theme="dark"] .card-tag { background: rgba(255, 255, 255, 0.08); }
+      .card-count { font-size: 0.85rem; font-weight: 700; color: #fa0000; }
+      [data-theme="dark"] .card-count { color: #ff6b6b; }
+      .card-title { color: var(--text-primary) !important; margin-bottom: 0.4rem; line-height: 1.3; transition: color .15s ease; }
+      .card-desc { font-size: 0.88rem; line-height: 1.45; flex-grow: 1; margin-bottom: 0.85rem; }
+      .card-action { display: flex; align-items: center; justify-content: space-between; color: var(--text-primary); opacity: 0.85; font-weight: 600; padding-top: 0.5rem; border-top: 1px dashed var(--border-light); transition: color .15s ease; }
+      .card-action .arrow { transition: transform .15s ease; font-size: 1rem; line-height: 1; }
+      [data-theme="dark"] .has-text-grey { color: #a8a8a8 !important; }
+      .news-card { height: 100%; display: flex; flex-direction: column; border-radius: 8px; border: 1px solid var(--border-color); background-color: var(--bg-secondary); overflow: hidden; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+      .news-card:hover { transform: translateY(-3px); border-color: #fa0000; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); }
+      .news-card:hover .card-action { color: #fa0000; }
+      .news-card:hover .card-action .arrow { transform: translateX(4px); }
+      .news-thumb { position: relative; width: 100%; aspect-ratio: 16 / 10; background: var(--bg-primary); border-bottom: 1px solid var(--border-light); }
+      .news-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .news-thumb-fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.6rem; font-family: var(--font-serif, Lora), serif; color: var(--text-muted); background: linear-gradient(135deg, #ececec, #dedede); }
+      [data-theme="dark"] .news-thumb-fallback { background: linear-gradient(135deg, #333333, #262626); }
+      .news-card-body { display: flex; flex-direction: column; flex: 1; padding: 1rem 1.15rem 1.15rem; }
+      .news-card-tag { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: var(--text-primary); opacity: 0.7; margin-bottom: 0.45rem; }
+    </style>
+  </head>
+  <body>
+    <div class="section container">
+      <div>
+        <nav class="navbar container is-fixed-top" role="navigation" aria-label="main navigation" style="border-bottom: 1px solid var(--border-color);">
+          <div class="navbar-brand">
+            <div class="navbar-item">
+              <a href="index.html" class="is-size-4 has-text-weight-bold has-text-black is-family-secondary is-italic">Athiyaman M</a>
             </div>
-            <a href="documents/Resume-Athiyaman.pdf" class="home-resume-btn" target="_blank">
-              <i class="bi bi-download"></i> View Resume
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="menu" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
             </a>
-          </section>
-        </div>
-        <div class="home-content-stack">
-          <div class="about-contents">
-            <main class="content column-page" id="quarto-document-content">
-              <section class="home-bio-card">
-                <div class="home-bio-quote-mark" style="margin-bottom: -15px;">"</div>
-                <div class="home-bio-text align-justify">
-                  Software Engineer with 1+ year of experience building large-scale backend systems, security
-                  monitoring platforms, healthcare software, and AI-powered applications. Currently developing
-                  mission-critical examination infrastructure at C-DAC using Python, FastAPI, PostgreSQL,
-                  Elasticsearch, and distributed log analytics, while previously building clinical software at
-                  HTIC, IIT Madras. Experienced in backend engineering, LLM applications, RAG systems, database
-                  optimization, and production-grade software deployed at national scale.
-                </div>
-                <div class="home-bio-quote-mark home-bio-quote-mark--end" style="margin-bottom: -20px;">"</div>
-              </section>
-            </main>
           </div>
-          <div class="about-contents home-news-shell">
-            <section class="home-news-card">
-              <div class="home-news-title">Highlights</div>
-              <div class="home-news-list">
-                <div class="home-news-item"><span class="home-news-time">August 2025</span> Joined C-DAC, Government of
-                  India as Project Engineer — building mission-critical examination security infrastructure,
-                  FastAPI backend services, and Elasticsearch log analytics pipelines deployed nationwide.</div>
-                <div class="home-news-item"><span class="home-news-time">June 2024 – July 2025</span> Project Intern at
-                  HTIC, IIT Madras — built TKA surgical planning software using Qt, C++, VTK, and ITK for
-                  orthopedic clinical applications.</div>
-                <div class="home-news-item"><span class="home-news-time">2025–2026</span> Published 3 research papers —
-                  ICAITPR 2026 (Under Review), SAHITHYA 2025 (Accepted), ICHCSC 2025, Springer Nature (Accepted).</div>
-                <div class="home-news-item"><span class="home-news-time">2025</span> Graduated B.E. ECE (Honours in
-                  Artificial Intelligence) with CGPA 8.71, First Class with Distinction, Rank Holder.</div>
-                <div class="home-news-item"><span class="home-news-time">2025</span> Awarded Best Innovation Project at
-                  Project Expo'25; recognized as Best Student; secured Best Presentation in Technical Talk.</div>
-                <div class="home-news-item"><span class="home-news-time">2025</span> Recognized by C-DAC for outstanding
-                  work performance; contributed 3 open-source PostgreSQL bug fixes to the BharatDB initiative.</div>
-                <div class="home-news-item"><span class="home-news-time">2024</span> Earned LinkedIn Top Voice Badge
-                  (3x); Finalist in National-Level Mathematics Competition.</div>
+          <div class="navbar-menu">
+            <div class="navbar-end">
+              <a class="navbar-item" href="#experience"><span class="is-size-6 has-text-weight-bold">Experience</span></a>
+              <a class="navbar-item" href="#education"><span class="is-size-6 has-text-weight-bold">Education</span></a>
+              <a class="navbar-item" href="#projects"><span class="is-size-6 has-text-weight-bold">Projects</span></a>
+              <a class="navbar-item" href="#skills"><span class="is-size-6 has-text-weight-bold">Skills</span></a>
+              <a class="navbar-item" href="#news"><span class="is-size-6 has-text-weight-bold">News</span></a>
+              <a class="navbar-item" href="#publications"><span class="is-size-6 has-text-weight-bold">Publications</span></a>
+              <a class="navbar-item" href="#writing"><span class="is-size-6 has-text-weight-bold">Writing</span></a>
+              <div class="navbar-item">
+                <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                  <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                  </svg>
+                  <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                  </svg>
+                </button>
               </div>
-            </section>
+            </div>
           </div>
+        </nav>
+      </div>
+
+      <div>
+        <div style="margin-top: 4em;">
+          <div>
+            <br>
+            <div class="columns is-vcentered">
+              <div class="column is-5 is-hidden-tablet">
+                <br>
+                <div class="image is-256x256">
+                  <img alt="Athiyaman M" src="assets/img/profile-pic.png" style="border-radius: 2em;" width="400" height="400" decoding="async">
+                </div>
+              </div>
+              <div class="column is-7">
+                <section>
+                  <h1 class="title is-size-2 is-size-3-mobile is-family-secondary is-italic">Hey, I am Athiyaman</h1>
+                  <h3 class="title is-size-4 is-size-5-mobile is-family-secondary is-italic" style="line-height: 1.5em;">Backend Software Engineer · Python &amp; AI/LLM Systems · MedTech</h3>
+                  <div class="content">
+                    <p><strong>Athiyaman M</strong> — a <strong class="kw">Backend Software Engineer</strong> based in Chennai, India, with <strong class="kw">1+ year of experience</strong> designing and shipping production-grade <strong class="kw">Python</strong> backend systems, <strong class="kw">AI/LLM</strong> applications, and <strong class="kw">RAG</strong> pipelines.</p>
+                    <p>Currently building mission-critical <strong class="kw">national examination security infrastructure</strong> at <a href="https://cdac.in" target="_blank" rel="noopener">C-DAC</a> (MeitY, Government of India), architecting <strong class="kw">FastAPI</strong> services that monitor <strong class="kw">thousands of client systems</strong> in real time.</p>
+                    <p>Previously contributed to clinical software development at <a href="https://www.iitm.ac.in" target="_blank" rel="noopener">HTIC, IIT Madras</a> — skilled in <strong class="kw">REST API design</strong>, <strong class="kw">distributed systems</strong>, and <strong class="kw">database optimization</strong>, with applied AI/ML expertise in <strong class="kw">LLMs</strong>, <strong class="kw">RAG</strong>, and <strong class="kw">explainable AI</strong>.</p>
+                  </div>
+                  <div class="social-pill-group" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem;">
+                    <a class="social-pill" target="_blank" rel="noopener noreferrer" href="https://github.com/athiyaman-m" title="GitHub" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 2em; text-decoration: none; color: var(--text-primary);">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                      <span>GitHub</span>
+                    </a>
+                    <a class="social-pill" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" title="LinkedIn" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 2em; text-decoration: none; color: var(--text-primary);">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                      <span>LinkedIn</span>
+                    </a>
+                    <a class="social-pill" target="_blank" rel="noopener noreferrer" href="https://scholar.google.com/citations?hl=en&user=QfHBWvgAAAAJ" title="Google Scholar" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 2em; text-decoration: none; color: var(--text-primary);">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                      <span>Scholar</span>
+                    </a>
+                    <a class="social-pill" target="_blank" rel="noopener noreferrer" href="mailto:athiyamanpro@gmail.com" title="Email" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 2em; text-decoration: none; color: var(--text-primary);">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                      <span>Email</span>
+                    </a>
+                    <a class="social-pill" target="_blank" rel="noopener noreferrer" href="assets/documents/Resume-Athiyaman.pdf" title="Résumé" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 2em; text-decoration: none; color: var(--text-primary);">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                      <span>Résumé</span>
+                    </a>
+                  </div>
+                </section>
+              </div>
+              <div class="column is-1"></div>
+              <div class="column is-4 is-hidden-mobile">
+                <div class="image section">
+                  <img alt="Athiyaman M" src="assets/img/profile-pic.png" style="border-radius: 2em;" width="300" height="300" decoding="async">
+                </div>
+              </div>
+            </div>
+            <br>
+          </div>
+
+          <section id="experience" class="section-block">
+            <h2 class="section-title">Experience</h2>
+
+            <div class="content" style="margin-bottom: 1.5rem;">
+              <article>
+                <div class="role-head">
+                  <h3 class="title is-size-5 is-family-normal has-text-weight-bold" style="margin-bottom: 0;">Project Engineer — Backend Software Engineer</h3>
+                  <span style="color: var(--text-muted); font-size: 0.9rem;">Sep 2025 – Present · Chennai, India</span>
+                </div>
+                <p style="color: var(--text-secondary); margin: 0.25rem 0 0.5rem;">C-DAC (Centre for Development of Advanced Computing), Government of India</p>
+                <ul>
+                  <li>Architected and shipped <strong class="kw">FastAPI</strong> backend services powering a real-time <strong class="kw">security monitoring</strong> and <strong class="kw">risk-scoring</strong> system deployed on <strong class="kw">PXE servers</strong>, enabling live monitoring of <strong class="kw">thousands of client systems</strong> during national SSC examinations.</li>
+                  <li>Built <strong class="kw">anomaly detection</strong>, device validation, and automated risk-assessment pipelines using <strong class="kw">30+ security indicators</strong> across <strong class="kw">5+ data sources</strong>, with severity-based scoring and API-driven blocking for real-time enforcement.</li>
+                  <li>Engineered production-grade backend logic in <strong class="kw">Python</strong> with <strong class="kw">MariaDB</strong> and <strong class="kw">SQLite</strong> — including regex-based log parsing, structured logging, and boot validation — and deployed large-scale log analytics pipelines using <strong class="kw">Elasticsearch</strong> and <strong class="kw">Kibana</strong> for centralized security monitoring and forensic analysis.</li>
+                  <li>Prototyped AI proof-of-concepts in financial document intelligence, research summarization, and explainable healthcare AI using <strong class="kw">LLMs</strong> and <strong class="kw">RAG</strong> frameworks; optimized <strong class="kw">SQL/PostgreSQL</strong> for the <strong class="kw">BharatDB</strong> initiative and resolved <strong class="kw">3 open-source PostgreSQL bugs</strong>.</li>
+                </ul>
+              </article>
+            </div>
+
+            <div class="content" style="margin-bottom: 1.5rem;">
+              <article>
+                <div class="role-head">
+                  <h3 class="title is-size-5 is-family-normal has-text-weight-bold" style="margin-bottom: 0;">Project Intern — Healthcare Software Developer</h3>
+                  <span style="color: var(--text-muted); font-size: 0.9rem;">Jun 2024 – Jul 2025 · Chennai, India</span>
+                </div>
+                <p style="color: var(--text-secondary); margin: 0.25rem 0 0.5rem;">Healthcare Technology Innovation Centre (HTIC), IIT Madras</p>
+                <ul>
+                  <li>Built clinical software for <strong class="kw">Total Knee Arthroplasty (TKA)</strong> surgical planning using <strong class="kw">Qt</strong>, <strong class="kw">C++</strong>, <strong class="kw">VTK</strong>, and <strong class="kw">ITK</strong>, supporting real-world surgical workflows.</li>
+                  <li>Developed medical image-processing pipelines for <strong class="kw">CT-based bone segmentation</strong> and <strong class="kw">3D reconstruction</strong>, improving accuracy for surgical planning.</li>
+                  <li>Integrated <strong class="kw">REST APIs</strong> with <strong class="kw">MySQL</strong> databases to automate healthcare data management and clinical workflows.</li>
+                  <li>Adopted <strong class="kw">Azure DevOps</strong>, <strong class="kw">Git</strong>, <strong class="kw">CMake</strong>, and <strong class="kw">CI/CD</strong> practices, streamlining collaborative development, testing, and deployment cycles.</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section id="education" class="section-block">
+            <h2 class="section-title">Education</h2>
+            <div class="content">
+              <article>
+                <div class="role-head">
+                  <h3 class="title is-size-5 is-family-normal has-text-weight-bold" style="margin-bottom: 0;">B.E. Electronics &amp; Communication Engineering (Hons. — Artificial Intelligence)</h3>
+                  <span style="color: var(--text-muted); font-size: 0.9rem;">Nov 2021 – May 2025 · Tamil Nadu, India</span>
+                </div>
+                <p style="color: var(--text-secondary); margin: 0.25rem 0 0.5rem;">IFET College of Engineering, Anna University</p>
+                <ul>
+                  <li><strong class="kw">CGPA: 8.71/10</strong> · <strong class="kw">Rank Holder</strong> · First Class with <strong class="kw">Distinction</strong></li>
+                  <li>Served as <strong>Associate Secretary</strong></li>
+                  <li><strong>Key Coursework:</strong> <strong class="kw">Machine Learning</strong>, <strong class="kw">NLP</strong>, <strong class="kw">Computer Vision</strong>, Embedded Systems, <strong class="kw">Data Structures &amp; Algorithms</strong>, <strong class="kw">Database Engineering</strong>, Software Development, <strong class="kw">Cloud Computing</strong></li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section id="projects" class="section-block">
+            <h2 class="section-title">Projects</h2>
+
+            <div class="explore-section">
+              <div class="explore-header">
+                <p class="has-text-grey" style="margin-top: 0.25rem;">Production Python backends, RAG systems, and explainable healthcare AI — everything I build in the open.</p>
+              </div>
+              <div class="columns is-multiline is-variable is-3 explore-grid">
+
+                <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                  <a href="https://github.com/athiyaman-m/AuditShakti" target="_blank" rel="noopener" class="box explore-card">
+                    <div class="project-thumb">
+                      <span class="project-thumb-fallback">AuditShakti</span>
+                      <img src="assets/img/projects/auditshakti.png" alt="AuditShakti project preview" loading="lazy" onerror="this.remove()">
+                    </div>
+                    <div class="card-top">
+                      <span class="card-tag is-family-monospace">AI Compliance</span>
+                      <span class="card-count is-family-monospace">Python</span>
+                    </div>
+                    <h3 class="card-title is-size-5 has-text-weight-bold">AuditShakti</h3>
+                    <p class="card-desc has-text-grey">AI-powered compliance platform automating financial document review, OCR, and regulatory validation (Ind-AS, SEBI, RBI, ESG) with hybrid RAG.</p>
+                    <div class="card-action is-family-monospace is-size-7">
+                      <span>View project</span>
+                      <span class="arrow">&rarr;</span>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                  <a href="projects.html#exai-panc" class="box explore-card">
+                    <div class="project-thumb">
+                      <span class="project-thumb-fallback">ExAI-PanC</span>
+                      <img src="assets/img/projects/exai-panc.png" alt="ExAI-PanC project preview" loading="lazy" onerror="this.remove()">
+                    </div>
+                    <div class="card-top">
+                      <span class="card-tag is-family-monospace">Healthcare AI</span>
+                      <span class="card-count is-family-monospace">Python</span>
+                    </div>
+                    <h3 class="card-title is-size-5 has-text-weight-bold">ExAI-PanC</h3>
+                    <p class="card-desc has-text-grey">Explainable AI clinical digital twin for pancreatic cancer — 0.999 AUC-ROC, SHAP insights, and a 3D 11-organ risk heatmap.</p>
+                    <div class="card-action is-family-monospace is-size-7">
+                      <span>View details</span>
+                      <span class="arrow">&rarr;</span>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                  <a href="projects.html#research-intelligence" class="box explore-card">
+                    <div class="project-thumb">
+                      <span class="project-thumb-fallback">Research Paper Intelligence</span>
+                      <img src="assets/img/projects/research-intelligence.png" alt="Research Paper Intelligence project preview" loading="lazy" onerror="this.remove()">
+                    </div>
+                    <div class="card-top">
+                      <span class="card-tag is-family-monospace">Multi-LLM RAG</span>
+                      <span class="card-count is-family-monospace">Python</span>
+                    </div>
+                    <h3 class="card-title is-size-5 has-text-weight-bold">Research Paper Intelligence</h3>
+                    <p class="card-desc has-text-grey">Multi-LLM research assistant with section-aware PDF parsing — 98% better summary quality (ROUGE-2 F1) over baseline.</p>
+                    <div class="card-action is-family-monospace is-size-7">
+                      <span>View details</span>
+                      <span class="arrow">&rarr;</span>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                  <a href="https://github.com/athiyaman-m/Personal-Agentic-AI-ChatBot" target="_blank" rel="noopener" class="box explore-card">
+                    <div class="project-thumb">
+                      <span class="project-thumb-fallback">Agentic AI Research Assistant</span>
+                      <img src="assets/img/projects/agentic-ai.png" alt="Agentic AI Research Assistant preview" loading="lazy" onerror="this.remove()">
+                    </div>
+                    <div class="card-top">
+                      <span class="card-tag is-family-monospace">Agentic AI</span>
+                      <span class="card-count is-family-monospace">Python</span>
+                    </div>
+                    <h3 class="card-title is-size-5 has-text-weight-bold">Agentic AI Research Assistant</h3>
+                    <p class="card-desc has-text-grey">Autonomous ReAct agent with LangGraph workflows, FastAPI, and external search tools that decomposes and answers complex queries.</p>
+                    <div class="card-action is-family-monospace is-size-7">
+                      <span>View project</span>
+                      <span class="arrow">&rarr;</span>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                  <a href="https://github.com/athiyaman-m/Medical-ChatBot-using-llama-2" target="_blank" rel="noopener" class="box explore-card">
+                    <div class="project-thumb">
+                      <span class="project-thumb-fallback">Medical AI Assistant</span>
+                      <img src="assets/img/projects/medical-rag.png" alt="Medical AI Assistant preview" loading="lazy" onerror="this.remove()">
+                    </div>
+                    <div class="card-top">
+                      <span class="card-tag is-family-monospace">Medical RAG</span>
+                      <span class="card-count is-family-monospace">Python</span>
+                    </div>
+                    <h3 class="card-title is-size-5 has-text-weight-bold">Medical AI Assistant</h3>
+                    <p class="card-desc has-text-grey">Production medical Q&amp;A assistant built with RAG, LangChain, Pinecone, and Llama-2, with full source attribution.</p>
+                    <div class="card-action is-family-monospace is-size-7">
+                      <span>View project</span>
+                      <span class="arrow">&rarr;</span>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                  <a href="projects.html" class="box explore-card">
+                    <div class="project-thumb">
+                      <span class="project-thumb-fallback">All Projects</span>
+                      <img src="assets/img/projects/all-projects.png" alt="All projects preview" loading="lazy" onerror="this.remove()">
+                    </div>
+                    <div class="card-top">
+                      <span class="card-tag is-family-monospace">Archive</span>
+                      <span class="card-count is-family-monospace">5+</span>
+                    </div>
+                    <h3 class="card-title is-size-5 has-text-weight-bold">All Projects</h3>
+                    <p class="card-desc has-text-grey">Full project archive with problem statements, approach, tech stacks, and GitHub links.</p>
+                    <div class="card-action is-family-monospace is-size-7">
+                      <span>Browse archive</span>
+                      <span class="arrow">&rarr;</span>
+                    </div>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <section id="skills" class="section-block">
+            <h2 class="section-title">Skills</h2>
+            <div class="content">
+              <div class="skill-group">
+                <h4>Programming</h4>
+                <p><strong class="kw">Python</strong>, <strong class="kw">SQL</strong>, Bash, <strong class="kw">C++</strong></p>
+              </div>
+              <div class="skill-group">
+                <h4>Backend &amp; APIs</h4>
+                <p><strong class="kw">FastAPI</strong>, Flask, <strong class="kw">RESTful HTTP APIs</strong> (JSON payloads), Requests, Microservices, <strong class="kw">ETL Pipelines</strong></p>
+              </div>
+              <div class="skill-group">
+                <h4>Databases</h4>
+                <p><strong class="kw">PostgreSQL</strong>, <strong class="kw">MariaDB</strong>, MySQL, <strong class="kw">SQLite</strong>, <strong class="kw">Elasticsearch</strong>, Pinecone, MySQLdb, PyMySQL</p>
+              </div>
+              <div class="skill-group">
+                <h4>AI / ML / GenAI</h4>
+                <p><strong class="kw">LLMs</strong>, <strong class="kw">RAG</strong>, <strong class="kw">LangChain</strong>, <strong class="kw">LangGraph</strong>, <strong class="kw">NLP</strong>, Hugging Face, OpenAI / Groq / Gemini API, <strong class="kw">PyTorch</strong>, scikit-learn, <strong class="kw">SHAP/LIME</strong>, Pandas, NumPy</p>
+              </div>
+              <div class="skill-group">
+                <h4>DevOps &amp; Tools</h4>
+                <p><strong class="kw">Git</strong>, GitHub, Docker, Linux, <strong class="kw">Azure DevOps</strong>, <strong class="kw">CI/CD</strong>, <strong class="kw">Kibana/ELK Stack</strong>, Power BI</p>
+              </div>
+            </div>
+          </section>
+
+          <section id="news" class="section-block">
+            <h2 class="section-title">News &amp; Achievements</h2>
+            <div class="columns is-multiline is-variable is-3">
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><div class="news-thumb-fallback">2026</div></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2026 · Publication</span>
+                    <p class="card-desc">Research paper on <strong class="kw">Mental Health Risk Detection via Explainable AI</strong> submitted to ICAITPR 2026 and currently under review.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><div class="news-thumb-fallback">2025</div></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2025 · Career</span>
+                    <p class="card-desc">Joined <strong>C-DAC (MeitY), Government of India</strong> as Project Engineer — Backend Software Engineer.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><img src="news/2025/graduation.png" alt="Graduation — Rank Holder Award"></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2025 · Achievement</span>
+                    <p class="card-desc">Graduated with <strong class="kw">Rank Holder Award</strong> and First Class with Distinction from IFET College of Engineering, Anna University.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><div class="news-thumb-fallback">2025</div></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2025 · Award</span>
+                    <p class="card-desc">Received the <strong class="kw">Best Innovation Project Award</strong> at Project Expo'25 for an impactful technology-based solution.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><div class="news-thumb-fallback">2025</div></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2025 · Publication</span>
+                    <p class="card-desc">Conference papers accepted at <strong>SAHITHYA 2025</strong> (NITTTR Chennai) and <strong>ICHCSC 2025</strong> (Springer Nature).</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><div class="news-thumb-fallback">2025</div></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2025 · Open Source</span>
+                    <p class="card-desc">Fixed <strong class="kw">3 open-source PostgreSQL bugs</strong> via the BharatDB initiative, with database performance analysis.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><img src="news/2025/GDG_meetup.png" alt="GDG Cloud Chennai Meetup"></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2025 · Meetup</span>
+                    <p class="card-desc">Had a great experience at the <strong class="kw">GDG Cloud Chennai</strong> community meetup at YuniQ, with insights into Google Cloud technologies.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><div class="news-thumb-fallback">2024</div></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2024 · Career</span>
+                    <p class="card-desc">Joined <strong>HTIC, IIT Madras</strong> as Project Intern — Healthcare Software Developer (QT/VTK clinical software).</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><img src="news/2024/academic_excellence.png" alt="Academic Excellence Award"></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2024 · Award</span>
+                    <p class="card-desc">Awarded the <strong class="kw">Academic Excellence Award</strong> for outstanding academic performance.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><img src="news/2024/speech_competition.png" alt="Elocution Competition Win"></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2024 · Competition</span>
+                    <p class="card-desc">Honored for <strong class="kw">winning</strong> the Elocution competition on the topic "Engineer's Role in Eradication of Poverty!".</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><img src="news/2024/hackathon.png" alt="Smart India Hackathon"></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2024 · Hackathon</span>
+                    <p class="card-desc">Participated in the national-level <strong class="kw">Smart India Hackathon</strong>, showcasing problem-solving and teamwork skills.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><img src="news/2024/sports_anchoring.png" alt="Sports Anchoring Recognition"></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2024 · Recognition</span>
+                    <p class="card-desc">Recognized for exceptional performance as a <strong>sports anchor</strong>, showcasing strong communication and presentation skills.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><div class="news-thumb-fallback">2024</div></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2024 · Recognition</span>
+                    <p class="card-desc">Recognized as <strong class="kw">LinkedIn Top Voice (3×)</strong> for sharing technical knowledge and industry insights.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><div class="news-thumb-fallback">2024</div></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2024 · Competition</span>
+                    <p class="card-desc">Finalist in a <strong>National-Level Mathematics Competition</strong>, demonstrating strong analytical and problem-solving abilities.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><img src="news/2023/top_rank.png" alt="First Prize — Top Rank"></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2023 · Award</span>
+                    <p class="card-desc">Awarded <strong class="kw">First Prize</strong> for securing the top rank in the academy.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><img src="news/2023/best_student.png" alt="Best Student Award"></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2023 · Award</span>
+                    <p class="card-desc">Recognized as the <strong class="kw">Best Student</strong> for consistent academic excellence, leadership, and overall achievements.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><img src="news/2023/best_presentation.png" alt="Best Presentation Award"></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2023 · Award</span>
+                    <p class="card-desc">Awarded <strong class="kw">Best Presentation</strong> in the Technical Talk Competition for excellence in technical and research presentation.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><img src="news/2023/hackathon_1stprize.png" alt="Hackathon First Prize"></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2023 · Hackathon</span>
+                    <p class="card-desc">Awarded <strong class="kw">First Prize</strong> in the Hackathon for the category "Health Analyzer" on World Day for Safety and Health at Work.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-6-tablet is-12-mobile">
+                <div class="news-card">
+                  <div class="news-thumb"><div class="news-thumb-fallback">2022</div></div>
+                  <div class="news-card-body">
+                    <span class="news-card-tag">2022 · Expo</span>
+                    <p class="card-desc">Secured <strong>Runner-Up</strong> at the CEMP Project Expo 2022 for innovative project development and implementation.</p>
+                    <a href="news.html" class="card-action">View details <span class="arrow">→</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="publications" class="section-block">
+            <h2 class="section-title">Publications</h2>
+            <div class="content">
+              <ul>
+                <li><strong>Mental Health Risk Detection via Explainable AI (XAI): A Multi-Model Benchmark with Contextual Embeddings</strong> — ICAITPR 2026 · <strong class="kw">Under Review</strong>. Multilingual BERT embeddings, behavioral feature fusion, Logistic Regression with <strong class="kw">SHAP</strong>, <strong class="kw">LIME</strong>, and Counterfactual Explanations; Macro F1 0.6464, Macro AUC-ROC 0.8726.</li>
+                <li><strong>AI-Based Analysis of Hospital Bed Utilization Patterns for Patient Readmission Prediction</strong> — SAHITHYA 2025, NITTTR Chennai · <strong>Accepted</strong>. ML models predicting hospital readmissions with <strong class="kw">94% accuracy</strong>.</li>
+                <li><strong>Design of PON for Hospital Building Management: Enhancing Data Transmission Using Free Space Optics (FSO)</strong> — ICHCSC 2025, Springer Nature · <strong>Accepted</strong>. Hybrid PON-FSO architecture with BER, SNR, and Quality Factor analysis.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="writing" class="section-block">
+            <h2 class="section-title">Writing</h2>
+            <div class="content">
+              <ul>
+                <li><strong>Explainable AI for Healthcare: Building Transparent Clinical Models</strong> — notes on SHAP, LIME, and counterfactual reasoning for clinical use.</li>
+                <li><strong>Building Document Intelligence Systems with RAG</strong> — a practical guide to retrieval-augmented QA over PDFs using embeddings and vector search (FAISS, Pinecone).</li>
+                <li><strong>Agentic AI Workflows with ReAct and LangGraph</strong> — integrating external tools, API calls, and multi-step reasoning into production AI workflows.</li>
+              </ul>
+            </div>
+          </section>
+
+          <footer class="section-block" style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+            <p style="color: var(--text-muted); font-size: 0.9rem;">© 2026 Athiyaman M · Chennai, India · <a href="mailto:athiyamanpro@gmail.com">athiyamanpro@gmail.com</a> · +91-8940089643</p>
+          </footer>
         </div>
       </div>
     </div>
-</body>
-
+    <script src="assets/js/theme.js"></script>
+  </body>
 </html>

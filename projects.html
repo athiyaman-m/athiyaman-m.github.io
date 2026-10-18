@@ -3,94 +3,208 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <title>Projects | Athiyaman M</title>
   <meta name="description" content="Technical projects by Athiyaman M — AI, healthcare, NLP, RAG, and agentic AI systems.">
-  <link rel="stylesheet" href="assets/css/site.css?v=20260701">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-</style>
-  <script defer src="assets/js/site.js?v=20260701"></script>
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    // Prevent flash of wrong theme on page load
+    (function() {
+      var theme = 'light';
+      try { theme = localStorage.getItem('theme') || 'light'; } catch (e) {}
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/inner.css">
 </head>
-<body data-root="" data-page="projects" data-kind="listing">
-  <div class="site-main">
-    <header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page">
-      <h1 class="title" >Projects</h1>
-    </div>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-content">
+        <a class="brand" href="index.html">Athiyaman M</a>
+        <nav>
+          <ul class="nav">
+            <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+            <li><a href="index.html#education" class="nav-link">Education</a></li>
+            <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+            <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+            <li><a href="index.html#news" class="nav-link">News</a></li>
+            <li><a href="index.html#publications" class="nav-link">Publications</a></li>
+            <li><a href="index.html#writing" class="nav-link">Writing</a></li>
+          </ul>
+        </nav>
+        <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-header">
+        <h1 class="page-title">Projects</h1>
+      </section>
+
+      <section class="content-section">
+        <h2 class="section-year">2025</h2>
+        <div class="card-list">
+
+          <article class="card" id="auditshakti">
+            <h3 class="card-title">AuditShakti — AI Compliance &amp; Audit Intelligence Platform</h3>
+            <p class="card-description">
+              <strong>Stack:</strong> Python, FastAPI, Next.js, scikit-learn, PyMuPDF, Tesseract OCR, Gemini, SQLite.
+              <strong>Problem:</strong> Financial document review and regulatory compliance validation (Ind-AS, SEBI, RBI, ESG) are manual, time-intensive processes.
+              <strong>Approach:</strong> Built an AI-powered compliance platform automating document review, <strong class="kw">OCR</strong>, and regulatory validation using <strong class="kw">FastAPI</strong> and hybrid <strong class="kw">RAG</strong> (SQLite FTS5 + semantic search).
+              <strong>Result:</strong> Delivered an explainable decision-support system with page-level evidence traceability, conversational AI, and exportable PDF/Excel/JSON reports — reducing manual audit effort significantly.
+            </p>
+            <div class="tags">
+              <span class="tag">FastAPI</span>
+              <span class="tag">Next.js</span>
+              <span class="tag">scikit-learn</span>
+              <span class="tag">PyMuPDF</span>
+              <span class="tag">Tesseract OCR</span>
+              <span class="tag">Gemini</span>
+              <span class="tag">SQLite</span>
+            </div>
+            <div style="margin-top: 0.75rem;">
+              <a href="https://github.com/athiyaman-m/AuditShakti" target="_blank" rel="noopener" style="color: var(--link-color); text-decoration: none;">GitHub →</a>
+            </div>
+          </article>
+
+          <article class="card" id="exai-panc">
+            <h3 class="card-title">ExAI-PanC — Explainable AI Clinical Digital Twin for Pancreatic Cancer</h3>
+            <p class="card-description">
+              <strong>Stack:</strong> Python, PyTorch, XGBoost, SHAP, Streamlit, Plotly, scikit-survival.
+              <strong>Problem:</strong> Clinical decision-making for pancreatic cancer requires early detection, survival estimation, and interpretable treatment guidance across high-dimensional multi-omics data.
+              <strong>Approach:</strong> Built an end-to-end <strong class="kw">explainable AI</strong> clinical decision-support system combining <strong class="kw">VAE</strong>-based multi-omics feature learning, <strong class="kw">XGBoost</strong> detection, and <strong class="kw">Random Survival Forest</strong> analysis trained on <strong class="kw">545 TCGA-PAAD/GTEx samples</strong>.
+              <strong>Result:</strong> Achieved <strong class="kw">0.999 AUC-ROC</strong> and <strong class="kw">0.857 C-index</strong>; delivered a <strong class="kw">SHAP</strong>-driven explainability engine and an interactive <strong class="kw">3D Clinical Digital Twin</strong> — 11-organ risk heatmap with compartmental ODE disease-progression simulation generating evidence-based treatment recommendations across 4 chemotherapy regimens.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">PyTorch</span>
+              <span class="tag">XGBoost</span>
+              <span class="tag">SHAP</span>
+              <span class="tag">Streamlit</span>
+              <span class="tag">Plotly</span>
+              <span class="tag">scikit-survival</span>
+            </div>
+          </article>
+
+          <article class="card" id="research-intelligence">
+            <h3 class="card-title">Research Paper Intelligence — Multi-LLM RAG System</h3>
+            <p class="card-description">
+              <strong>Stack:</strong> Python, Streamlit, LangChain, Groq API, Ollama, Llama 3.3, Gemma, PyMuPDF.
+              <strong>Problem:</strong> Researchers face information overload; existing summarization tools fail to preserve document structure and maintain factual consistency.
+              <strong>Approach:</strong> Built a multi-LLM research assistant automating scientific paper summarization and comparative analysis via <strong class="kw">section-aware PDF parsing</strong> and domain-adaptive prompting.
+              <strong>Result:</strong> Improved summary quality by <strong class="kw">98% (ROUGE-2 F1)</strong>, factual consistency by <strong class="kw">55%</strong>, and section coverage by <strong class="kw">33%</strong> versus baseline — delivered through an interactive Streamlit application.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">Streamlit</span>
+              <span class="tag">LangChain</span>
+              <span class="tag">Groq</span>
+              <span class="tag">Ollama</span>
+              <span class="tag">Llama 3.3</span>
+              <span class="tag">Gemma</span>
+              <span class="tag">PyMuPDF</span>
+            </div>
+          </article>
+
+          <article class="card" id="agentic-ai">
+            <h3 class="card-title">Agentic AI Research Assistant</h3>
+            <p class="card-description">
+              <strong>Stack:</strong> Python, LangGraph, FastAPI, OpenAI, Groq, Tavily.
+              <strong>Problem:</strong> Traditional chatbots lack autonomous reasoning and tool-use capabilities for multi-step research tasks.
+              <strong>Approach:</strong> Built an autonomous AI agent using <strong class="kw">ReAct architecture</strong> with <strong class="kw">LangGraph</strong> workflows, <strong class="kw">FastAPI</strong>, and external search tools.
+              <strong>Result:</strong> Delivered an interactive assistant that autonomously decomposes complex queries and synthesizes findings.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">LangGraph</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">Streamlit</span>
+              <span class="tag">OpenAI</span>
+              <span class="tag">Groq</span>
+              <span class="tag">Tavily</span>
+            </div>
+            <div style="margin-top: 0.75rem;">
+              <a href="https://github.com/athiyaman-m/Personal-Agentic-AI-ChatBot" target="_blank" rel="noopener" style="color: var(--link-color); text-decoration: none;">GitHub →</a>
+            </div>
+          </article>
+
+          <article class="card" id="medical-rag">
+            <h3 class="card-title">Medical AI Assistant using RAG and Llama-2</h3>
+            <p class="card-description">
+              <strong>Stack:</strong> Python, LangChain, Llama-2, Pinecone, Flask.
+              <strong>Problem:</strong> Healthcare professionals need rapid access to accurate medical knowledge from vast clinical literature.
+              <strong>Approach:</strong> Built an AI-powered medical knowledge assistant using <strong class="kw">Retrieval-Augmented Generation (RAG)</strong> with <strong class="kw">LangChain</strong> and <strong class="kw">Pinecone</strong>.
+              <strong>Result:</strong> Delivered a production-ready medical Q&amp;A system with source attribution.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">LangChain</span>
+              <span class="tag">Llama-2</span>
+              <span class="tag">Pinecone</span>
+              <span class="tag">Flask</span>
+              <span class="tag">RAG</span>
+            </div>
+            <div style="margin-top: 0.75rem;">
+              <a href="https://github.com/athiyaman-m/Medical-ChatBot-using-llama-2" target="_blank" rel="noopener" style="color: var(--link-color); text-decoration: none;">GitHub →</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Work &amp; Writings</h3>
+          <ul>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#publications">Publications</a></li>
+            <li><a href="index.html#writing">Writing</a></li>
+            <li><a href="index.html#news">News</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Profile</h3>
+          <ul>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#education">Education</a></li>
+            <li><a href="assets/documents/Resume-Athiyaman.pdf" target="_blank" rel="noopener">Résumé</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <ul>
+            <li><a href="https://github.com/athiyaman-m" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://scholar.google.com/citations?hl=en&user=QfHBWvgAAAAJ" target="_blank" rel="noopener">Google Scholar</a></li>
+            <li><a href="mailto:athiyamanpro@gmail.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Athiyaman M. Built with simplicity.</p>
+      </div>
+    </footer>
   </div>
-  </header>
-  <hr>
-  <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-
-<!-- PROJECT 1: Mental Health XAI -->
-<div class="quarto-post image-right" data-index="0" data-categories="AI,Healthcare,NLP,XAI" data-listing-date-sort="1765000000000" data-listing-file-modified-sort="1765000000000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1"
-  data-github-url="https://github.com/athiyaman-m/mhp-xai"
-  data-project-image="images/projects/xai-mental-health.png">
-<div class="thumbnail"><p><img loading="lazy" decoding="async" src="images/projects/xai-mental-health.png" class="thumbnail-image"></p></div>
-<div class="body"><h3 class="no-anchor listing-title">Mental Health Risk Prediction using Explainable AI (XAI)</h3><div class="listing-description"><p><span class="project-label">Problem:</span> Built an early mental health risk detection system to classify Low / Medium / High risk from social media or journal text, addressing the core challenge of poor interpretability in black-box ML systems.<br><span class="project-label">Approach:</span> Designed a multimodal NLP + XAI pipeline using Multilingual BERT embeddings, behavioral feature fusion, and Logistic Regression. Benchmarked TF-IDF, SVM, and Random Forest baselines - deployed the solution with a Flask API, Streamlit dashboard, SQLite feedback loop, and SHAP / LIME / Counterfactual Explanations.<br><span class="project-label">Result:</span> Delivered an explainable decision-support system with real-time predictions, human-in-the-loop review, and monitoring — 94% accuracy with ~920 ms end-to-end latency, while the research benchmark reports Macro F1 0.6464 and Macro AUC-ROC 0.8726 for the best balanced model.</p></div>
-<div class="listing-categories"><div class="listing-category">Python</div><div class="listing-category">PyTorch</div><div class="listing-category">Flask</div><div class="listing-category">Scikit-Learn</div><div class="listing-category">SHAP</div><div class="listing-category">LIME</div><div class="listing-category">Pandas</div><div class="listing-category">Streamlit</div><div class="listing-category">BERT</div></div>
-</div>
-<div class="metadata"><div class="listing-date">2025</div><div class="listing-author">Athiyaman M</div></div>
-</div>
-
-<!-- PROJECT 2: Medical AI Assistant -->
-<div class="quarto-post image-right" data-index="1" data-categories="RAG,Healthcare,LLM" data-listing-date-sort="1764000000000" data-listing-file-modified-sort="1764000000000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1"
-  data-github-url="https://github.com/athiyaman-m/Medical-ChatBot-using-llama-2"
-  data-project-image="images/projects/rag-doc-qa.png">
-<div class="thumbnail"><p><img loading="lazy" decoding="async" src="images/projects/rag-doc-qa.png" class="thumbnail-image"></p></div>
-<div class="body"><h3 class="no-anchor listing-title">Medical AI Assistant using RAG and Llama-2</h3><div class="listing-description"><p><span class="project-label">Problem:</span> Healthcare professionals need rapid access to accurate medical knowledge from vast clinical literature, but traditional search methods lack contextual understanding and conversational interaction.<br><span class="project-label">Approach:</span> Built an AI-powered medical knowledge assistant using Retrieval-Augmented Generation (RAG) architecture. Implemented document ingestion, chunking, embedding generation, vector search, and context-aware response generation. Developed semantic retrieval workflows using LangChain and Pinecone Vector Database. Built Flask-based web application enabling natural-language medical question answering.<br><span class="project-label">Result:</span> Delivered a production-ready medical Q&A system capable of retrieving relevant clinical information and generating context-aware responses with source attribution, reducing information lookup time for healthcare professionals.</p></div>
-<div class="listing-categories"><div class="listing-category">Python</div><div class="listing-category">LangChain</div><div class="listing-category">Llama-2</div><div class="listing-category">Pinecone</div><div class="listing-category">Flask</div><div class="listing-category">RAG</div><div class="listing-category">NLP</div></div>
-</div>
-<div class="metadata"><div class="listing-date">2025</div><div class="listing-author">Athiyaman M</div></div>
-</div>
-
-<!-- PROJECT 3: Research Paper Intelligence -->
-<div class="quarto-post image-right" data-index="2" data-categories="Research,AI,Productivity" data-listing-date-sort="1763000000000" data-listing-file-modified-sort="1763000000000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1"
-  data-github-url="https://github.com/athiyaman-m"
-  data-project-image="images/projects/research-paper-ai.png">
-<div class="thumbnail"><p><img loading="lazy" decoding="async" src="images/projects/research-paper-ai.png" class="thumbnail-image"></p></div>
-<div class="body"><h3 class="no-anchor listing-title">AI-Powered Research Paper Intelligence System</h3><div class="listing-description"><p><span class="project-label">Problem:</span> Researchers face information overload with growing scientific publications, and existing summarization tools fail to preserve document structure and maintain factual consistency in generated summaries.<br><span class="project-label">Approach:</span> Built a section-aware document intelligence pipeline with PyMuPDF-based PDF parsing, heuristic section detection, multi-provider LLM orchestration (Groq API, Ollama, local models), fact-consistency auditing, domain-adaptive prompting, and a custom ROUGE-based evaluation framework.<br><span class="project-label">Result:</span> Delivered an interactive Streamlit application for comparative literature analysis, survey synthesis, and publication-ready evaluation, improving ROUGE-2 F1 by 98%, factual consistency by 55%, and section coverage by 33% over baseline while eliminating factual contradictions in the final summaries.</p></div>
-<div class="listing-categories"><div class="listing-category">Python</div><div class="listing-category">Streamlit</div><div class="listing-category">LangChain</div><div class="listing-category">Groq</div><div class="listing-category">Ollama</div><div class="listing-category">Llama 3.3</div><div class="listing-category">Gemma</div><div class="listing-category">PyMuPDF</div></div>
-</div>
-<div class="metadata"><div class="listing-date">2025</div><div class="listing-author">Athiyaman M</div></div>
-</div>
-
-<!-- PROJECT 4: Agentic AI Research Assistant -->
-<div class="quarto-post image-right" data-index="3" data-categories="Agentic AI,Automation" data-listing-date-sort="1762000000000" data-listing-file-modified-sort="1762000000000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1"
-  data-github-url="https://github.com/athiyaman-m/Personal-Agentic-AI-ChatBot"
-  data-project-image="images/projects/react-agentic-ai.png">
-<div class="thumbnail"><p><img loading="lazy" decoding="async" src="images/projects/react-agentic-ai.png" class="thumbnail-image"></p></div>
-<div class="body"><h3 class="no-anchor listing-title">Agentic AI Research Assistant</h3><div class="listing-description"><p><span class="project-label">Problem:</span> Traditional chatbots lack autonomous reasoning and tool-use capabilities, limiting their ability to perform multi-step research tasks that require web search, data retrieval, and iterative analysis.<br><span class="project-label">Approach:</span> Built an autonomous AI agent using ReAct architecture capable of reasoning, tool usage, and web information retrieval. Implemented multi-step task execution using LangGraph workflows. Integrated LLM APIs, external search tools, and FastAPI services. Developed interactive UI for real-time conversational research support.<br><span class="project-label">Result:</span> Delivered an interactive research assistant that autonomously decomposes complex queries, retrieves web information, and synthesizes findings through multi-step reasoning, enabling efficient and transparent research workflows.</p></div>
-<div class="listing-categories"><div class="listing-category">Python</div><div class="listing-category">LangGraph</div><div class="listing-category">FastAPI</div><div class="listing-category">Streamlit</div><div class="listing-category">OpenAI</div><div class="listing-category">Groq</div><div class="listing-category">Tavily</div></div>
-</div>
-<div class="metadata"><div class="listing-date">2025</div><div class="listing-author">Athiyaman M</div></div>
-</div>
-
-<!-- PROJECT 5: AuditShakti -->
-<div class="quarto-post image-right" data-index="4" data-categories="Compliance,AI,Automation" data-listing-date-sort="1761000000000" data-listing-file-modified-sort="1761000000000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1"
-  data-github-url="https://github.com/athiyaman-m/AuditShakti"
-  data-project-image="images/projects/auditshakti.png">
-<div class="thumbnail"><p><img loading="lazy" decoding="async" src="images/projects/auditshakti.png" class="thumbnail-image"></p></div>
-<div class="body"><h3 class="no-anchor listing-title">AuditShakti: AI-Powered Audit Intelligence Platform</h3><div class="listing-description"><p><span class="project-label">Problem:</span> Financial document review and regulatory compliance validation are manual, time-intensive processes prone to human error, lacking transparency and explainability in audit workflows.<br><span class="project-label">Approach:</span> Built an end-to-end document intelligence pipeline with PDF parsing, OCR fallback, rule-based compliance validation (Ind-AS, Schedule III, SEBI, RBI, ESG), hybrid retrieval (SQLite FTS5 + semantic search), Google Gemini-powered evidence-based Q&A, and portfolio risk analytics using FastAPI and Next.js.<br><span class="project-label">Result:</span> Delivered an explainable decision-support system with page-level evidence traceability, real-time compliance analytics, conversational AI assistance, and exportable JSON/Excel/PDF reports, enabling faster and more accurate audit workflows.</p></div>
-<div class="listing-categories"><div class="listing-category">Python</div><div class="listing-category">FastAPI</div><div class="listing-category">Next.js</div><div class="listing-category">scikit-learn</div><div class="listing-category">PyMuPDF</div><div class="listing-category">Tesseract OCR</div><div class="listing-category">Gemini</div><div class="listing-category">SQLite</div></div>
-</div>
-<div class="metadata"><div class="listing-date">2025</div><div class="listing-author">Athiyaman M</div></div>
-</div>
-
-</div>
-</main>
-    </div>
-  </div>
+  <script src="assets/js/theme.js"></script>
 </body>
 </html>

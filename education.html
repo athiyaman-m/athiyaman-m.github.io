@@ -3,60 +3,115 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <title>Education | Athiyaman M</title>
-  <meta name="description" content="Education of Athiyaman M — B.E. ECE (Honours in AI/ML) from IFET College of Engineering, Anna University.">
-  <link rel="stylesheet" href="assets/css/site.css?v=20260701">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em;
-  vertical-align: middle;
-}
-</style>
-  <script defer src="assets/js/site.js?v=20260701"></script>
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    // Prevent flash of wrong theme on page load
+    (function() {
+      var theme = 'light';
+      try { theme = localStorage.getItem('theme') || 'light'; } catch (e) {}
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/inner.css">
 </head>
-<body data-root="" data-page="education" data-kind="page">
-  <div class="site-main">
-    <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<main class="content" id="quarto-document-content">
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title" >Education</h1>
-</div>
-</header>
-<hr>
-<div class="edu-block">
-  <b>B.E. Electronics and Communication Engineering (Hons.) Artificial Intelligence</b>
-  <span class="edu-meta">November 2021 – May 2025</span>
-  <br>
-  <a href="https://annauniv.edu" style="text-decoration:none;">IFET College of Engineering, Anna University</a>
-  <span class="edu-meta">Tamil Nadu, India</span>
-  <br>
-  <span class="edu-meta">CGPA: 8.71 / 10.0 | Rank Holder | First Class with Distinction</span>
-  <p class="edu-text align-justify">
-  Graduated with First Class with Distinction. Rank Holder and Associate Secretary. Focused on artificial intelligence, machine learning, and electronics engineering while gaining practical experience in backend systems, healthcare software, and database engineering.
-  </p>
-</div>
-<hr>
-<div class="edu-block">
-  <b>Key Coursework & Focus Areas</b>
-  <span class="edu-meta">AI, ML, NLP, Signal Processing, Databases</span>
-  <p class="edu-text align-justify">
-  Machine Learning, Natural Language Processing, Computer Vision, Embedded Systems, Data Structures & Algorithms, Database Engineering, Software Development, Cloud Computing.
-  </p>
-</div>
-</main>
-    </div>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-content">
+        <a class="brand" href="index.html">Athiyaman M</a>
+        <nav>
+          <ul class="nav">
+            <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+            <li><a href="index.html#education" class="nav-link">Education</a></li>
+            <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+            <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+            <li><a href="index.html#news" class="nav-link">News</a></li>
+            <li><a href="index.html#publications" class="nav-link">Publications</a></li>
+            <li><a href="index.html#writing" class="nav-link">Writing</a></li>
+          </ul>
+        </nav>
+        <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-header">
+        <h1 class="page-title">Education</h1>
+        <p class="page-subtitle">Academic background and coursework.</p>
+      </section>
+
+      <section class="content-section">
+        <div class="card-list">
+          <article class="education-item">
+            <h3 class="education-degree">B.E. Electronics and Communication Engineering (Hons.) — Artificial Intelligence</h3>
+            <p class="education-institution">IFET College of Engineering, Anna University, Villupuram</p>
+            <p class="education-date">November 2021 – May 2025</p>
+            <div class="education-details">
+              <ul style="margin-left: 1.25rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.375rem;">
+                <li><strong class="kw">CGPA: 8.71/10</strong> · <strong class="kw">Rank Holder</strong> · First Class with <strong class="kw">Distinction</strong></li>
+                <li>Served as <strong>Associate Secretary</strong></li>
+                <li><strong>Key Coursework:</strong> <strong class="kw">Machine Learning</strong>, <strong class="kw">NLP</strong>, <strong class="kw">Computer Vision</strong>, Embedded Systems, <strong class="kw">Data Structures &amp; Algorithms</strong>, <strong class="kw">Database Engineering</strong>, Software Development, <strong class="kw">Cloud Computing</strong></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Work &amp; Writings</h3>
+          <ul>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#publications">Publications</a></li>
+            <li><a href="index.html#writing">Writing</a></li>
+            <li><a href="index.html#news">News</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Profile</h3>
+          <ul>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#education">Education</a></li>
+            <li><a href="assets/documents/Resume-Athiyaman.pdf" target="_blank" rel="noopener">Résumé</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <ul>
+            <li><a href="https://github.com/athiyaman-m" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://scholar.google.com/citations?hl=en&user=QfHBWvgAAAAJ" target="_blank" rel="noopener">Google Scholar</a></li>
+            <li><a href="mailto:athiyamanpro@gmail.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Athiyaman M. Built with simplicity.</p>
+      </div>
+    </footer>
   </div>
+  <script src="assets/js/theme.js"></script>
 </body>
 </html>

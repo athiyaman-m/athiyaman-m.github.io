@@ -1,0 +1,775 @@
+.image-container {
+    position:fixed;
+    border:none;
+    margin-top: -100px;
+}
+
+.image-container img {
+    transition: 0.5s; 
+}
+
+.image-container img:hover {
+    transform: scale(0.95); 
+}
+
+.align-justify
+{
+  text-align: justify;
+}
+
+#profile-pic
+{
+  width:80%; 
+  margin-left:20%;
+  border-radius:50px;
+  box-shadow: 10px 10px 10px 0px rgba(100,100,100,0.8);
+}
+
+/* 1. Center-align nav links (Home to Blogs) in header */
+.site-header__nav {
+  justify-content: center !important;
+}
+
+.site-header__links {
+  flex: 1;
+  justify-content: center;
+}
+
+/* 2. View Resume button below icon links on home page */
+.home-resume-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.6rem 1rem;
+  margin-top: 0.5rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #374151;
+  background: #f3f4f6;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background 150ms ease, transform 150ms ease, color 150ms ease;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    radial-gradient(130% 128% at 0% 0%, rgba(94, 128, 255, 0.56) 0%, rgba(94, 128, 255, 0) 56%) border-box,
+    radial-gradient(124% 122% at 100% 100%, rgba(241, 102, 134, 0.5) 0%, rgba(241, 102, 134, 0) 56%) border-box,
+    linear-gradient(135deg, rgba(94, 128, 255, 0.46), rgba(241, 102, 134, 0.4)) border-box;
+  box-shadow: var(--soft-shadow);
+}
+
+.home-resume-btn:hover {
+  transform: translateY(-2px);
+  color: #1f2937;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    radial-gradient(130% 128% at 0% 0%, rgba(94, 128, 255, 0.7) 0%, rgba(94, 128, 255, 0) 56%) border-box,
+    radial-gradient(124% 122% at 100% 100%, rgba(241, 102, 134, 0.64) 0%, rgba(241, 102, 134, 0) 56%) border-box,
+    linear-gradient(135deg, rgba(94, 128, 255, 0.58), rgba(241, 102, 134, 0.52)) border-box;
+}
+
+.home-resume-btn .bi-download {
+  margin-right: 0.4rem;
+}
+
+/* 3. Projects: GitHub view button */
+.proj-github-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.45rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+  background: #24292e;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.proj-github-btn:hover {
+  background: #444d56;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.proj-github-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* Projects: hide thumbnail when no image */
+body[data-page="projects"] .proj-item-thumb--empty {
+  display: none;
+}
+
+body[data-page="projects"] .proj-item--no-thumb {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* 4. News: image support */
+.news-entry-img {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  display: block;
+  margin-top: 0.3rem;
+}
+
+.news-entry-img--contain {
+  object-fit: contain;
+  background: #ffffff;
+}
+
+/* 5. Blogs: Medium-style preview card */
+body[data-page="blogs"] .quarto-post .thumbnail {
+  display: none;
+}
+
+body[data-page="blogs"] .quarto-post {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+body[data-page="blogs"] .blog-medium-preview {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8f9fa;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  margin-top: 0.5rem;
+}
+
+body[data-page="blogs"] .blog-medium-preview img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+body[data-page="blogs"] .blog-medium-preview .blog-preview-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.78rem;
+  color: #6b7280;
+  border-top: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+body[data-page="blogs"] .blog-medium-preview .blog-preview-bar svg {
+  width: 18px;
+  height: 18px;
+  fill: #1a8917;
+}
+
+body[data-page="blogs"] .blog-medium-preview .blog-preview-source {
+  font-weight: 600;
+  color: #1a8917;
+}
+
+/* 6. News: LinkedIn embed card */
+.news-linkedin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+  background: #0a66c2;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.news-linkedin-link:hover {
+  background: #004182;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.news-linkedin-link svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* 7. Project label highlight (Problem / Approach / Result) */
+.project-label {
+  color: #2563eb;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* 8. Editorial theme refresh inspired by ankita.cc */
+:root {
+  --editorial-bg: #f8f4ec;
+  --editorial-bg-soft: #f2eadf;
+  --editorial-surface: rgba(255, 255, 255, 0.82);
+  --editorial-surface-solid: #fffdf9;
+  --editorial-border: rgba(17, 24, 39, 0.08);
+  --editorial-text: #151b26;
+  --editorial-muted: #5c6575;
+  --editorial-accent: #176b5c;
+  --editorial-accent-hover: #0f5649;
+  --editorial-shadow: 0 18px 44px rgba(17, 24, 39, 0.06);
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--editorial-text);
+  background:
+    radial-gradient(circle at top left, rgba(23, 107, 92, 0.06), transparent 22%),
+    radial-gradient(circle at top right, rgba(185, 148, 103, 0.09), transparent 24%),
+    linear-gradient(180deg, #fbf8f2 0%, var(--editorial-bg) 100%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.title,
+.site-brand,
+.proj-item-title,
+.news-year-label,
+.proj-year-label {
+  font-family: "Inter Tight", sans-serif;
+  letter-spacing: -0.04em;
+  color: var(--editorial-text);
+}
+
+p,
+li,
+.quarto-title-meta,
+.proj-description,
+.news-text,
+.edu-text,
+.exp-text,
+.contact-action-grid,
+.site-footer__inner {
+  color: var(--editorial-muted);
+}
+
+a {
+  color: var(--editorial-accent);
+}
+
+a:hover {
+  color: var(--editorial-accent-hover);
+}
+
+hr {
+  border-top-color: var(--editorial-border);
+}
+
+.site-header {
+  background: rgba(251, 248, 242, 0.82);
+  border-bottom: 1px solid var(--editorial-border);
+  backdrop-filter: blur(18px);
+}
+
+.site-brand,
+.site-header__links a,
+.site-header__actions a {
+  color: #4e5968;
+  font-weight: 600;
+}
+
+.site-brand:hover,
+.site-header__links a:hover,
+.site-header__actions a:hover {
+  color: var(--editorial-text);
+  background: rgba(17, 24, 39, 0.05);
+}
+
+.site-header__links a.is-active {
+  background: rgba(17, 24, 39, 0.07);
+  color: var(--editorial-text);
+}
+
+.site-header__actions .site-button,
+.site-header__actions .site-action-icon,
+.site-header__toggle {
+  border: 1px solid var(--editorial-border);
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.05);
+}
+
+.site-header__actions .site-button:hover,
+.site-header__actions .site-action-icon:hover {
+  border-color: rgba(17, 24, 39, 0.14);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.site-main {
+  --site-main-pad-top: 1.5rem;
+}
+
+body:not([data-page="home"]) .site-main > #title-block-header,
+body:not([data-page="home"]) #quarto-document-content > #title-block-header {
+  padding: 1.2rem 0 0.75rem;
+}
+
+body:not([data-page="home"]) .site-main > #title-block-header::before,
+body:not([data-page="home"]) #quarto-document-content > #title-block-header::before {
+  background:
+    radial-gradient(circle at left top, rgba(23, 107, 92, 0.05), transparent 30%),
+    linear-gradient(180deg, var(--editorial-bg-soft) 0%, #f8f4ec 100%);
+}
+
+body:not([data-page="home"]) h1.title {
+  font-size: clamp(2.2rem, 4vw, 3.7rem);
+  line-height: 1.02;
+  letter-spacing: -0.07em;
+}
+
+#TOC,
+.quarto-post,
+.about-entity,
+.about-contents,
+body[data-page="news"] .news-year,
+body[data-page="projects"] .proj-year,
+body[data-page="education"] .edu-block,
+body[data-page="experience"] .exp-block {
+  border: 1px solid var(--editorial-border);
+  border-radius: 22px;
+  background: var(--editorial-surface);
+  box-shadow: var(--editorial-shadow);
+  backdrop-filter: blur(14px);
+}
+
+#TOC,
+.about-entity,
+.about-contents,
+body[data-page="education"] .edu-block,
+body[data-page="experience"] .exp-block {
+  padding: 1.35rem 1.45rem;
+}
+
+.site-footer__inner {
+  border-top-color: var(--editorial-border);
+}
+
+.quarto-category,
+.listing-category,
+.quarto-listing-category .category,
+.proj-category,
+body[data-page="news"] .news-month,
+body[data-page="experience"] .exp-block .exp-meta,
+body[data-page="education"] .edu-block .edu-meta {
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  background: #f3ede3;
+  color: #4f5b6a;
+}
+
+body[data-page="experience"] .exp-block .exp-meta,
+body[data-page="education"] .edu-block .edu-meta {
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+}
+
+body[data-page="experience"] .exp-block .exp-org,
+body[data-page="education"] .edu-block > a {
+  color: var(--editorial-text);
+  font-weight: 600;
+}
+
+body[data-page="projects"] .proj-year-summary,
+body[data-page="news"] .news-year-summary {
+  padding: 0.95rem 1.05rem;
+  color: var(--editorial-text);
+}
+
+body[data-page="projects"] .proj-year-label::before,
+body[data-page="news"] .news-year-label::before {
+  background: #f1ebe1;
+  color: #6b7280;
+}
+
+body[data-page="projects"] .proj-year-count,
+body[data-page="news"] .news-year-count {
+  background: #ece4d8;
+  color: #495262;
+}
+
+body[data-page="projects"] .proj-item,
+body[data-page="news"] .news-entry,
+body[data-page="blogs"] .blog-medium-preview {
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: none;
+}
+
+body[data-page="projects"] .proj-item-thumb,
+body[data-page="blogs"] .blog-medium-preview {
+  background: #f8f4ec;
+}
+
+body[data-page="projects"] .proj-item-title,
+body[data-page="publications"] .listing-title,
+body[data-page="blogs"] .listing-title {
+  letter-spacing: -0.04em;
+}
+
+.proj-github-btn {
+  background: #151b26;
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+}
+
+.proj-github-btn:hover {
+  background: #232b39;
+}
+
+.news-linkedin-link {
+  background: #151b26;
+  border-radius: 999px;
+}
+
+.news-linkedin-link:hover {
+  background: #232b39;
+}
+
+.project-label {
+  color: var(--editorial-accent);
+}
+
+.home-resume-btn {
+  border-radius: 999px;
+  color: var(--editorial-text);
+  background:
+    linear-gradient(var(--editorial-surface-solid), var(--editorial-surface-solid)) padding-box,
+    linear-gradient(135deg, rgba(23, 107, 92, 0.22), rgba(185, 148, 103, 0.22)) border-box;
+}
+
+.home-resume-btn:hover {
+  color: var(--editorial-text);
+  background:
+    linear-gradient(var(--editorial-surface-solid), var(--editorial-surface-solid)) padding-box,
+    linear-gradient(135deg, rgba(23, 107, 92, 0.3), rgba(185, 148, 103, 0.3)) border-box;
+}
+
+@media (max-width: 900px) {
+  body.nav-open .site-header__nav {
+    background: rgba(255, 252, 247, 0.96);
+    border: 1px solid var(--editorial-border);
+    box-shadow: var(--editorial-shadow);
+  }
+}
+
+/* 9. Final GitHub-style developer theme and page alignment pass */
+:root {
+  --gh-canvas-default: #ffffff;
+  --gh-canvas-subtle: #f6f8fa;
+  --gh-canvas-inset: #f6f8fa;
+  --gh-border-default: #d0d7de;
+  --gh-border-muted: #d8dee4;
+  --gh-fg-default: #1f2328;
+  --gh-fg-muted: #57606a;
+  --gh-accent: #0969da;
+  --gh-accent-hover: #0550ae;
+  --gh-success: #1a7f37;
+  --gh-success-hover: #116329;
+  --gh-radius: 12px;
+  --gh-shadow: 0 1px 0 rgba(27, 31, 36, 0.04);
+  --gh-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --gh-mono: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+body {
+  font-family: var(--gh-sans);
+  color: var(--gh-fg-default);
+  background:
+    linear-gradient(180deg, #ffffff 0%, var(--gh-canvas-subtle) 100%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.title,
+.site-brand,
+.proj-item-title,
+.news-year-label,
+.proj-year-label {
+  font-family: var(--gh-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--gh-fg-default);
+}
+
+p,
+li,
+.quarto-title-meta,
+.proj-description,
+.news-text,
+.edu-text,
+.exp-text,
+.site-footer__inner {
+  color: var(--gh-fg-muted);
+}
+
+a {
+  color: var(--gh-accent);
+}
+
+a:hover {
+  color: var(--gh-accent-hover);
+}
+
+code,
+pre,
+.hero-tag,
+.project-proof-chip,
+.project-tag,
+.timeline-year,
+.project-spotlight-kicker,
+.project-spotlight-year,
+.quarto-category,
+.listing-category,
+.quarto-listing-category .category,
+.proj-category,
+.news-month,
+.exp-meta,
+.edu-meta {
+  font-family: var(--gh-mono);
+}
+
+.site-header {
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid var(--gh-border-default);
+  backdrop-filter: blur(12px);
+}
+
+.site-brand,
+.site-header__links a,
+.site-header__actions a {
+  color: var(--gh-fg-muted);
+}
+
+.site-brand:hover,
+.site-header__links a:hover,
+.site-header__actions a:hover {
+  background: var(--gh-canvas-subtle);
+  color: var(--gh-fg-default);
+}
+
+.site-header__links a.is-active {
+  background: #ddf4ff;
+  color: var(--gh-accent-hover);
+}
+
+.site-header__actions .site-button,
+.site-header__actions .site-action-icon,
+.site-header__toggle {
+  border: 1px solid var(--gh-border-default);
+  background: var(--gh-canvas-default);
+  box-shadow: var(--gh-shadow);
+}
+
+.site-main {
+  --site-main-pad-top: 1.5rem;
+  --site-main-pad-inline: 1.25rem;
+  max-width: 1160px;
+}
+
+main.content {
+  max-width: 100%;
+}
+
+#quarto-content.page-layout-article {
+  max-width: 100%;
+}
+
+body:not([data-page="home"]) .site-main > #title-block-header,
+body:not([data-page="home"]) #quarto-document-content > #title-block-header {
+  margin-bottom: 1.1rem;
+  padding: 1.4rem 0 1rem;
+}
+
+body:not([data-page="home"]) .site-main > #title-block-header::before,
+body:not([data-page="home"]) #quarto-document-content > #title-block-header::before {
+  background:
+    linear-gradient(180deg, #ffffff 0%, var(--gh-canvas-subtle) 100%);
+  border-bottom: 1px solid var(--gh-border-muted);
+}
+
+body:not([data-page="home"]) h1.title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+}
+
+#TOC,
+.quarto-post,
+.about-entity,
+.about-contents,
+body[data-page="news"] .news-year,
+body[data-page="projects"] .proj-year,
+body[data-page="education"] .edu-block,
+body[data-page="experience"] .exp-block {
+  border: 1px solid var(--gh-border-default);
+  border-radius: var(--gh-radius);
+  background: var(--gh-canvas-default);
+  box-shadow: var(--gh-shadow);
+  backdrop-filter: none;
+}
+
+#TOC,
+.about-entity,
+.about-contents,
+body[data-page="education"] .edu-block,
+body[data-page="experience"] .exp-block {
+  padding: 1.25rem;
+}
+
+.quarto-category,
+.listing-category,
+.quarto-listing-category .category,
+.proj-category,
+body[data-page="news"] .news-month,
+body[data-page="experience"] .exp-block .exp-meta,
+body[data-page="education"] .edu-block .edu-meta {
+  background: var(--gh-canvas-subtle);
+  color: var(--gh-fg-muted);
+  border: 1px solid var(--gh-border-default);
+}
+
+body[data-page="projects"] .proj-year-summary,
+body[data-page="news"] .news-year-summary {
+  padding: 0.95rem 1rem;
+}
+
+body[data-page="projects"] .proj-year-label::before,
+body[data-page="news"] .news-year-label::before {
+  background: var(--gh-canvas-subtle);
+  color: var(--gh-fg-muted);
+}
+
+body[data-page="projects"] .proj-year-count,
+body[data-page="news"] .news-year-count {
+  background: var(--gh-canvas-subtle);
+  color: var(--gh-fg-muted);
+  border: 1px solid var(--gh-border-default);
+}
+
+body[data-page="projects"] .proj-item,
+body[data-page="news"] .news-entry,
+body[data-page="blogs"] .blog-medium-preview {
+  border: 1px solid var(--gh-border-default);
+  border-radius: 10px;
+  background: var(--gh-canvas-default);
+}
+
+body[data-page="news"] .news-year-list {
+  gap: 0.9rem;
+  padding: 0 1rem 1rem;
+}
+
+body[data-page="projects"] .proj-year-list {
+  gap: 0.9rem;
+  padding: 0 1rem 1rem;
+}
+
+body[data-page="projects"] .proj-item {
+  gap: 1rem;
+  padding: 1rem;
+  align-items: start;
+}
+
+body[data-page="projects"] .proj-item-content {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.proj-github-btn,
+.news-linkedin-link {
+  background: var(--gh-fg-default);
+  color: #ffffff;
+}
+
+.proj-github-btn:hover,
+.news-linkedin-link:hover {
+  background: #32383f;
+  color: #ffffff;
+}
+
+body[data-page="education"] .edu-block,
+body[data-page="experience"] .exp-block {
+  display: grid;
+  gap: 0.7rem;
+}
+
+body[data-page="education"] .edu-block > br,
+body[data-page="experience"] .exp-block > br {
+  display: none;
+}
+
+body[data-page="education"] .edu-block > b,
+body[data-page="experience"] .exp-block > b {
+  display: block;
+  font-size: 1.18rem;
+  line-height: 1.3;
+  color: var(--gh-fg-default);
+}
+
+body[data-page="education"] .edu-block > a,
+body[data-page="experience"] .exp-block > a.exp-org {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: fit-content;
+  color: var(--gh-fg-default);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+body[data-page="education"] .edu-block .edu-meta,
+body[data-page="experience"] .exp-block .exp-meta {
+  float: none;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+body[data-page="education"] .edu-block > .edu-meta:first-of-type,
+body[data-page="experience"] .exp-block > .exp-meta:first-of-type {
+  margin-top: -0.1rem;
+}
+
+body[data-page="education"] .edu-block > .edu-meta:last-of-type,
+body[data-page="experience"] .exp-block > .exp-meta:last-of-type {
+  margin-left: 0.45rem;
+}
+
+body[data-page="education"] .edu-block .edu-text,
+body[data-page="experience"] .exp-block .exp-text {
+  margin-top: 0;
+  line-height: 1.65;
+  text-align: left;
+}
+
+@media (max-width: 700px) {
+  body[data-page="education"] .edu-block > .edu-meta:last-of-type,
+  body[data-page="experience"] .exp-block > .exp-meta:last-of-type {
+    margin-left: 0;
+  }
+}

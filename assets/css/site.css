@@ -1156,18 +1156,6 @@ body[data-page="projects"] .proj-item-thumb img {
   display: block;
 }
 
-body[data-page="projects"] .proj-item-thumb[href*="Evolutionary Artistry/"],
-body[data-page="projects"] .proj-item-thumb[href*="Evolutionary%20Artistry/"] {
-  background: #ffffff;
-}
-
-body[data-page="projects"] .proj-item-thumb img[src*="Evolutionary Artistry/image.png"],
-body[data-page="projects"] .proj-item-thumb img[src*="Evolutionary%20Artistry/image.png"] {
-  object-fit: contain;
-  transform: none;
-  background: #ffffff;
-}
-
 body[data-page="projects"] .proj-item-title {
   margin: 0;
   font-size: 1.01rem;

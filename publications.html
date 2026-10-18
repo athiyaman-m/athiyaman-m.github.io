@@ -3,56 +3,140 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <title>Publications | Athiyaman M</title>
-  <link rel="stylesheet" href="assets/css/site.css?v=20260701">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-</style>
-  <script defer src="assets/js/site.js?v=20260701"></script>
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    // Prevent flash of wrong theme on page load
+    (function() {
+      var theme = 'light';
+      try { theme = localStorage.getItem('theme') || 'light'; } catch (e) {}
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/inner.css">
 </head>
-<body data-root="" data-page="publications" data-kind="listing">
-  <div class="site-main">
-    <header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page">
-      <h1 class="title" >Publications</h1>
-    </div>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-content">
+        <a class="brand" href="index.html">Athiyaman M</a>
+        <nav>
+          <ul class="nav">
+            <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+            <li><a href="index.html#education" class="nav-link">Education</a></li>
+            <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+            <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+            <li><a href="index.html#news" class="nav-link">News</a></li>
+            <li><a href="index.html#publications" class="nav-link">Publications</a></li>
+            <li><a href="index.html#writing" class="nav-link">Writing</a></li>
+          </ul>
+        </nav>
+        <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-header">
+        <h1 class="page-title">Publications</h1>
+        <p class="page-subtitle">Research papers on explainability, healthcare AI, and intelligent systems.</p>
+      </section>
+
+      <section class="content-section">
+        <h2 class="section-year">2026</h2>
+        <div class="card-list">
+          <article class="card">
+            <h3 class="card-title">Mental Health Risk Detection via Explainable AI (XAI): A Multi-Model Benchmark with Contextual Embeddings</h3>
+            <p class="card-description">Multi-model benchmark using <strong class="kw">Multilingual BERT</strong> embeddings, behavioral feature fusion, and Logistic Regression with <strong class="kw">SHAP</strong>, <strong class="kw">LIME</strong>, and <strong class="kw">Counterfactual Explanations</strong> for interpretable mental health risk classification. Reports Macro F1 0.6464 and Macro AUC-ROC 0.8726.</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.75rem;">International Conference on Artificial Intelligence Trends and Pattern Recognition (ICAITPR 2026) — <strong>Under Review</strong></p>
+            <div class="tags" style="margin-top: 0.75rem;">
+              <span class="tag">Mental Health</span>
+              <span class="tag">NLP</span>
+              <span class="tag">XAI</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2 class="section-year">2025</h2>
+        <div class="card-list">
+          <article class="card">
+            <h3 class="card-title">AI-Based Analysis of Hospital Bed Utilization Patterns for Patient Readmission Prediction</h3>
+            <p class="card-description"><strong class="kw">ML</strong> models for predicting hospital readmissions achieving <strong class="kw">94% accuracy</strong> with actionable insights for healthcare resource optimization and resource allocation.</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.75rem;">International Conference on Smart AI and Health Innovation Through Tamil for Holistic Advancement (SAHITHYA 2025), NITTTR Chennai — ISBN Conference Proceedings <strong>(Accepted)</strong></p>
+            <div class="tags" style="margin-top: 0.75rem;">
+              <span class="tag">Healthcare</span>
+              <span class="tag">ML</span>
+              <span class="tag">Readmission</span>
+            </div>
+          </article>
+          <article class="card">
+            <h3 class="card-title">Design of PON for Hospital Building Management: Enhancing Data Transmission Using Free Space Optics (FSO)</h3>
+            <p class="card-description">Hybrid <strong class="kw">PON-FSO</strong> architecture for smart hospital infrastructure with BER, SNR, and Quality Factor analysis for enhanced data transmission in healthcare environments.</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.75rem;">International Conference on Human-Centric Smart Computing (ICHCSC 2025), Springer Nature — Proceedings <strong>Accepted</strong></p>
+            <div class="tags" style="margin-top: 0.75rem;">
+              <span class="tag">Networks</span>
+              <span class="tag">Healthcare</span>
+              <span class="tag">Optical</span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Work &amp; Writings</h3>
+          <ul>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#publications">Publications</a></li>
+            <li><a href="index.html#writing">Writing</a></li>
+            <li><a href="index.html#news">News</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Profile</h3>
+          <ul>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#education">Education</a></li>
+            <li><a href="assets/documents/Resume-Athiyaman.pdf" target="_blank" rel="noopener">Résumé</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <ul>
+            <li><a href="https://github.com/athiyaman-m" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/athiyaman-m-a2843922a/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://scholar.google.com/citations?hl=en&user=QfHBWvgAAAAJ" target="_blank" rel="noopener">Google Scholar</a></li>
+            <li><a href="mailto:athiyamanpro@gmail.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Athiyaman M. Built with simplicity.</p>
+      </div>
+    </footer>
   </div>
-  </header>
-  <hr>
-  <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-
-<div class="quarto-post image-right" data-index="0" data-categories="Mental Health,NLP,XAI" data-listing-date-sort="1770000000000">
-<div class="thumbnail"><p><img loading="lazy" decoding="async" src="badge-sd-fill.svg" class="thumbnail-image"></p></div>
-<div class="body"><h3 class="no-anchor listing-title">Mental Health Risk Detection via Explainable AI (XAI): A Multi-Model Benchmark with Contextual Embeddings</h3><div class="listing-description"><p>Multi-model benchmark using Multilingual BERT embeddings, behavioral feature fusion, and Logistic Regression with SHAP, LIME, and Counterfactual Explanations for interpretable mental health risk classification. Reports Macro F1 0.6464 and Macro AUC-ROC 0.8726.</p></div></div>
-<div class="metadata"><div class="listing-date">2026</div><div class="listing-author">Athiyaman M</div><div class="metadata-value listing-journal_name"><b>International Conference on Artificial Intelligence Trends and Pattern Recognition (ICAITPR 2026) — Under Review</b></div></div>
-</div>
-
-<div class="quarto-post image-right" data-index="1" data-categories="Healthcare,ML,Readmission" data-listing-date-sort="1765000000000">
-<div class="thumbnail"><p><img loading="lazy" decoding="async" src="badge-sd-fill.svg" class="thumbnail-image"></p></div>
-<div class="body"><h3 class="no-anchor listing-title">AI-Based Analysis of Hospital Bed Utilization Patterns for Patient Readmission Prediction</h3><div class="listing-description"><p>ML models for predicting hospital readmissions achieving 94% accuracy with actionable insights for healthcare resource optimization and resource allocation.</p></div></div>
-<div class="metadata"><div class="listing-date">2025</div><div class="listing-author">Athiyaman M</div><div class="metadata-value listing-journal_name"><b>International Conference on Smart AI and Health Innovation Through Tamil for Holistic Advancement (SAHITHYA 2025), NITTTR Chennai — ISBN Conference Proceedings (Accepted)</b></div></div>
-</div>
-
-<div class="quarto-post image-right" data-index="2" data-categories="Networks,Healthcare,Optical" data-listing-date-sort="1765000000000">
-<div class="thumbnail"><p><img loading="lazy" decoding="async" src="badge-sd-fill.svg" class="thumbnail-image"></p></div>
-<div class="body"><h3 class="no-anchor listing-title">Design of PON for Hospital Building Management: Enhancing Data Transmission Using Free Space Optics (FSO)</h3><div class="listing-description"><p>Hybrid PON-FSO architecture for smart hospital infrastructure with BER, SNR, and Quality Factor analysis for enhanced data transmission in healthcare environments.</p></div></div>
-<div class="metadata"><div class="listing-date">2025</div><div class="listing-author">Athiyaman M</div><div class="metadata-value listing-journal_name"><b>International Conference on Human-Centric Smart Computing (ICHCSC 2025), Springer Nature — Proceedings Accepted</b></div></div>
-</div>
-
-</div>
-</main>
-  </div>
-  </div>
+  <script src="assets/js/theme.js"></script>
 </body>
 </html>

@@ -601,8 +601,6 @@
       entries.forEach(function (entry) {
         const article = document.createElement("article");
         article.className = "pub-item";
-        const isCopyrightEntry = /\/(picrypt|camerashot)\//i.test(entry.href);
-        const isChapterEntry = /\/modifiedhho\//i.test(entry.href);
 
         const title = document.createElement("h3");
         title.className = "pub-item-title";
@@ -620,18 +618,6 @@
           meta.appendChild(date);
         }
         if (entry.venue) {
-          if (isCopyrightEntry) {
-            const label = document.createElement("span");
-            label.className = "pub-tag-copyright";
-            label.textContent = "Copyright";
-            meta.appendChild(label);
-          }
-          if (isChapterEntry) {
-            const label = document.createElement("span");
-            label.className = "pub-tag-chapter";
-            label.textContent = "Chapter";
-            meta.appendChild(label);
-          }
           const venue = document.createElement("span");
           venue.className = "pub-venue";
           venue.textContent = entry.venue;
