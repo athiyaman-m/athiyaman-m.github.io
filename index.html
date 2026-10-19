@@ -25,8 +25,6 @@
       .section-block { margin: 3rem 0; }
       .section-title { font-size: 1.75rem; font-weight: 700; font-family: var(--font-serif, Lora), serif; font-style: italic; margin-bottom: 1.25rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-color); color: var(--text-secondary); }
       .role-head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.25rem; align-items: baseline; }
-      .skill-group { margin-bottom: 1rem; }
-      .skill-group h4 { font-weight: 700; margin-bottom: 0.25rem; color: var(--text-secondary); }
       .project-thumb { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden; background: var(--bg-primary); border: 1px solid var(--border-light); margin-bottom: 0.75rem; }
       .project-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
       .project-thumb-fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.05rem; text-align: center; padding: 0.5rem; color: var(--text-muted); background: linear-gradient(135deg, #ececec, #dedede); }
@@ -46,8 +44,65 @@
       [data-theme="dark"] .card-count { color: #ff6b6b; }
       .card-title { color: var(--text-primary) !important; margin-bottom: 0.4rem; line-height: 1.3; transition: color .15s ease; }
       .card-desc { font-size: 0.88rem; line-height: 1.45; flex-grow: 1; margin-bottom: 0.85rem; }
-      .card-action { display: flex; align-items: center; justify-content: space-between; color: var(--text-primary); opacity: 0.85; font-weight: 600; padding-top: 0.5rem; border-top: 1px dashed var(--border-light); transition: color .15s ease; }
+      .card-action { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; color: var(--text-primary); opacity: 0.85; font-weight: 600; padding-top: 0.5rem; border-top: 1px dashed var(--border-light); transition: color .15s ease; }
       .card-action .arrow { transition: transform .15s ease; font-size: 1rem; line-height: 1; }
+      .card-link { color: var(--text-primary); text-decoration: none; transition: color .15s ease; white-space: nowrap; }
+      .card-link:hover { color: #fa0000 !important; }
+      [data-theme="dark"] .card-link:hover { color: #ff6b6b !important; }
+      .dash-strip { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 1rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.68rem; color: var(--text-muted); background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.35rem 0.65rem; margin-bottom: 0.6rem; }
+      .strip-accent { color: #fa0000; font-weight: 700; }
+      [data-theme="dark"] .strip-accent { color: #ff6b6b; }
+      .dash-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+      @media (max-width: 1100px) { .dash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      @media (max-width: 700px) { .dash-grid { grid-template-columns: 1fr; } }
+      .dash-panel { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.6rem 0.75rem 0.7rem; min-width: 0; }
+      .dash-panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; margin-bottom: 0.45rem; padding-bottom: 0.3rem; border-bottom: 1px dashed var(--border-light); }
+      .dash-panel-title { font-weight: 700; font-size: 0.8rem; color: var(--text-secondary); }
+      .dash-panel-meta { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.62rem; color: #fa0000; font-weight: 700; }
+      [data-theme="dark"] .dash-panel-meta { color: #ff6b6b; }
+      .skill-row { display: grid; grid-template-columns: 7.2rem 1fr 1.5rem; align-items: center; gap: 0.4rem; margin-bottom: 0.26rem; }
+      .skill-row:last-child { margin-bottom: 0; }
+      .skill-name { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.65rem; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .skill-track { height: 0.36rem; background: var(--bg-primary); border: 1px solid var(--border-light); border-radius: 99px; overflow: hidden; }
+      .skill-fill { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #fa0000, #ff6b6b); transform-origin: left center; animation: skill-grow 0.8s ease both; }
+      [data-theme="dark"] .skill-fill { background: linear-gradient(90deg, #ff6b6b, #ffa6a6); }
+      .skill-val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.6rem; color: var(--text-muted); text-align: right; }
+      @keyframes skill-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+      .radar { display: block; width: 100%; max-width: 200px; height: auto; margin: 0 auto; }
+      .radar .grid-line, .radar .axis-line { fill: none; stroke: var(--border-color); stroke-width: 1; }
+      .radar .tick-label { fill: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; text-anchor: end; }
+      .radar .axis-label { fill: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; }
+      .radar .data-poly { fill: rgba(250, 0, 0, 0.14); stroke: #fa0000; stroke-width: 2; stroke-linejoin: round; transform-box: fill-box; transform-origin: center; animation: radar-in 0.9s ease both; }
+      .radar .data-dot { fill: #fa0000; }
+      .radar .val-label { fill: #fa0000; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; font-weight: 700; }
+      [data-theme="dark"] .radar .data-poly { fill: rgba(255, 107, 107, 0.16); stroke: #ff6b6b; }
+      [data-theme="dark"] .radar .data-dot, [data-theme="dark"] .radar .val-label { fill: #ff6b6b; }
+      @keyframes radar-in { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
+      @media (prefers-reduced-motion: reduce) { .skill-fill, .radar .data-poly { animation: none; } }
+      .content { overflow-wrap: break-word; }
+      @media screen and (max-width: 768px) {
+        .hero-photo .image { margin-left: auto; margin-right: auto; }
+        .section-block { margin: 2.25rem 0; }
+      }
+      @media screen and (max-width: 1023px) {
+        .section.container { padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+        .navbar-menu.is-active { background: var(--bg-primary); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12); border-bottom: 1px solid var(--border-color); }
+        .navbar-menu.is-active .navbar-end { display: flex; flex-direction: column; align-items: stretch; padding: 0.35rem 0 0.6rem; }
+        .navbar-menu.is-active .navbar-item { width: 100%; padding: 0.7rem 1.25rem; }
+        .navbar-menu.is-active .navbar-item > span { font-size: 1rem; }
+      }
+      @media screen and (max-width: 480px) {
+        .section-title { font-size: 1.4rem; margin-bottom: 1rem; }
+        .news-card-tag, .card-tag { font-size: 0.65rem; }
+        .card-desc, .news-card-body .card-desc { font-size: 0.84rem; }
+        .dash-grid { gap: 0.5rem; }
+        .dash-panel { padding: 0.55rem 0.6rem 0.65rem; }
+      }
+      @media screen and (max-width: 400px) {
+        .skill-row { grid-template-columns: 6rem 1fr 1.4rem; gap: 0.3rem; }
+        .radar { max-width: 175px; }
+        .dash-strip { font-size: 0.62rem; }
+      }
       [data-theme="dark"] .has-text-grey { color: #a8a8a8 !important; }
       .news-card { height: 100%; display: flex; flex-direction: column; border-radius: 8px; border: 1px solid var(--border-color); background-color: var(--bg-secondary); overflow: hidden; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
       .news-card:hover { transform: translateY(-3px); border-color: #fa0000; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); }
@@ -111,14 +166,14 @@
         <div style="margin-top: 4em;">
           <div>
             <br>
-            <div class="columns is-vcentered">
-              <div class="column is-5 is-hidden-tablet">
+            <div class="columns is-multiline is-vcentered">
+              <div class="column is-5 is-hidden-tablet is-full-mobile hero-photo">
                 <br>
                 <div class="image is-256x256">
                   <img alt="Athiyaman M" src="assets/img/profile-pic.png" style="border-radius: 2em;" width="400" height="400" decoding="async">
                 </div>
               </div>
-              <div class="column is-7">
+              <div class="column is-7 is-full-mobile">
                 <section>
                   <h1 class="title is-size-2 is-size-3-mobile is-family-secondary is-italic">Hey, I am Athiyaman</h1>
                   <h3 class="title is-size-4 is-size-5-mobile is-family-secondary is-italic" style="line-height: 1.5em;">Backend Software Engineer · Python &amp; AI/LLM Systems · MedTech</h3>
@@ -151,7 +206,7 @@
                   </div>
                 </section>
               </div>
-              <div class="column is-1"></div>
+              <div class="column is-1 is-hidden-mobile"></div>
               <div class="column is-4 is-hidden-mobile">
                 <div class="image section">
                   <img alt="Athiyaman M" src="assets/img/profile-pic.png" style="border-radius: 2em;" width="300" height="300" decoding="async">
@@ -224,12 +279,8 @@
               </div>
               <div class="columns is-multiline is-variable is-3 explore-grid">
 
-                <div class="column is-4-desktop is-6-tablet is-12-mobile">
-                  <a href="https://github.com/athiyaman-m/AuditShakti" target="_blank" rel="noopener" class="box explore-card">
-                    <div class="project-thumb">
-                      <span class="project-thumb-fallback">AuditShakti</span>
-                      <img src="assets/img/projects/auditshakti.png" alt="AuditShakti project preview" loading="lazy" onerror="this.remove()">
-                    </div>
+                <div class="column is-3-desktop is-6-tablet is-12-mobile">
+                  <div class="box explore-card">
                     <div class="card-top">
                       <span class="card-tag is-family-monospace">AI Compliance</span>
                       <span class="card-count is-family-monospace">Python</span>
@@ -237,18 +288,14 @@
                     <h3 class="card-title is-size-5 has-text-weight-bold">AuditShakti</h3>
                     <p class="card-desc has-text-grey">AI-powered compliance platform automating financial document review, OCR, and regulatory validation (Ind-AS, SEBI, RBI, ESG) with hybrid RAG.</p>
                     <div class="card-action is-family-monospace is-size-7">
-                      <span>View project</span>
-                      <span class="arrow">&rarr;</span>
+                      <a class="card-link" href="projects.html#auditshakti">View project <span class="arrow">&rarr;</span></a>
+                      <a class="card-link" href="https://github.com/athiyaman-m/AuditShakti" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                  </a>
+                  </div>
                 </div>
 
-                <div class="column is-4-desktop is-6-tablet is-12-mobile">
-                  <a href="projects.html#exai-panc" class="box explore-card">
-                    <div class="project-thumb">
-                      <span class="project-thumb-fallback">ExAI-PanC</span>
-                      <img src="assets/img/projects/exai-panc.png" alt="ExAI-PanC project preview" loading="lazy" onerror="this.remove()">
-                    </div>
+                <div class="column is-3-desktop is-6-tablet is-12-mobile">
+                  <div class="box explore-card">
                     <div class="card-top">
                       <span class="card-tag is-family-monospace">Healthcare AI</span>
                       <span class="card-count is-family-monospace">Python</span>
@@ -256,18 +303,14 @@
                     <h3 class="card-title is-size-5 has-text-weight-bold">ExAI-PanC</h3>
                     <p class="card-desc has-text-grey">Explainable AI clinical digital twin for pancreatic cancer — 0.999 AUC-ROC, SHAP insights, and a 3D 11-organ risk heatmap.</p>
                     <div class="card-action is-family-monospace is-size-7">
-                      <span>View details</span>
-                      <span class="arrow">&rarr;</span>
+                      <a class="card-link" href="projects.html#exai-panc">View project <span class="arrow">&rarr;</span></a>
+                      <a class="card-link" href="https://github.com/athiyaman-m" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                  </a>
+                  </div>
                 </div>
 
-                <div class="column is-4-desktop is-6-tablet is-12-mobile">
-                  <a href="projects.html#research-intelligence" class="box explore-card">
-                    <div class="project-thumb">
-                      <span class="project-thumb-fallback">Research Paper Intelligence</span>
-                      <img src="assets/img/projects/research-intelligence.png" alt="Research Paper Intelligence project preview" loading="lazy" onerror="this.remove()">
-                    </div>
+                <div class="column is-3-desktop is-6-tablet is-12-mobile">
+                  <div class="box explore-card">
                     <div class="card-top">
                       <span class="card-tag is-family-monospace">Multi-LLM RAG</span>
                       <span class="card-count is-family-monospace">Python</span>
@@ -275,18 +318,14 @@
                     <h3 class="card-title is-size-5 has-text-weight-bold">Research Paper Intelligence</h3>
                     <p class="card-desc has-text-grey">Multi-LLM research assistant with section-aware PDF parsing — 98% better summary quality (ROUGE-2 F1) over baseline.</p>
                     <div class="card-action is-family-monospace is-size-7">
-                      <span>View details</span>
-                      <span class="arrow">&rarr;</span>
+                      <a class="card-link" href="projects.html#research-intelligence">View project <span class="arrow">&rarr;</span></a>
+                      <a class="card-link" href="https://github.com/athiyaman-m" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                  </a>
+                  </div>
                 </div>
 
-                <div class="column is-4-desktop is-6-tablet is-12-mobile">
-                  <a href="https://github.com/athiyaman-m/Personal-Agentic-AI-ChatBot" target="_blank" rel="noopener" class="box explore-card">
-                    <div class="project-thumb">
-                      <span class="project-thumb-fallback">Agentic AI Research Assistant</span>
-                      <img src="assets/img/projects/agentic-ai.png" alt="Agentic AI Research Assistant preview" loading="lazy" onerror="this.remove()">
-                    </div>
+                <div class="column is-3-desktop is-6-tablet is-12-mobile">
+                  <div class="box explore-card">
                     <div class="card-top">
                       <span class="card-tag is-family-monospace">Agentic AI</span>
                       <span class="card-count is-family-monospace">Python</span>
@@ -294,18 +333,14 @@
                     <h3 class="card-title is-size-5 has-text-weight-bold">Agentic AI Research Assistant</h3>
                     <p class="card-desc has-text-grey">Autonomous ReAct agent with LangGraph workflows, FastAPI, and external search tools that decomposes and answers complex queries.</p>
                     <div class="card-action is-family-monospace is-size-7">
-                      <span>View project</span>
-                      <span class="arrow">&rarr;</span>
+                      <a class="card-link" href="projects.html#agentic-ai">View project <span class="arrow">&rarr;</span></a>
+                      <a class="card-link" href="https://github.com/athiyaman-m/Personal-Agentic-AI-ChatBot" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                  </a>
+                  </div>
                 </div>
 
-                <div class="column is-4-desktop is-6-tablet is-12-mobile">
-                  <a href="https://github.com/athiyaman-m/Medical-ChatBot-using-llama-2" target="_blank" rel="noopener" class="box explore-card">
-                    <div class="project-thumb">
-                      <span class="project-thumb-fallback">Medical AI Assistant</span>
-                      <img src="assets/img/projects/medical-rag.png" alt="Medical AI Assistant preview" loading="lazy" onerror="this.remove()">
-                    </div>
+                <div class="column is-3-desktop is-6-tablet is-12-mobile">
+                  <div class="box explore-card">
                     <div class="card-top">
                       <span class="card-tag is-family-monospace">Medical RAG</span>
                       <span class="card-count is-family-monospace">Python</span>
@@ -313,18 +348,14 @@
                     <h3 class="card-title is-size-5 has-text-weight-bold">Medical AI Assistant</h3>
                     <p class="card-desc has-text-grey">Production medical Q&amp;A assistant built with RAG, LangChain, Pinecone, and Llama-2, with full source attribution.</p>
                     <div class="card-action is-family-monospace is-size-7">
-                      <span>View project</span>
-                      <span class="arrow">&rarr;</span>
+                      <a class="card-link" href="projects.html#medical-rag">View project <span class="arrow">&rarr;</span></a>
+                      <a class="card-link" href="https://github.com/athiyaman-m/Medical-ChatBot-using-llama-2" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                  </a>
+                  </div>
                 </div>
 
-                <div class="column is-4-desktop is-6-tablet is-12-mobile">
-                  <a href="projects.html" class="box explore-card">
-                    <div class="project-thumb">
-                      <span class="project-thumb-fallback">All Projects</span>
-                      <img src="assets/img/projects/all-projects.png" alt="All projects preview" loading="lazy" onerror="this.remove()">
-                    </div>
+                <div class="column is-3-desktop is-6-tablet is-12-mobile">
+                  <div class="box explore-card">
                     <div class="card-top">
                       <span class="card-tag is-family-monospace">Archive</span>
                       <span class="card-count is-family-monospace">5+</span>
@@ -332,10 +363,10 @@
                     <h3 class="card-title is-size-5 has-text-weight-bold">All Projects</h3>
                     <p class="card-desc has-text-grey">Full project archive with problem statements, approach, tech stacks, and GitHub links.</p>
                     <div class="card-action is-family-monospace is-size-7">
-                      <span>Browse archive</span>
-                      <span class="arrow">&rarr;</span>
+                      <a class="card-link" href="projects.html">Browse archive <span class="arrow">&rarr;</span></a>
+                      <a class="card-link" href="https://github.com/athiyaman-m" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                  </a>
+                  </div>
                 </div>
 
               </div>
@@ -344,27 +375,124 @@
 
           <section id="skills" class="section-block">
             <h2 class="section-title">Skills</h2>
-            <div class="content">
-              <div class="skill-group">
-                <h4>Programming</h4>
-                <p><strong class="kw">Python</strong>, <strong class="kw">SQL</strong>, Bash, <strong class="kw">C++</strong></p>
+
+            <div class="dash-strip">
+              <span><span class="strip-accent">&#9612;</span> skills_proficiency &middot; 5 series &middot; 38 metrics &middot; scale 0&ndash;100 &middot; self-rated</span>
+            </div>
+
+            <div class="dash-grid">
+
+              <div class="dash-panel">
+                <div class="dash-panel-head">
+                  <span class="dash-panel-title">Proficiency Radar</span>
+                  <span class="dash-panel-meta">avg = 84</span>
+                </div>
+                <svg class="radar" viewBox="0 0 300 300" role="img" aria-label="Radar chart of skill category proficiency">
+                  <polygon class="grid-line" points="150,126.3 172.6,132.7 164,174.2 136,174.2 127.4,132.7"/>
+                  <polygon class="grid-line" points="150,102.5 195.2,135.3 177.9,198.4 122.1,198.4 104.8,135.3"/>
+                  <polygon class="grid-line" points="150,78.8 217.8,138 191.9,222.7 108.1,222.7 82.2,138"/>
+                  <polygon class="grid-line" points="150,55 240.4,120.6 205.8,226.9 94.2,226.9 59.6,120.6"/>
+                  <line class="axis-line" x1="150" y1="150" x2="150" y2="55"/>
+                  <line class="axis-line" x1="150" y1="150" x2="240.4" y2="120.6"/>
+                  <line class="axis-line" x1="150" y1="150" x2="205.8" y2="226.9"/>
+                  <line class="axis-line" x1="150" y1="150" x2="94.2" y2="226.9"/>
+                  <line class="axis-line" x1="150" y1="150" x2="59.6" y2="120.6"/>
+                  <text class="tick-label" x="144" y="129">25</text>
+                  <text class="tick-label" x="144" y="105.5">50</text>
+                  <text class="tick-label" x="144" y="81.8">75</text>
+                  <text class="tick-label" x="144" y="58">100</text>
+                  <polygon class="data-poly" points="150,70.2 227.7,124.8 195.2,212.3 101.4,216.9 75.9,125.9"/>
+                  <circle class="data-dot" cx="150" cy="70.2" r="3.2"/>
+                  <circle class="data-dot" cx="227.7" cy="124.8" r="3.2"/>
+                  <circle class="data-dot" cx="195.2" cy="212.3" r="3.2"/>
+                  <circle class="data-dot" cx="101.4" cy="216.9" r="3.2"/>
+                  <circle class="data-dot" cx="75.9" cy="125.9" r="3.2"/>
+                  <text class="val-label" x="156" y="72">84</text>
+                  <text class="val-label" x="233" y="127">86</text>
+                  <text class="val-label" x="200" y="217">81</text>
+                  <text class="val-label" x="97" y="223" text-anchor="end">87</text>
+                  <text class="val-label" x="71" y="127" text-anchor="end">82</text>
+                  <text class="axis-label" x="150" y="46" text-anchor="middle">Programming</text>
+                  <text class="axis-label" x="252" y="106" text-anchor="middle">Backend &amp; APIs</text>
+                  <text class="axis-label" x="214" y="243" text-anchor="middle">Databases</text>
+                  <text class="axis-label" x="86" y="243" text-anchor="middle">AI / ML / GenAI</text>
+                  <text class="axis-label" x="48" y="106" text-anchor="middle">DevOps &amp; Tools</text>
+                </svg>
               </div>
-              <div class="skill-group">
-                <h4>Backend &amp; APIs</h4>
-                <p><strong class="kw">FastAPI</strong>, Flask, <strong class="kw">RESTful HTTP APIs</strong> (JSON payloads), Requests, Microservices, <strong class="kw">ETL Pipelines</strong></p>
+
+              <div class="dash-panel">
+                <div class="dash-panel-head">
+                  <span class="dash-panel-title">Programming</span>
+                  <span class="dash-panel-meta">n=4</span>
+                </div>
+                <div class="skill-row"><span class="skill-name" title="Python">Python</span><span class="skill-track"><span class="skill-fill" style="width:95%;animation-delay:40ms"></span></span><span class="skill-val">95</span></div>
+                <div class="skill-row"><span class="skill-name" title="SQL">SQL</span><span class="skill-track"><span class="skill-fill" style="width:90%;animation-delay:90ms"></span></span><span class="skill-val">90</span></div>
+                <div class="skill-row"><span class="skill-name" title="Bash">Bash</span><span class="skill-track"><span class="skill-fill" style="width:80%;animation-delay:140ms"></span></span><span class="skill-val">80</span></div>
+                <div class="skill-row"><span class="skill-name" title="C++">C++</span><span class="skill-track"><span class="skill-fill" style="width:70%;animation-delay:190ms"></span></span><span class="skill-val">70</span></div>
               </div>
-              <div class="skill-group">
-                <h4>Databases</h4>
-                <p><strong class="kw">PostgreSQL</strong>, <strong class="kw">MariaDB</strong>, MySQL, <strong class="kw">SQLite</strong>, <strong class="kw">Elasticsearch</strong>, Pinecone, MySQLdb, PyMySQL</p>
+
+              <div class="dash-panel">
+                <div class="dash-panel-head">
+                  <span class="dash-panel-title">Backend &amp; APIs</span>
+                  <span class="dash-panel-meta">n=6</span>
+                </div>
+                <div class="skill-row"><span class="skill-name" title="FastAPI">FastAPI</span><span class="skill-track"><span class="skill-fill" style="width:92%;animation-delay:40ms"></span></span><span class="skill-val">92</span></div>
+                <div class="skill-row"><span class="skill-name" title="Flask">Flask</span><span class="skill-track"><span class="skill-fill" style="width:85%;animation-delay:90ms"></span></span><span class="skill-val">85</span></div>
+                <div class="skill-row"><span class="skill-name" title="RESTful HTTP APIs">RESTful HTTP APIs</span><span class="skill-track"><span class="skill-fill" style="width:90%;animation-delay:140ms"></span></span><span class="skill-val">90</span></div>
+                <div class="skill-row"><span class="skill-name" title="Requests">Requests</span><span class="skill-track"><span class="skill-fill" style="width:85%;animation-delay:190ms"></span></span><span class="skill-val">85</span></div>
+                <div class="skill-row"><span class="skill-name" title="Microservices">Microservices</span><span class="skill-track"><span class="skill-fill" style="width:80%;animation-delay:240ms"></span></span><span class="skill-val">80</span></div>
+                <div class="skill-row"><span class="skill-name" title="ETL Pipelines">ETL Pipelines</span><span class="skill-track"><span class="skill-fill" style="width:85%;animation-delay:290ms"></span></span><span class="skill-val">85</span></div>
               </div>
-              <div class="skill-group">
-                <h4>AI / ML / GenAI</h4>
-                <p><strong class="kw">LLMs</strong>, <strong class="kw">RAG</strong>, <strong class="kw">LangChain</strong>, <strong class="kw">LangGraph</strong>, <strong class="kw">NLP</strong>, Hugging Face, OpenAI / Groq / Gemini API, <strong class="kw">PyTorch</strong>, scikit-learn, <strong class="kw">SHAP/LIME</strong>, Pandas, NumPy</p>
+
+              <div class="dash-panel">
+                <div class="dash-panel-head">
+                  <span class="dash-panel-title">Databases</span>
+                  <span class="dash-panel-meta">n=8</span>
+                </div>
+                <div class="skill-row"><span class="skill-name" title="PostgreSQL">PostgreSQL</span><span class="skill-track"><span class="skill-fill" style="width:92%;animation-delay:40ms"></span></span><span class="skill-val">92</span></div>
+                <div class="skill-row"><span class="skill-name" title="MySQL">MySQL</span><span class="skill-track"><span class="skill-fill" style="width:88%;animation-delay:90ms"></span></span><span class="skill-val">88</span></div>
+                <div class="skill-row"><span class="skill-name" title="MariaDB">MariaDB</span><span class="skill-track"><span class="skill-fill" style="width:85%;animation-delay:140ms"></span></span><span class="skill-val">85</span></div>
+                <div class="skill-row"><span class="skill-name" title="SQLite">SQLite</span><span class="skill-track"><span class="skill-fill" style="width:80%;animation-delay:190ms"></span></span><span class="skill-val">80</span></div>
+                <div class="skill-row"><span class="skill-name" title="Elasticsearch">Elasticsearch</span><span class="skill-track"><span class="skill-fill" style="width:78%;animation-delay:240ms"></span></span><span class="skill-val">78</span></div>
+                <div class="skill-row"><span class="skill-name" title="Pinecone">Pinecone</span><span class="skill-track"><span class="skill-fill" style="width:75%;animation-delay:290ms"></span></span><span class="skill-val">75</span></div>
+                <div class="skill-row"><span class="skill-name" title="MySQLdb">MySQLdb</span><span class="skill-track"><span class="skill-fill" style="width:75%;animation-delay:340ms"></span></span><span class="skill-val">75</span></div>
+                <div class="skill-row"><span class="skill-name" title="PyMySQL">PyMySQL</span><span class="skill-track"><span class="skill-fill" style="width:75%;animation-delay:390ms"></span></span><span class="skill-val">75</span></div>
               </div>
-              <div class="skill-group">
-                <h4>DevOps &amp; Tools</h4>
-                <p><strong class="kw">Git</strong>, GitHub, Docker, Linux, <strong class="kw">Azure DevOps</strong>, <strong class="kw">CI/CD</strong>, <strong class="kw">Kibana/ELK Stack</strong>, Power BI</p>
+
+              <div class="dash-panel">
+                <div class="dash-panel-head">
+                  <span class="dash-panel-title">AI / ML / GenAI</span>
+                  <span class="dash-panel-meta">n=12</span>
+                </div>
+                <div class="skill-row"><span class="skill-name" title="LLMs">LLMs</span><span class="skill-track"><span class="skill-fill" style="width:92%;animation-delay:40ms"></span></span><span class="skill-val">92</span></div>
+                <div class="skill-row"><span class="skill-name" title="RAG">RAG</span><span class="skill-track"><span class="skill-fill" style="width:94%;animation-delay:90ms"></span></span><span class="skill-val">94</span></div>
+                <div class="skill-row"><span class="skill-name" title="LangChain">LangChain</span><span class="skill-track"><span class="skill-fill" style="width:90%;animation-delay:140ms"></span></span><span class="skill-val">90</span></div>
+                <div class="skill-row"><span class="skill-name" title="LangGraph">LangGraph</span><span class="skill-track"><span class="skill-fill" style="width:85%;animation-delay:190ms"></span></span><span class="skill-val">85</span></div>
+                <div class="skill-row"><span class="skill-name" title="NLP">NLP</span><span class="skill-track"><span class="skill-fill" style="width:85%;animation-delay:240ms"></span></span><span class="skill-val">85</span></div>
+                <div class="skill-row"><span class="skill-name" title="Hugging Face">Hugging Face</span><span class="skill-track"><span class="skill-fill" style="width:82%;animation-delay:290ms"></span></span><span class="skill-val">82</span></div>
+                <div class="skill-row"><span class="skill-name" title="OpenAI / Groq / Gemini APIs">OpenAI/Groq/Gemini</span><span class="skill-track"><span class="skill-fill" style="width:88%;animation-delay:340ms"></span></span><span class="skill-val">88</span></div>
+                <div class="skill-row"><span class="skill-name" title="PyTorch">PyTorch</span><span class="skill-track"><span class="skill-fill" style="width:85%;animation-delay:390ms"></span></span><span class="skill-val">85</span></div>
+                <div class="skill-row"><span class="skill-name" title="scikit-learn">scikit-learn</span><span class="skill-track"><span class="skill-fill" style="width:82%;animation-delay:440ms"></span></span><span class="skill-val">82</span></div>
+                <div class="skill-row"><span class="skill-name" title="SHAP / LIME">SHAP / LIME</span><span class="skill-track"><span class="skill-fill" style="width:84%;animation-delay:490ms"></span></span><span class="skill-val">84</span></div>
+                <div class="skill-row"><span class="skill-name" title="Pandas">Pandas</span><span class="skill-track"><span class="skill-fill" style="width:90%;animation-delay:540ms"></span></span><span class="skill-val">90</span></div>
+                <div class="skill-row"><span class="skill-name" title="NumPy">NumPy</span><span class="skill-track"><span class="skill-fill" style="width:85%;animation-delay:590ms"></span></span><span class="skill-val">85</span></div>
               </div>
+
+              <div class="dash-panel">
+                <div class="dash-panel-head">
+                  <span class="dash-panel-title">DevOps &amp; Tools</span>
+                  <span class="dash-panel-meta">n=8</span>
+                </div>
+                <div class="skill-row"><span class="skill-name" title="Git">Git</span><span class="skill-track"><span class="skill-fill" style="width:92%;animation-delay:40ms"></span></span><span class="skill-val">92</span></div>
+                <div class="skill-row"><span class="skill-name" title="GitHub">GitHub</span><span class="skill-track"><span class="skill-fill" style="width:90%;animation-delay:90ms"></span></span><span class="skill-val">90</span></div>
+                <div class="skill-row"><span class="skill-name" title="Linux">Linux</span><span class="skill-track"><span class="skill-fill" style="width:85%;animation-delay:140ms"></span></span><span class="skill-val">85</span></div>
+                <div class="skill-row"><span class="skill-name" title="Docker">Docker</span><span class="skill-track"><span class="skill-fill" style="width:82%;animation-delay:190ms"></span></span><span class="skill-val">82</span></div>
+                <div class="skill-row"><span class="skill-name" title="CI/CD">CI/CD</span><span class="skill-track"><span class="skill-fill" style="width:80%;animation-delay:240ms"></span></span><span class="skill-val">80</span></div>
+                <div class="skill-row"><span class="skill-name" title="Azure DevOps">Azure DevOps</span><span class="skill-track"><span class="skill-fill" style="width:78%;animation-delay:290ms"></span></span><span class="skill-val">78</span></div>
+                <div class="skill-row"><span class="skill-name" title="Kibana / ELK Stack">Kibana / ELK</span><span class="skill-track"><span class="skill-fill" style="width:76%;animation-delay:340ms"></span></span><span class="skill-val">76</span></div>
+                <div class="skill-row"><span class="skill-name" title="Power BI">Power BI</span><span class="skill-track"><span class="skill-fill" style="width:75%;animation-delay:390ms"></span></span><span class="skill-val">75</span></div>
+              </div>
+
             </div>
           </section>
 
@@ -393,7 +521,7 @@
               </div>
               <div class="column is-4-desktop is-6-tablet is-12-mobile">
                 <div class="news-card">
-                  <div class="news-thumb"><img src="news/2025/graduation.png" alt="Graduation — Rank Holder Award"></div>
+                  <div class="news-thumb"><img src="news/2025/RankHolder.jpg" alt="Graduation — Rank Holder Award"></div>
                   <div class="news-card-body">
                     <span class="news-card-tag">2025 · Achievement</span>
                     <p class="card-desc">Graduated with <strong class="kw">Rank Holder Award</strong> and First Class with Distinction from IFET College of Engineering, Anna University.</p>

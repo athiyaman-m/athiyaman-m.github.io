@@ -235,3 +235,122 @@ main {
 [data-theme="dark"] img {
   opacity: 0.9;
 }
+
+/* Responsive / mobile */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+p, li {
+  overflow-wrap: break-word;
+}
+
+@media screen and (max-width: 700px) {
+  body {
+    padding: 0.6rem;
+  }
+
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .header {
+    padding: 0.75rem 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .header-content {
+    gap: 0.5rem 0.75rem;
+  }
+
+  .header-content > .brand {
+    order: 1;
+  }
+
+  .header-content > .dark-mode-toggle {
+    order: 2;
+  }
+
+  .header-content > nav {
+    order: 3;
+    width: 100%;
+  }
+
+  .nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.25rem;
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-link {
+    white-space: nowrap;
+    font-size: 0.87rem;
+  }
+
+  .brand {
+    font-size: 1.25rem;
+  }
+
+  main {
+    padding: 0.5rem 0 2rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .page-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .section-year {
+    font-size: 1.1rem;
+  }
+
+  .card {
+    padding: 1.1rem;
+  }
+
+  .experience-item, .education-item, .news-item {
+    padding: 1.1rem;
+  }
+
+  .footer {
+    padding: 1.5rem 0;
+    margin-top: 1.5rem;
+  }
+
+  .footer-content {
+    gap: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .nav {
+    gap: 0.75rem;
+  }
+
+  .nav-link {
+    font-size: 0.8rem;
+  }
+
+  .page-title {
+    font-size: 1.3rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .news-grid {
+    gap: 0.9rem;
+  }
+}
