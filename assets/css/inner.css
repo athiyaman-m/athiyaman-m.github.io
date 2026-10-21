@@ -209,6 +209,7 @@
   aspect-ratio: 16 / 10;
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border-lighter);
+  overflow: hidden;
 }
 
 .news-thumb img {

@@ -70,6 +70,35 @@ body {
   top: 0;
   z-index: 100;
   background-color: var(--bg-primary);
+  box-shadow: 0 0 0 100vmax var(--bg-primary);
+  clip-path: inset(0 -100vmax);
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.back-btn svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  stroke: currentColor;
+}
+
+.back-btn:hover {
+  border-color: var(--link-color);
+  color: var(--link-color);
+  background-color: var(--bg-secondary);
+  text-decoration: none;
 }
 
 .header-content {
@@ -180,6 +209,66 @@ main {
   font-size: 0.85rem;
 }
 
+/* Footer bottom bar with social pills (inspired by arpitbhayani.me) */
+.footer-bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-lighter);
+}
+
+.footer-bottom-left {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-bottom-left p {
+  margin: 0;
+}
+
+.footer-bottom-right {
+  display: flex;
+  align-items: center;
+}
+
+.social-pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.social-pill svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.social-pill:hover {
+  border-color: var(--link-color);
+  color: var(--link-color);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+}
+
 /* Keyword highlights */
 .kw {
   color: #fa0000 !important;
@@ -268,6 +357,10 @@ p, li {
     order: 1;
   }
 
+  .header-content > .back-btn {
+    order: 0;
+  }
+
   .header-content > .dark-mode-toggle {
     order: 2;
   }
@@ -330,6 +423,11 @@ p, li {
 
   .footer-content {
     gap: 1.5rem;
+  }
+
+  .footer-bottom-bar {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
