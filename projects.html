@@ -72,6 +72,7 @@
     <main>
       <section class="page-header">
         <h1 class="page-title">Projects</h1>
+        <p class="page-subtitle">Research prototypes with production habits — each one built to be measured, explained, and honestly assessed.</p>
       </section>
 
       <section class="content-section">
@@ -80,105 +81,107 @@
 
           <article class="card" id="auditshakti">
             <h3 class="card-title">AuditShakti — AI Compliance &amp; Audit Intelligence Platform</h3>
-            <p class="card-description">
-              <strong>Stack:</strong> Python, FastAPI, Next.js, scikit-learn, PyMuPDF, Tesseract OCR, Gemini, SQLite.
-              <strong>Problem:</strong> Financial document review and regulatory compliance validation (Ind-AS, SEBI, RBI, ESG) are manual, time-intensive processes.
-              <strong>Approach:</strong> Built an AI-powered compliance platform automating document review, <strong class="kw">OCR</strong>, and regulatory validation using <strong class="kw">FastAPI</strong> and hybrid <strong class="kw">RAG</strong> (SQLite FTS5 + semantic search).
-              <strong>Result:</strong> Delivered an explainable decision-support system with page-level evidence traceability, conversational AI, and exportable PDF/Excel/JSON reports — reducing manual audit effort significantly.
-            </p>
+            <p class="card-description"><strong>Objective:</strong> Build a document-intelligence platform for financial document analysis, regulatory compliance checking, and evidence-based audit reporting.</p>
+            <ul style="margin: 0 0 0.75rem 1.25rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.35rem;">
+              <li>Built a document-processing pipeline using <strong class="kw">PDF extraction</strong> and <strong class="kw">OCR</strong> to analyse financial documents across Ind-AS, SEBI, RBI, and ESG requirements.</li>
+              <li>Implemented hybrid retrieval combining <strong class="kw">SQLite FTS5</strong> and <strong class="kw">semantic search</strong> to ground answers in relevant evidence.</li>
+              <li>Developed a <strong class="kw">FastAPI</strong> backend and <strong class="kw">Next.js</strong> interface with conversational AI, page-level evidence traceability, and PDF/Excel/JSON report exports.</li>
+            </ul>
+            <p class="card-description"><strong>Contribution:</strong> Integrated document extraction, configurable compliance validation, hybrid retrieval, explainable findings, and automated reporting into one audit-intelligence prototype.</p>
+            <p class="card-description"><strong>Research limitation:</strong> Regulatory accuracy and reductions in manual audit effort still require systematic evaluation against expert-validated documents and compliance outcomes.</p>
             <div class="tags">
+              <span class="tag">Python</span>
               <span class="tag">FastAPI</span>
               <span class="tag">Next.js</span>
+              <span class="tag">React</span>
+              <span class="tag">TypeScript</span>
               <span class="tag">scikit-learn</span>
               <span class="tag">PyMuPDF</span>
               <span class="tag">Tesseract OCR</span>
-              <span class="tag">Gemini</span>
-              <span class="tag">SQLite</span>
+              <span class="tag">Gemini API</span>
+              <span class="tag">SQLite FTS5</span>
             </div>
             <div style="margin-top: 0.75rem;">
-              <a href="https://github.com/athiyaman-m/AuditShakti" target="_blank" rel="noopener" style="color: var(--link-color); text-decoration: none;">GitHub →</a>
+              <a href="https://github.com/athiyaman-m/AuditShakti-README" target="_blank" rel="noopener" style="color: var(--link-color); text-decoration: none;">GitHub →</a>
             </div>
           </article>
 
           <article class="card" id="exai-panc">
             <h3 class="card-title">ExAI-PanC — Explainable AI Clinical Digital Twin for Pancreatic Cancer</h3>
-            <p class="card-description">
-              <strong>Stack:</strong> Python, PyTorch, XGBoost, SHAP, Streamlit, Plotly, scikit-survival.
-              <strong>Problem:</strong> Clinical decision-making for pancreatic cancer requires early detection, survival estimation, and interpretable treatment guidance across high-dimensional multi-omics data.
-              <strong>Approach:</strong> Built an end-to-end <strong class="kw">explainable AI</strong> clinical decision-support system combining <strong class="kw">VAE</strong>-based multi-omics feature learning, <strong class="kw">XGBoost</strong> detection, and <strong class="kw">Random Survival Forest</strong> analysis trained on <strong class="kw">545 TCGA-PAAD/GTEx samples</strong>.
-              <strong>Result:</strong> Achieved <strong class="kw">0.999 AUC-ROC</strong> and <strong class="kw">0.857 C-index</strong>; delivered a <strong class="kw">SHAP</strong>-driven explainability engine and an interactive <strong class="kw">3D Clinical Digital Twin</strong> — 11-organ risk heatmap with compartmental ODE disease-progression simulation generating evidence-based treatment recommendations across 4 chemotherapy regimens.
-            </p>
+            <p class="card-description"><strong>Objective:</strong> Develop an integrated research prototype combining multi-omics feature learning, pancreatic-cancer classification, survival prediction, explainability, and interactive 3D clinical visualization.</p>
+            <ul style="margin: 0 0 0.75rem 1.25rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.35rem;">
+              <li>Developed a multi-omics analysis pipeline using <strong class="kw">183 TCGA-PAAD</strong> cases and <strong class="kw">362 GTEx</strong> samples, with <strong class="kw">VAE</strong>-based feature learning and <strong class="kw">XGBoost</strong> classification.</li>
+              <li>Integrated <strong class="kw">Random Survival Forest</strong> modelling and <strong class="kw">SHAP</strong>-based explanations to analyse survival outcomes and interpret predictions.</li>
+              <li>Built an interactive <strong class="kw">3D clinical digital twin</strong> with an 11-organ risk heatmap, biomarker visualization, ODE-based disease-progression simulation, and comparison of four chemotherapy regimens.</li>
+            </ul>
+            <p class="card-description"><strong>Contribution:</strong> Unified predictive modelling, survival analysis, explainable AI, and 3D anatomical visualization into a single pancreatic-cancer research platform.</p>
+            <p class="card-description"><strong>Research limitation:</strong> Reported model performance requires careful validation for data leakage, generalizability, and clinical applicability; the prototype is not clinically validated.</p>
             <div class="tags">
               <span class="tag">Python</span>
               <span class="tag">PyTorch</span>
               <span class="tag">XGBoost</span>
               <span class="tag">SHAP</span>
+              <span class="tag">scikit-learn</span>
+              <span class="tag">scikit-survival</span>
               <span class="tag">Streamlit</span>
               <span class="tag">Plotly</span>
-              <span class="tag">scikit-survival</span>
+              <span class="tag">pandas</span>
+              <span class="tag">NumPy</span>
+            </div>
+            <div style="margin-top: 0.75rem;">
+              <a href="https://github.com/athiyaman-m/XAI-PanC" target="_blank" rel="noopener" style="color: var(--link-color); text-decoration: none;">GitHub →</a>
             </div>
           </article>
 
           <article class="card" id="research-intelligence">
             <h3 class="card-title">Research Paper Intelligence — Multi-LLM RAG System</h3>
-            <p class="card-description">
-              <strong>Stack:</strong> Python, Streamlit, LangChain, Groq API, Ollama, Llama 3.3, Gemma, PyMuPDF.
-              <strong>Problem:</strong> Researchers face information overload; existing summarization tools fail to preserve document structure and maintain factual consistency.
-              <strong>Approach:</strong> Built a multi-LLM research assistant automating scientific paper summarization and comparative analysis via <strong class="kw">section-aware PDF parsing</strong> and domain-adaptive prompting.
-              <strong>Result:</strong> Improved summary quality by <strong class="kw">98% (ROUGE-2 F1)</strong>, factual consistency by <strong class="kw">55%</strong>, and section coverage by <strong class="kw">33%</strong> versus baseline — delivered through an interactive Streamlit application.
-            </p>
+            <p class="card-description"><strong>Objective:</strong> Build a research assistant for scientific-paper summarization, cross-paper comparison, and evidence-oriented synthesis using multiple LLMs and RAG techniques.</p>
+            <ul style="margin: 0 0 0.75rem 1.25rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.35rem;">
+              <li>Built a section-aware PDF-processing pipeline with <strong class="kw">PyMuPDF</strong> to extract research content and organize papers for structured summarization.</li>
+              <li>Integrated hosted and locally executed models through <strong class="kw">LangChain</strong>, <strong class="kw">Groq API</strong>, and <strong class="kw">Ollama</strong> for summarization and comparative analysis.</li>
+              <li>Implemented evaluation workflows for <strong class="kw">ROUGE-2 F1</strong>, factual consistency, and section coverage, reporting improvements of <strong class="kw">98%</strong>, <strong class="kw">55%</strong>, and <strong class="kw">33%</strong> over the documented baseline.</li>
+            </ul>
+            <p class="card-description"><strong>Contribution:</strong> Combined structured document extraction, model orchestration, comparative synthesis, and quantitative evaluation into one multi-LLM research workflow.</p>
+            <p class="card-description"><strong>Research limitation:</strong> Reported improvements are specific to the evaluated dataset and baseline; broader performance needs reproducible testing across diverse papers and models.</p>
             <div class="tags">
               <span class="tag">Python</span>
               <span class="tag">Streamlit</span>
               <span class="tag">LangChain</span>
-              <span class="tag">Groq</span>
+              <span class="tag">Groq API</span>
               <span class="tag">Ollama</span>
               <span class="tag">Llama 3.3</span>
               <span class="tag">Gemma</span>
               <span class="tag">PyMuPDF</span>
             </div>
-          </article>
-
-          <article class="card" id="agentic-ai">
-            <h3 class="card-title">Agentic AI Research Assistant</h3>
-            <p class="card-description">
-              <strong>Stack:</strong> Python, LangGraph, FastAPI, OpenAI, Groq, Tavily.
-              <strong>Problem:</strong> Traditional chatbots lack autonomous reasoning and tool-use capabilities for multi-step research tasks.
-              <strong>Approach:</strong> Built an autonomous AI agent using <strong class="kw">ReAct architecture</strong> with <strong class="kw">LangGraph</strong> workflows, <strong class="kw">FastAPI</strong>, and external search tools.
-              <strong>Result:</strong> Delivered an interactive assistant that autonomously decomposes complex queries and synthesizes findings.
-            </p>
-            <div class="tags">
-              <span class="tag">Python</span>
-              <span class="tag">LangGraph</span>
-              <span class="tag">FastAPI</span>
-              <span class="tag">Streamlit</span>
-              <span class="tag">OpenAI</span>
-              <span class="tag">Groq</span>
-              <span class="tag">Tavily</span>
-            </div>
             <div style="margin-top: 0.75rem;">
-              <a href="https://github.com/athiyaman-m/Personal-Agentic-AI-ChatBot" target="_blank" rel="noopener" style="color: var(--link-color); text-decoration: none;">GitHub →</a>
+              <a href="https://github.com/athiyaman-m/Research-Paper-Summarizer" target="_blank" rel="noopener" style="color: var(--link-color); text-decoration: none;">GitHub →</a>
             </div>
           </article>
 
-          <article class="card" id="medical-rag">
-            <h3 class="card-title">Medical AI Assistant using RAG and Llama-2</h3>
-            <p class="card-description">
-              <strong>Stack:</strong> Python, LangChain, Llama-2, Pinecone, Flask.
-              <strong>Problem:</strong> Healthcare professionals need rapid access to accurate medical knowledge from vast clinical literature.
-              <strong>Approach:</strong> Built an AI-powered medical knowledge assistant using <strong class="kw">Retrieval-Augmented Generation (RAG)</strong> with <strong class="kw">LangChain</strong> and <strong class="kw">Pinecone</strong>.
-              <strong>Result:</strong> Delivered a production-ready medical Q&amp;A system with source attribution.
-            </p>
+          <article class="card" id="mental-health-ai">
+            <h3 class="card-title">Explainable Mental Health Risk Prediction System</h3>
+            <p class="card-description"><strong>Objective:</strong> Develop an interpretable machine-learning prototype for mental-health risk classification using contextual text representations and structured behavioural indicators.</p>
+            <ul style="margin: 0 0 0.75rem 1.25rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.35rem;">
+              <li>Combined <strong class="kw">multilingual BERT</strong> embeddings with sentiment features, stress-related keywords, and indicators such as sleep duration, attendance, screen time, and academic-performance changes.</li>
+              <li>Implemented low-, medium-, and high-risk classification with <strong class="kw">scikit-learn</strong>, using <strong class="kw">SHAP</strong> and <strong class="kw">LIME</strong> for feature attribution and individual prediction explanations.</li>
+              <li>Developed a <strong class="kw">Flask API</strong> and <strong class="kw">Streamlit</strong> dashboard with SQLite-backed feedback collection, counterfactual exploration, and prediction-performance monitoring.</li>
+            </ul>
+            <p class="card-description"><strong>Contribution:</strong> Integrated contextual NLP, structured-data classification, explainability, and human-in-the-loop feedback into one interpretable AI research prototype.</p>
+            <p class="card-description"><strong>Research limitation:</strong> Performance requires independent validation, bias assessment, and expert evaluation. The system is not a clinically validated diagnostic tool.</p>
             <div class="tags">
               <span class="tag">Python</span>
-              <span class="tag">LangChain</span>
-              <span class="tag">Llama-2</span>
-              <span class="tag">Pinecone</span>
+              <span class="tag">PyTorch</span>
+              <span class="tag">Hugging Face</span>
+              <span class="tag">multilingual BERT</span>
+              <span class="tag">scikit-learn</span>
+              <span class="tag">SHAP</span>
+              <span class="tag">LIME</span>
               <span class="tag">Flask</span>
-              <span class="tag">RAG</span>
+              <span class="tag">Streamlit</span>
+              <span class="tag">SQLite</span>
             </div>
             <div style="margin-top: 0.75rem;">
-              <a href="https://github.com/athiyaman-m/Medical-ChatBot-using-llama-2" target="_blank" rel="noopener" style="color: var(--link-color); text-decoration: none;">GitHub →</a>
+              <a href="https://github.com/athiyaman-m/mhp-xai" target="_blank" rel="noopener" style="color: var(--link-color); text-decoration: none;">GitHub →</a>
             </div>
           </article>
         </div>
@@ -202,6 +205,7 @@
             <li><a href="index.html#experience">Experience</a></li>
             <li><a href="index.html#education">Education</a></li>
             <li><a href="assets/documents/Resume-Athiyaman.pdf" target="_blank" rel="noopener">Résumé</a></li>
+            <li><a href="assets/documents/CV-Athiyaman.pdf" target="_blank" rel="noopener">Curriculum Vitae</a></li>
           </ul>
         </div>
       </div>

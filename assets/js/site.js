@@ -31,7 +31,8 @@
 
   const actionLinks = [
     { label: "Email", href: "mailto:athiyamanpro@gmail.com", icon: "bi-envelope", iconOnly: true, className: "site-action-icon" },
-    { label: "Resume", href: "documents/Resume-Athiyaman.pdf", className: "site-button" }
+    { label: "Resume", href: "documents/Resume-Athiyaman.pdf", className: "site-button" },
+    { label: "CV", href: "documents/CV-Athiyaman.pdf", className: "site-button" }
   ];
 
   function pathFromRoot(root, href) {
@@ -104,7 +105,7 @@
     footer.innerHTML =
       '<div class="site-footer__inner">' +
       "<span>© Athiyaman M. All rights reserved.</span>" +
-      '<span><a href="' + pathFromRoot(root, "documents/Resume-Athiyaman.pdf") + '">Resume</a> · <a href="https://scholar.google.com/citations?hl=en&user=QfHBWvgAAAAJ">Google Scholar</a></span>' +
+      '<span><a href="' + pathFromRoot(root, "documents/Resume-Athiyaman.pdf") + '">Resume</a> · <a href="' + pathFromRoot(root, "documents/CV-Athiyaman.pdf") + '">CV</a> · <a href="https://scholar.google.com/citations?hl=en&user=QfHBWvgAAAAJ">Google Scholar</a></span>' +
       "</div>";
     document.body.appendChild(footer);
   }

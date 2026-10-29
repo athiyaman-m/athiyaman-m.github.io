@@ -62,38 +62,63 @@
     <main>
       <section class="page-header">
         <h1 class="page-title">Writing</h1>
-        <p class="page-subtitle">Technical notes, guides, and explorations from the field.</p>
+        <p class="page-subtitle">Notes from building backend systems, document intelligence, and explainable clinical AI.</p>
       </section>
 
       <section class="content-section">
         <div class="card-list">
           <article class="card">
             <h3 class="card-title">Explainable AI for Healthcare: Building Transparent Clinical Models</h3>
-            <p class="card-description">Notes on building transparent and trustworthy AI models for clinical use, including best practices for SHAP, LIME, and counterfactual reasoning in mental health risk detection systems.</p>
+            <p class="card-description">Notes from building transparent clinical AI — multilingual BERT embeddings, behavioural indicators, SHAP, LIME, counterfactual reasoning, and human-in-the-loop feedback for mental-health risk prediction.</p>
             <div class="tags">
               <span class="tag">XAI</span>
               <span class="tag">Healthcare</span>
-              <span class="tag">BERT</span>
+              <span class="tag">SHAP</span>
+              <span class="tag">LIME</span>
             </div>
           </article>
 
           <article class="card">
             <h3 class="card-title">Building Document Intelligence Systems with RAG</h3>
-            <p class="card-description">A practical guide to building retrieval-augmented question answering systems over PDF documents using embeddings, vector search (FAISS, Pinecone), and large language models.</p>
+            <p class="card-description">A practical look at evidence-grounded question answering over financial and scientific PDFs — OCR, section-aware extraction, hybrid retrieval with SQLite FTS5, semantic search, and page-level citations.</p>
             <div class="tags">
               <span class="tag">LangChain</span>
               <span class="tag">LLMs</span>
+              <span class="tag">RAG</span>
+              <span class="tag">OCR</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3 class="card-title">Multi-LLM Evaluation Beyond the Demo</h3>
+            <p class="card-description">How I evaluated a multi-LLM research assistant with ROUGE-2 F1, factual consistency, and section coverage — and why every number needs a stated dataset and baseline.</p>
+            <div class="tags">
+              <span class="tag">Groq</span>
+              <span class="tag">Ollama</span>
+              <span class="tag">Evaluation</span>
               <span class="tag">RAG</span>
             </div>
           </article>
 
           <article class="card">
-            <h3 class="card-title">Agentic AI Workflows with ReAct and LangGraph</h3>
-            <p class="card-description">Insights on using ReAct and autonomous agent patterns to integrate external tools, API calls, and multi-step reasoning into production AI workflows using LangGraph and FastAPI.</p>
+            <h3 class="card-title">PostgreSQL Internals from the Source</h3>
+            <p class="card-description">Lessons from building PostgreSQL on Linux, reading <strong class="kw">aclchk.c</strong>, testing concurrent GRANT/REVOKE locking, investigating B-tree skip-scan, and benchmarking patches with pgbench.</p>
             <div class="tags">
-              <span class="tag">ReAct</span>
-              <span class="tag">LangGraph</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Linux</span>
+              <span class="tag">Performance</span>
+              <span class="tag">Open Source</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3 class="card-title">Designing Risk Scores That Survive Real Exams</h3>
+            <p class="card-description">How severity weighting, evidence from logs, API-driven enforcement, and false-positive analysis shaped a national-scale examination-security monitoring backend.</p>
+            <div class="tags">
               <span class="tag">FastAPI</span>
+              <span class="tag">Security</span>
+              <span class="tag">Anomaly Detection</span>
+              <span class="tag">SQL</span>
             </div>
           </article>
         </div>
@@ -117,6 +142,7 @@
             <li><a href="index.html#experience">Experience</a></li>
             <li><a href="index.html#education">Education</a></li>
             <li><a href="assets/documents/Resume-Athiyaman.pdf" target="_blank" rel="noopener">Résumé</a></li>
+            <li><a href="assets/documents/CV-Athiyaman.pdf" target="_blank" rel="noopener">Curriculum Vitae</a></li>
           </ul>
         </div>
       </div>
