@@ -23,7 +23,7 @@
     { slug: "home", label: "Home", href: "index.html", icon: "bi-house" },
     { slug: "experience", label: "Experience", href: "experience.html", icon: "bi-briefcase" },
     { slug: "education", label: "Education", href: "education.html", icon: "bi-mortarboard" },
-    { slug: "projects", label: "Projects", href: "projects.html", icon: "bi-code-slash" },
+    { slug: "projects", label: "Projects", href: "index.html#projects", icon: "bi-code-slash" },
     { slug: "publications", label: "Publications", href: "publications.html", icon: "bi-file-earmark-text" },
     { slug: "blogs", label: "Blogs", href: "blogs.html", icon: "bi-pencil" },
     { slug: "news", label: "News", href: "news.html", icon: "bi-newspaper" }
